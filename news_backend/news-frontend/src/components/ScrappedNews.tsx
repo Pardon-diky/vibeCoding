@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { User } from 'firebase/auth';
 import { NewsArticle } from '../types';
 
-const ScrappedNews: React.FC = () => {
+interface ScrappedNewsProps {
+  user: User | null;
+}
+
+const ScrappedNews: React.FC<ScrappedNewsProps> = ({ user }) => {
   const [scrappedArticles, setScrappedArticles] = useState<NewsArticle[]>([]);
 
   useEffect(() => {

@@ -1,0 +1,1934 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@10.9.2
+2 info using node@v22.15.1
+3 silly config load:file:/usr/local/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/junhyuck/Documents/vibeCoding/news_backend/news-frontend/.npmrc
+5 silly config load:file:/Users/junhyuck/.npmrc
+6 silly config load:file:/usr/local/etc/npmrc
+7 verbose title npm install firebase
+8 verbose argv "install" "firebase" "--cache" ".npm-cache"
+9 verbose logfile logs-max:10 dir:/Users/junhyuck/Documents/vibeCoding/news_backend/news-frontend/.npm-cache/_logs/2025-09-20T06_28_27_377Z-
+10 verbose logfile /Users/junhyuck/Documents/vibeCoding/news_backend/news-frontend/.npm-cache/_logs/2025-09-20T06_28_27_377Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4345298944 maxSize:1086324736 maxEntrySize:543162368
+13 silly idealTree buildDeps
+14 silly fetch manifest firebase@*
+15 silly packumentCache full:https://registry.npmjs.org/firebase cache-miss
+16 http fetch GET 200 https://registry.npmjs.org/npm 375ms
+17 http fetch GET 200 https://registry.npmjs.org/firebase 631ms (cache miss)
+18 silly packumentCache full:https://registry.npmjs.org/firebase set size:undefined disposed:false
+19 silly placeDep ROOT firebase@12.3.0 OK for: news-frontend@0.1.0 want: *
+20 silly fetch manifest @firebase/ai@2.3.0
+21 silly packumentCache full:https://registry.npmjs.org/@firebase%2fai cache-miss
+22 silly fetch manifest @firebase/app@0.14.3
+23 silly packumentCache full:https://registry.npmjs.org/@firebase%2fapp cache-miss
+24 silly fetch manifest @firebase/auth@1.11.0
+25 silly packumentCache full:https://registry.npmjs.org/@firebase%2fauth cache-miss
+26 silly fetch manifest @firebase/util@1.13.0
+27 silly packumentCache full:https://registry.npmjs.org/@firebase%2futil cache-miss
+28 silly fetch manifest @firebase/storage@0.14.0
+29 silly packumentCache full:https://registry.npmjs.org/@firebase%2fstorage cache-miss
+30 silly fetch manifest @firebase/database@1.1.0
+31 silly packumentCache full:https://registry.npmjs.org/@firebase%2fdatabase cache-miss
+32 silly fetch manifest @firebase/analytics@0.10.18
+33 silly packumentCache full:https://registry.npmjs.org/@firebase%2fanalytics cache-miss
+34 silly fetch manifest @firebase/app-check@0.11.0
+35 silly packumentCache full:https://registry.npmjs.org/@firebase%2fapp-check cache-miss
+36 silly fetch manifest @firebase/app-types@0.9.3
+37 silly packumentCache full:https://registry.npmjs.org/@firebase%2fapp-types cache-miss
+38 http fetch GET 200 https://registry.npmjs.org/@firebase%2fai 121ms (cache miss)
+39 silly packumentCache full:https://registry.npmjs.org/@firebase%2fai set size:undefined disposed:false
+40 silly fetch manifest @firebase/firestore@4.9.2
+41 silly packumentCache full:https://registry.npmjs.org/@firebase%2ffirestore cache-miss
+42 http fetch GET 200 https://registry.npmjs.org/@firebase%2fapp-types 677ms (cache miss)
+43 silly packumentCache full:https://registry.npmjs.org/@firebase%2fapp-types set size:undefined disposed:false
+44 silly fetch manifest @firebase/functions@0.13.1
+45 silly packumentCache full:https://registry.npmjs.org/@firebase%2ffunctions cache-miss
+46 http fetch GET 200 https://registry.npmjs.org/@firebase%2futil 737ms (cache miss)
+47 silly packumentCache full:https://registry.npmjs.org/@firebase%2futil set size:undefined disposed:false
+48 silly fetch manifest @firebase/messaging@0.12.23
+49 silly packumentCache full:https://registry.npmjs.org/@firebase%2fmessaging cache-miss
+50 http fetch GET 200 https://registry.npmjs.org/@firebase%2fapp-check 1532ms (cache miss)
+51 silly packumentCache full:https://registry.npmjs.org/@firebase%2fapp-check set size:undefined disposed:false
+52 silly fetch manifest @firebase/app-compat@0.5.3
+53 silly packumentCache full:https://registry.npmjs.org/@firebase%2fapp-compat cache-miss
+54 http fetch GET 200 https://registry.npmjs.org/@firebase%2fdatabase 1759ms (cache miss)
+55 silly packumentCache full:https://registry.npmjs.org/@firebase%2fdatabase set size:undefined disposed:false
+56 silly fetch manifest @firebase/auth-compat@0.6.0
+57 silly packumentCache full:https://registry.npmjs.org/@firebase%2fauth-compat cache-miss
+58 http fetch GET 200 https://registry.npmjs.org/@firebase%2fapp 1802ms (cache miss)
+59 silly packumentCache full:https://registry.npmjs.org/@firebase%2fapp set size:undefined disposed:false
+60 silly fetch manifest @firebase/performance@0.7.9
+61 silly packumentCache full:https://registry.npmjs.org/@firebase%2fperformance cache-miss
+62 http fetch GET 200 https://registry.npmjs.org/@firebase%2fstorage 1846ms (cache miss)
+63 silly packumentCache full:https://registry.npmjs.org/@firebase%2fstorage set size:undefined disposed:false
+64 silly fetch manifest @firebase/data-connect@0.3.11
+65 silly packumentCache full:https://registry.npmjs.org/@firebase%2fdata-connect cache-miss
+66 http fetch GET 200 https://registry.npmjs.org/@firebase%2ffirestore 1752ms (cache miss)
+67 silly packumentCache full:https://registry.npmjs.org/@firebase%2ffirestore set size:undefined disposed:false
+68 silly fetch manifest @firebase/installations@0.6.19
+69 silly packumentCache full:https://registry.npmjs.org/@firebase%2finstallations cache-miss
+70 http fetch GET 200 https://registry.npmjs.org/@firebase%2ffunctions 1252ms (cache miss)
+71 silly packumentCache full:https://registry.npmjs.org/@firebase%2ffunctions set size:undefined disposed:false
+72 silly fetch manifest @firebase/remote-config@0.7.0
+73 silly packumentCache full:https://registry.npmjs.org/@firebase%2fremote-config cache-miss
+74 http fetch GET 200 https://registry.npmjs.org/@firebase%2fdata-connect 200ms (cache miss)
+75 silly packumentCache full:https://registry.npmjs.org/@firebase%2fdata-connect set size:undefined disposed:false
+76 silly fetch manifest @firebase/storage-compat@0.4.0
+77 silly packumentCache full:https://registry.npmjs.org/@firebase%2fstorage-compat cache-miss
+78 http fetch GET 200 https://registry.npmjs.org/@firebase%2fauth 2100ms (cache miss)
+79 silly packumentCache full:https://registry.npmjs.org/@firebase%2fauth set size:undefined disposed:false
+80 silly fetch manifest @firebase/database-compat@2.1.0
+81 silly packumentCache full:https://registry.npmjs.org/@firebase%2fdatabase-compat cache-miss
+82 http fetch GET 200 https://registry.npmjs.org/@firebase%2fapp-compat 612ms (cache miss)
+83 silly packumentCache full:https://registry.npmjs.org/@firebase%2fapp-compat set size:undefined disposed:false
+84 silly fetch manifest @firebase/analytics-compat@0.2.24
+85 silly packumentCache full:https://registry.npmjs.org/@firebase%2fanalytics-compat cache-miss
+86 http fetch GET 200 https://registry.npmjs.org/@firebase%2fanalytics 2639ms (cache miss)
+87 silly packumentCache full:https://registry.npmjs.org/@firebase%2fanalytics set size:undefined disposed:false
+88 silly fetch manifest @firebase/app-check-compat@0.4.0
+89 silly packumentCache full:https://registry.npmjs.org/@firebase%2fapp-check-compat cache-miss
+90 http fetch GET 200 https://registry.npmjs.org/@firebase%2fdatabase-compat 609ms (cache miss)
+91 silly packumentCache full:https://registry.npmjs.org/@firebase%2fdatabase-compat set size:undefined disposed:false
+92 silly fetch manifest @firebase/firestore-compat@0.4.2
+93 silly packumentCache full:https://registry.npmjs.org/@firebase%2ffirestore-compat cache-miss
+94 http fetch GET 200 https://registry.npmjs.org/@firebase%2fauth-compat 978ms (cache miss)
+95 silly packumentCache full:https://registry.npmjs.org/@firebase%2fauth-compat set size:undefined disposed:false
+96 silly fetch manifest @firebase/functions-compat@0.4.1
+97 silly packumentCache full:https://registry.npmjs.org/@firebase%2ffunctions-compat cache-miss
+98 http fetch GET 200 https://registry.npmjs.org/@firebase%2fanalytics-compat 785ms (cache miss)
+99 silly packumentCache full:https://registry.npmjs.org/@firebase%2fanalytics-compat set size:undefined disposed:false
+100 silly fetch manifest @firebase/messaging-compat@0.2.23
+101 silly packumentCache full:https://registry.npmjs.org/@firebase%2fmessaging-compat cache-miss
+102 http fetch GET 200 https://registry.npmjs.org/@firebase%2fmessaging 2363ms (cache miss)
+103 silly packumentCache full:https://registry.npmjs.org/@firebase%2fmessaging set size:undefined disposed:false
+104 silly fetch manifest @firebase/performance-compat@0.2.22
+105 silly packumentCache full:https://registry.npmjs.org/@firebase%2fperformance-compat cache-miss
+106 http fetch GET 200 https://registry.npmjs.org/@firebase%2ffirestore-compat 444ms (cache miss)
+107 silly packumentCache full:https://registry.npmjs.org/@firebase%2ffirestore-compat set size:undefined disposed:false
+108 silly fetch manifest @firebase/installations-compat@0.2.19
+109 silly packumentCache full:https://registry.npmjs.org/@firebase%2finstallations-compat cache-miss
+110 http fetch GET 200 https://registry.npmjs.org/@firebase%2fremote-config 1272ms (cache miss)
+111 silly packumentCache full:https://registry.npmjs.org/@firebase%2fremote-config set size:undefined disposed:false
+112 silly fetch manifest @firebase/remote-config-compat@0.2.20
+113 silly packumentCache full:https://registry.npmjs.org/@firebase%2fremote-config-compat cache-miss
+114 http fetch GET 200 https://registry.npmjs.org/@firebase%2finstallations 1351ms (cache miss)
+115 silly packumentCache full:https://registry.npmjs.org/@firebase%2finstallations set size:undefined disposed:false
+116 http fetch GET 200 https://registry.npmjs.org/@firebase%2fapp-check-compat 644ms (cache miss)
+117 silly packumentCache full:https://registry.npmjs.org/@firebase%2fapp-check-compat set size:undefined disposed:false
+118 http fetch GET 200 https://registry.npmjs.org/@firebase%2ffunctions-compat 561ms (cache miss)
+119 silly packumentCache full:https://registry.npmjs.org/@firebase%2ffunctions-compat set size:undefined disposed:false
+120 http fetch GET 200 https://registry.npmjs.org/@firebase%2fmessaging-compat 446ms (cache miss)
+121 silly packumentCache full:https://registry.npmjs.org/@firebase%2fmessaging-compat set size:undefined disposed:false
+122 http fetch GET 200 https://registry.npmjs.org/@firebase%2fstorage-compat 1348ms (cache miss)
+123 silly packumentCache full:https://registry.npmjs.org/@firebase%2fstorage-compat set size:undefined disposed:false
+124 http fetch GET 200 https://registry.npmjs.org/@firebase%2finstallations-compat 465ms (cache miss)
+125 silly packumentCache full:https://registry.npmjs.org/@firebase%2finstallations-compat set size:undefined disposed:false
+126 http fetch GET 200 https://registry.npmjs.org/@firebase%2fperformance 1880ms (cache miss)
+127 silly packumentCache full:https://registry.npmjs.org/@firebase%2fperformance set size:undefined disposed:false
+128 http fetch GET 200 https://registry.npmjs.org/@firebase%2fperformance-compat 556ms (cache miss)
+129 silly packumentCache full:https://registry.npmjs.org/@firebase%2fperformance-compat set size:undefined disposed:false
+130 http fetch GET 200 https://registry.npmjs.org/@firebase%2fremote-config-compat 532ms (cache miss)
+131 silly packumentCache full:https://registry.npmjs.org/@firebase%2fremote-config-compat set size:undefined disposed:false
+132 silly fetch manifest @react-native-async-storage/async-storage@^1.18.1
+133 silly packumentCache full:https://registry.npmjs.org/@react-native-async-storage%2fasync-storage cache-miss
+134 http fetch GET 200 https://registry.npmjs.org/@react-native-async-storage%2fasync-storage 321ms (cache miss)
+135 silly packumentCache full:https://registry.npmjs.org/@react-native-async-storage%2fasync-storage set size:undefined disposed:false
+136 silly fetch manifest react-native@^0.0.0-0 || >=0.60 <1.0
+137 silly packumentCache full:https://registry.npmjs.org/react-native cache-miss
+138 http fetch GET 200 https://registry.npmjs.org/react-native 271ms (cache miss)
+139 silly packumentCache full:https://registry.npmjs.org/react-native set size:undefined disposed:false
+140 silly fetch manifest @types/react@^19.1.0
+141 silly packumentCache full:https://registry.npmjs.org/@types%2freact cache-miss
+142 http fetch GET 200 https://registry.npmjs.org/@types%2freact 198ms (cache miss)
+143 silly packumentCache full:https://registry.npmjs.org/@types%2freact set size:undefined disposed:false
+144 silly fetch manifest react@^19.1.0
+145 silly packumentCache full:https://registry.npmjs.org/react cache-miss
+146 http fetch GET 200 https://registry.npmjs.org/react 124ms (cache miss)
+147 silly packumentCache full:https://registry.npmjs.org/react set size:undefined disposed:false
+148 silly placeDep ROOT @firebase/ai@2.3.0 OK for: firebase@12.3.0 want: 2.3.0
+149 silly placeDep ROOT @firebase/app@0.14.3 OK for: @firebase/ai@2.3.0 want: 0.x
+150 silly placeDep ROOT @firebase/app-types@0.9.3 OK for: @firebase/ai@2.3.0 want: 0.x
+151 silly placeDep ROOT @firebase/analytics@0.10.18 OK for: firebase@12.3.0 want: 0.10.18
+152 silly placeDep ROOT @firebase/analytics-compat@0.2.24 OK for: firebase@12.3.0 want: 0.2.24
+153 silly placeDep ROOT @firebase/app-compat@0.5.3 OK for: @firebase/analytics-compat@0.2.24 want: 0.x
+154 silly placeDep ROOT @firebase/app-check@0.11.0 OK for: firebase@12.3.0 want: 0.11.0
+155 silly placeDep ROOT @firebase/app-check-compat@0.4.0 OK for: firebase@12.3.0 want: 0.4.0
+156 silly placeDep ROOT @firebase/auth@1.11.0 OK for: firebase@12.3.0 want: 1.11.0
+157 silly placeDep ROOT @firebase/auth-compat@0.6.0 OK for: firebase@12.3.0 want: 0.6.0
+158 silly placeDep ROOT @firebase/data-connect@0.3.11 OK for: firebase@12.3.0 want: 0.3.11
+159 silly placeDep ROOT @firebase/database@1.1.0 OK for: firebase@12.3.0 want: 1.1.0
+160 silly placeDep ROOT @firebase/database-compat@2.1.0 OK for: firebase@12.3.0 want: 2.1.0
+161 silly placeDep ROOT @firebase/firestore@4.9.2 OK for: firebase@12.3.0 want: 4.9.2
+162 silly placeDep ROOT @firebase/firestore-compat@0.4.2 OK for: firebase@12.3.0 want: 0.4.2
+163 silly placeDep ROOT @firebase/functions@0.13.1 OK for: firebase@12.3.0 want: 0.13.1
+164 silly placeDep ROOT @firebase/functions-compat@0.4.1 OK for: firebase@12.3.0 want: 0.4.1
+165 silly placeDep ROOT @firebase/installations@0.6.19 OK for: firebase@12.3.0 want: 0.6.19
+166 silly placeDep ROOT @firebase/installations-compat@0.2.19 OK for: firebase@12.3.0 want: 0.2.19
+167 silly placeDep ROOT @firebase/messaging@0.12.23 OK for: firebase@12.3.0 want: 0.12.23
+168 silly placeDep ROOT @firebase/messaging-compat@0.2.23 OK for: firebase@12.3.0 want: 0.2.23
+169 silly placeDep ROOT @firebase/performance@0.7.9 OK for: firebase@12.3.0 want: 0.7.9
+170 silly placeDep ROOT @firebase/performance-compat@0.2.22 OK for: firebase@12.3.0 want: 0.2.22
+171 silly placeDep ROOT @firebase/remote-config@0.7.0 OK for: firebase@12.3.0 want: 0.7.0
+172 silly placeDep ROOT @firebase/remote-config-compat@0.2.20 OK for: firebase@12.3.0 want: 0.2.20
+173 silly placeDep ROOT @firebase/storage@0.14.0 OK for: firebase@12.3.0 want: 0.14.0
+174 silly placeDep ROOT @firebase/storage-compat@0.4.0 OK for: firebase@12.3.0 want: 0.4.0
+175 silly placeDep ROOT @firebase/util@1.13.0 OK for: firebase@12.3.0 want: 1.13.0
+176 silly fetch manifest @firebase/logger@0.5.0
+177 silly packumentCache full:https://registry.npmjs.org/@firebase%2flogger cache-miss
+178 silly fetch manifest @firebase/component@0.7.0
+179 silly packumentCache full:https://registry.npmjs.org/@firebase%2fcomponent cache-miss
+180 silly fetch manifest @firebase/app-check-interop-types@0.3.3
+181 silly packumentCache full:https://registry.npmjs.org/@firebase%2fapp-check-interop-types cache-miss
+182 silly fetch manifest @firebase/logger@0.5.0
+183 silly packumentCache full:https://registry.npmjs.org/@firebase%2flogger cache-miss
+184 silly fetch manifest @firebase/component@0.7.0
+185 silly packumentCache full:https://registry.npmjs.org/@firebase%2fcomponent cache-miss
+186 silly fetch manifest @firebase/logger@0.5.0
+187 silly packumentCache full:https://registry.npmjs.org/@firebase%2flogger cache-miss
+188 silly fetch manifest @firebase/component@0.7.0
+189 silly packumentCache full:https://registry.npmjs.org/@firebase%2fcomponent cache-miss
+190 silly fetch manifest @firebase/component@0.7.0
+191 silly packumentCache full:https://registry.npmjs.org/@firebase%2fcomponent cache-miss
+192 silly fetch manifest @firebase/analytics-types@0.8.3
+193 silly packumentCache full:https://registry.npmjs.org/@firebase%2fanalytics-types cache-miss
+194 http fetch GET 200 https://registry.npmjs.org/@firebase%2fanalytics-types 534ms (cache miss)
+195 silly packumentCache full:https://registry.npmjs.org/@firebase%2fanalytics-types set size:undefined disposed:false
+196 silly fetch manifest @firebase/logger@0.5.0
+197 silly packumentCache full:https://registry.npmjs.org/@firebase%2flogger cache-miss
+198 http fetch GET 200 https://registry.npmjs.org/@firebase%2fcomponent 922ms (cache miss)
+199 silly packumentCache full:https://registry.npmjs.org/@firebase%2fcomponent set size:undefined disposed:false
+200 silly fetch manifest @firebase/logger@0.5.0
+201 silly packumentCache full:https://registry.npmjs.org/@firebase%2flogger cache-miss
+202 http fetch GET 200 https://registry.npmjs.org/@firebase%2flogger 980ms (cache miss)
+203 silly packumentCache full:https://registry.npmjs.org/@firebase%2flogger set size:undefined disposed:false
+204 silly fetch manifest @firebase/app-check-types@0.5.3
+205 silly packumentCache full:https://registry.npmjs.org/@firebase%2fapp-check-types cache-miss
+206 http fetch GET 200 https://registry.npmjs.org/@firebase%2fapp-check-interop-types 1013ms (cache miss)
+207 silly packumentCache full:https://registry.npmjs.org/@firebase%2fapp-check-interop-types set size:undefined disposed:false
+208 silly fetch manifest @firebase/auth-types@0.13.0
+209 silly packumentCache full:https://registry.npmjs.org/@firebase%2fauth-types cache-miss
+210 http fetch GET 200 https://registry.npmjs.org/@firebase%2fcomponent 1022ms (cache miss)
+211 silly packumentCache full:https://registry.npmjs.org/@firebase%2fcomponent set size:undefined disposed:false
+212 silly fetch manifest @firebase/auth-interop-types@0.2.4
+213 silly packumentCache full:https://registry.npmjs.org/@firebase%2fauth-interop-types cache-miss
+214 http fetch GET 200 https://registry.npmjs.org/@firebase%2fcomponent 1064ms (cache miss)
+215 silly packumentCache full:https://registry.npmjs.org/@firebase%2fcomponent set size:undefined disposed:false
+216 silly fetch manifest @firebase/auth-interop-types@0.2.4
+217 silly packumentCache full:https://registry.npmjs.org/@firebase%2fauth-interop-types cache-miss
+218 http fetch GET 200 https://registry.npmjs.org/@firebase%2flogger 547ms (cache miss)
+219 silly packumentCache full:https://registry.npmjs.org/@firebase%2flogger set size:undefined disposed:false
+220 silly fetch manifest @firebase/database-types@1.0.16
+221 silly packumentCache full:https://registry.npmjs.org/@firebase%2fdatabase-types cache-miss
+222 http fetch GET 200 https://registry.npmjs.org/@firebase%2fcomponent 1144ms (cache miss)
+223 silly packumentCache full:https://registry.npmjs.org/@firebase%2fcomponent set size:undefined disposed:false
+224 silly fetch manifest @grpc/grpc-js@~1.9.0
+225 silly packumentCache full:https://registry.npmjs.org/@grpc%2fgrpc-js cache-miss
+226 http fetch GET 200 https://registry.npmjs.org/@firebase%2flogger 1202ms (cache miss)
+227 silly packumentCache full:https://registry.npmjs.org/@firebase%2flogger set size:undefined disposed:false
+228 silly fetch manifest @grpc/proto-loader@^0.7.8
+229 silly packumentCache full:https://registry.npmjs.org/@grpc%2fproto-loader cache-miss
+230 http fetch GET 200 https://registry.npmjs.org/@firebase%2fapp-check-types 235ms (cache miss)
+231 silly packumentCache full:https://registry.npmjs.org/@firebase%2fapp-check-types set size:undefined disposed:false
+232 silly fetch manifest @firebase/webchannel-wrapper@1.0.5
+233 silly packumentCache full:https://registry.npmjs.org/@firebase%2fwebchannel-wrapper cache-miss
+234 http fetch GET 200 https://registry.npmjs.org/@grpc%2fgrpc-js 251ms (cache miss)
+235 silly packumentCache full:https://registry.npmjs.org/@grpc%2fgrpc-js set size:undefined disposed:false
+236 silly fetch manifest @firebase/firestore-types@3.0.3
+237 silly packumentCache full:https://registry.npmjs.org/@firebase%2ffirestore-types cache-miss
+238 http fetch GET 200 https://registry.npmjs.org/@firebase%2fauth-interop-types 469ms (cache miss)
+239 silly packumentCache full:https://registry.npmjs.org/@firebase%2fauth-interop-types set size:undefined disposed:false
+240 silly fetch manifest @firebase/messaging-interop-types@0.2.3
+241 silly packumentCache full:https://registry.npmjs.org/@firebase%2fmessaging-interop-types cache-miss
+242 http fetch GET 200 https://registry.npmjs.org/@grpc%2fproto-loader 471ms (cache miss)
+243 silly packumentCache full:https://registry.npmjs.org/@grpc%2fproto-loader set size:undefined disposed:false
+244 silly fetch manifest @firebase/functions-types@0.6.3
+245 silly packumentCache full:https://registry.npmjs.org/@firebase%2ffunctions-types cache-miss
+246 http fetch GET 200 https://registry.npmjs.org/@firebase%2fauth-types 685ms (cache miss)
+247 silly packumentCache full:https://registry.npmjs.org/@firebase%2fauth-types set size:undefined disposed:false
+248 silly fetch manifest @firebase/installations-types@0.5.3
+249 silly packumentCache full:https://registry.npmjs.org/@firebase%2finstallations-types cache-miss
+250 http fetch GET 200 https://registry.npmjs.org/@firebase%2flogger 1139ms (cache miss)
+251 silly packumentCache full:https://registry.npmjs.org/@firebase%2flogger set size:undefined disposed:false
+252 silly fetch manifest @firebase/messaging-interop-types@0.2.3
+253 silly packumentCache full:https://registry.npmjs.org/@firebase%2fmessaging-interop-types cache-miss
+254 http fetch GET 200 https://registry.npmjs.org/@firebase%2fwebchannel-wrapper 975ms (cache miss)
+255 silly packumentCache full:https://registry.npmjs.org/@firebase%2fwebchannel-wrapper set size:undefined disposed:false
+256 silly fetch manifest web-vitals@^4.2.4
+257 silly packumentCache full:https://registry.npmjs.org/web-vitals cache-miss
+258 http fetch GET 200 https://registry.npmjs.org/@firebase%2fauth-interop-types 1204ms (cache miss)
+259 silly packumentCache full:https://registry.npmjs.org/@firebase%2fauth-interop-types set size:undefined disposed:false
+260 silly fetch manifest @firebase/performance-types@0.2.3
+261 silly packumentCache full:https://registry.npmjs.org/@firebase%2fperformance-types cache-miss
+262 http fetch GET 200 https://registry.npmjs.org/web-vitals 83ms (cache miss)
+263 silly packumentCache full:https://registry.npmjs.org/web-vitals set size:undefined disposed:false
+264 silly fetch manifest @firebase/remote-config-types@0.5.0
+265 silly packumentCache full:https://registry.npmjs.org/@firebase%2fremote-config-types cache-miss
+266 http fetch GET 200 https://registry.npmjs.org/@firebase%2fdatabase-types 1217ms (cache miss)
+267 silly packumentCache full:https://registry.npmjs.org/@firebase%2fdatabase-types set size:undefined disposed:false
+268 silly fetch manifest @firebase/storage-types@0.8.3
+269 silly packumentCache full:https://registry.npmjs.org/@firebase%2fstorage-types cache-miss
+270 http fetch GET 200 https://registry.npmjs.org/@firebase%2finstallations-types 742ms (cache miss)
+271 silly packumentCache full:https://registry.npmjs.org/@firebase%2finstallations-types set size:undefined disposed:false
+272 http fetch GET 200 https://registry.npmjs.org/@firebase%2fmessaging-interop-types 1072ms (cache miss)
+273 silly packumentCache full:https://registry.npmjs.org/@firebase%2fmessaging-interop-types set size:undefined disposed:false
+274 http fetch GET 200 https://registry.npmjs.org/@firebase%2flogger 2651ms (cache miss)
+275 silly packumentCache full:https://registry.npmjs.org/@firebase%2flogger set size:undefined disposed:false
+276 http fetch GET 200 https://registry.npmjs.org/@firebase%2ffirestore-types 1328ms (cache miss)
+277 silly packumentCache full:https://registry.npmjs.org/@firebase%2ffirestore-types set size:undefined disposed:false
+278 http fetch GET 200 https://registry.npmjs.org/@firebase%2fremote-config-types 518ms (cache miss)
+279 silly packumentCache full:https://registry.npmjs.org/@firebase%2fremote-config-types set size:undefined disposed:false
+280 http fetch GET 200 https://registry.npmjs.org/@firebase%2fmessaging-interop-types 744ms (cache miss)
+281 silly packumentCache full:https://registry.npmjs.org/@firebase%2fmessaging-interop-types set size:undefined disposed:false
+282 http fetch GET 200 https://registry.npmjs.org/@firebase%2ffunctions-types 1417ms (cache miss)
+283 silly packumentCache full:https://registry.npmjs.org/@firebase%2ffunctions-types set size:undefined disposed:false
+284 http fetch GET 200 https://registry.npmjs.org/@firebase%2fstorage-types 860ms (cache miss)
+285 silly packumentCache full:https://registry.npmjs.org/@firebase%2fstorage-types set size:undefined disposed:false
+286 http fetch GET 200 https://registry.npmjs.org/@firebase%2fperformance-types 980ms (cache miss)
+287 silly packumentCache full:https://registry.npmjs.org/@firebase%2fperformance-types set size:undefined disposed:false
+288 silly placeDep ROOT @firebase/app-check-interop-types@0.3.3 OK for: @firebase/ai@2.3.0 want: 0.3.3
+289 silly placeDep ROOT @firebase/component@0.7.0 OK for: @firebase/ai@2.3.0 want: 0.7.0
+290 silly placeDep ROOT @firebase/logger@0.5.0 OK for: @firebase/ai@2.3.0 want: 0.5.0
+291 silly placeDep ROOT @firebase/analytics-types@0.8.3 OK for: @firebase/analytics-compat@0.2.24 want: 0.8.3
+292 silly placeDep ROOT @firebase/app-check-types@0.5.3 OK for: @firebase/app-check-compat@0.4.0 want: 0.5.3
+293 silly fetch manifest @firebase/app-types@0.x
+294 silly packumentCache full:https://registry.npmjs.org/@firebase%2fapp-types cache-miss
+295 http cache https://registry.npmjs.org/@firebase%2fapp-types 11ms (cache hit)
+296 silly packumentCache full:https://registry.npmjs.org/@firebase%2fapp-types set size:8406092 disposed:false
+297 silly placeDep ROOT @firebase/auth-types@0.13.0 OK for: @firebase/auth-compat@0.6.0 want: 0.13.0
+298 silly placeDep ROOT @firebase/auth-interop-types@0.2.4 OK for: @firebase/data-connect@0.3.11 want: 0.2.4
+299 silly placeDep ROOT @firebase/database-types@1.0.16 OK for: @firebase/database-compat@2.1.0 want: 1.0.16
+300 silly placeDep ROOT @firebase/webchannel-wrapper@1.0.5 OK for: @firebase/firestore@4.9.2 want: 1.0.5
+301 silly placeDep ROOT @grpc/grpc-js@1.9.15 OK for: @firebase/firestore@4.9.2 want: ~1.9.0
+302 silly placeDep ROOT @grpc/proto-loader@0.7.15 OK for: @firebase/firestore@4.9.2 want: ^0.7.8
+303 silly fetch manifest long@^5.0.0
+304 silly packumentCache full:https://registry.npmjs.org/long cache-miss
+305 silly fetch manifest yargs@^17.7.2
+306 silly packumentCache full:https://registry.npmjs.org/yargs cache-miss
+307 silly fetch manifest protobufjs@^7.2.5
+308 silly packumentCache full:https://registry.npmjs.org/protobufjs cache-miss
+309 silly fetch manifest lodash.camelcase@^4.3.0
+310 silly packumentCache full:https://registry.npmjs.org/lodash.camelcase cache-miss
+311 http fetch GET 200 https://registry.npmjs.org/lodash.camelcase 27ms (cache miss)
+312 silly packumentCache full:https://registry.npmjs.org/lodash.camelcase set size:undefined disposed:false
+313 http fetch GET 200 https://registry.npmjs.org/yargs 48ms (cache miss)
+314 silly packumentCache full:https://registry.npmjs.org/yargs set size:undefined disposed:false
+315 http fetch GET 200 https://registry.npmjs.org/long 65ms (cache miss)
+316 silly packumentCache full:https://registry.npmjs.org/long set size:undefined disposed:false
+317 http fetch GET 200 https://registry.npmjs.org/protobufjs 179ms (cache miss)
+318 silly packumentCache full:https://registry.npmjs.org/protobufjs set size:undefined disposed:false
+319 silly placeDep ROOT @firebase/firestore-types@3.0.3 OK for: @firebase/firestore-compat@0.4.2 want: 3.0.3
+320 silly placeDep ROOT @firebase/messaging-interop-types@0.2.3 OK for: @firebase/functions@0.13.1 want: 0.2.3
+321 silly placeDep ROOT @firebase/functions-types@0.6.3 OK for: @firebase/functions-compat@0.4.1 want: 0.6.3
+322 silly placeDep ROOT @firebase/installations-types@0.5.3 OK for: @firebase/installations-compat@0.2.19 want: 0.5.3
+323 silly placeDep node_modules/@firebase/performance web-vitals@4.2.4 OK for: @firebase/performance@0.7.9 want: ^4.2.4
+324 silly placeDep ROOT @firebase/performance-types@0.2.3 OK for: @firebase/performance-compat@0.2.22 want: 0.2.3
+325 silly placeDep ROOT @firebase/remote-config-types@0.5.0 OK for: @firebase/remote-config-compat@0.2.20 want: 0.5.0
+326 silly placeDep ROOT @firebase/storage-types@0.8.3 OK for: @firebase/storage-compat@0.4.0 want: 0.8.3
+327 silly placeDep ROOT lodash.camelcase@4.3.0 OK for: @grpc/proto-loader@0.7.15 want: ^4.3.0
+328 silly placeDep ROOT long@5.3.2 OK for: @grpc/proto-loader@0.7.15 want: ^5.0.0
+329 silly placeDep ROOT protobufjs@7.5.4 OK for: @grpc/proto-loader@0.7.15 want: ^7.2.5
+330 silly placeDep node_modules/@grpc/proto-loader yargs@17.7.2 OK for: @grpc/proto-loader@0.7.15 want: ^17.7.2
+331 silly fetch manifest @protobufjs/aspromise@^1.1.2
+332 silly packumentCache full:https://registry.npmjs.org/@protobufjs%2faspromise cache-miss
+333 silly fetch manifest @protobufjs/base64@^1.1.2
+334 silly packumentCache full:https://registry.npmjs.org/@protobufjs%2fbase64 cache-miss
+335 silly fetch manifest @protobufjs/codegen@^2.0.4
+336 silly packumentCache full:https://registry.npmjs.org/@protobufjs%2fcodegen cache-miss
+337 silly fetch manifest @protobufjs/eventemitter@^1.1.0
+338 silly packumentCache full:https://registry.npmjs.org/@protobufjs%2feventemitter cache-miss
+339 silly fetch manifest @protobufjs/fetch@^1.1.0
+340 silly packumentCache full:https://registry.npmjs.org/@protobufjs%2ffetch cache-miss
+341 silly fetch manifest @protobufjs/float@^1.0.2
+342 silly packumentCache full:https://registry.npmjs.org/@protobufjs%2ffloat cache-miss
+343 silly fetch manifest @protobufjs/inquire@^1.1.0
+344 silly packumentCache full:https://registry.npmjs.org/@protobufjs%2finquire cache-miss
+345 silly fetch manifest @protobufjs/path@^1.1.2
+346 silly packumentCache full:https://registry.npmjs.org/@protobufjs%2fpath cache-miss
+347 silly fetch manifest @protobufjs/pool@^1.1.0
+348 silly packumentCache full:https://registry.npmjs.org/@protobufjs%2fpool cache-miss
+349 http fetch GET 200 https://registry.npmjs.org/@protobufjs%2feventemitter 43ms (cache miss)
+350 silly packumentCache full:https://registry.npmjs.org/@protobufjs%2feventemitter set size:undefined disposed:false
+351 silly fetch manifest @protobufjs/utf8@^1.1.0
+352 silly packumentCache full:https://registry.npmjs.org/@protobufjs%2futf8 cache-miss
+353 http fetch GET 200 https://registry.npmjs.org/@protobufjs%2finquire 49ms (cache miss)
+354 silly packumentCache full:https://registry.npmjs.org/@protobufjs%2finquire set size:undefined disposed:false
+355 silly fetch manifest cliui@^8.0.1
+356 silly packumentCache full:https://registry.npmjs.org/cliui cache-miss
+357 http fetch GET 200 https://registry.npmjs.org/@protobufjs%2faspromise 50ms (cache miss)
+358 silly packumentCache full:https://registry.npmjs.org/@protobufjs%2faspromise set size:undefined disposed:false
+359 silly fetch manifest yargs-parser@^21.1.1
+360 silly packumentCache full:https://registry.npmjs.org/yargs-parser cache-miss
+361 http fetch GET 200 https://registry.npmjs.org/@protobufjs%2fbase64 51ms (cache miss)
+362 silly packumentCache full:https://registry.npmjs.org/@protobufjs%2fbase64 set size:undefined disposed:false
+363 http fetch GET 200 https://registry.npmjs.org/@protobufjs%2ffloat 53ms (cache miss)
+364 silly packumentCache full:https://registry.npmjs.org/@protobufjs%2ffloat set size:undefined disposed:false
+365 http fetch GET 200 https://registry.npmjs.org/@protobufjs%2fpool 55ms (cache miss)
+366 silly packumentCache full:https://registry.npmjs.org/@protobufjs%2fpool set size:undefined disposed:false
+367 http fetch GET 200 https://registry.npmjs.org/@protobufjs%2fcodegen 61ms (cache miss)
+368 silly packumentCache full:https://registry.npmjs.org/@protobufjs%2fcodegen set size:undefined disposed:false
+369 http fetch GET 200 https://registry.npmjs.org/@protobufjs%2ffetch 62ms (cache miss)
+370 silly packumentCache full:https://registry.npmjs.org/@protobufjs%2ffetch set size:undefined disposed:false
+371 http fetch GET 200 https://registry.npmjs.org/@protobufjs%2fpath 68ms (cache miss)
+372 silly packumentCache full:https://registry.npmjs.org/@protobufjs%2fpath set size:undefined disposed:false
+373 http fetch GET 200 https://registry.npmjs.org/@protobufjs%2futf8 50ms (cache miss)
+374 silly packumentCache full:https://registry.npmjs.org/@protobufjs%2futf8 set size:undefined disposed:false
+375 http fetch GET 200 https://registry.npmjs.org/yargs-parser 45ms (cache miss)
+376 silly packumentCache full:https://registry.npmjs.org/yargs-parser set size:undefined disposed:false
+377 http fetch GET 200 https://registry.npmjs.org/cliui 47ms (cache miss)
+378 silly packumentCache full:https://registry.npmjs.org/cliui set size:undefined disposed:false
+379 silly placeDep ROOT @protobufjs/aspromise@1.1.2 OK for: protobufjs@7.5.4 want: ^1.1.2
+380 silly placeDep ROOT @protobufjs/base64@1.1.2 OK for: protobufjs@7.5.4 want: ^1.1.2
+381 silly placeDep ROOT @protobufjs/codegen@2.0.4 OK for: protobufjs@7.5.4 want: ^2.0.4
+382 silly placeDep ROOT @protobufjs/eventemitter@1.1.0 OK for: protobufjs@7.5.4 want: ^1.1.0
+383 silly placeDep ROOT @protobufjs/fetch@1.1.0 OK for: protobufjs@7.5.4 want: ^1.1.0
+384 silly placeDep ROOT @protobufjs/float@1.0.2 OK for: protobufjs@7.5.4 want: ^1.0.2
+385 silly placeDep ROOT @protobufjs/inquire@1.1.0 OK for: protobufjs@7.5.4 want: ^1.1.0
+386 silly placeDep ROOT @protobufjs/path@1.1.2 OK for: protobufjs@7.5.4 want: ^1.1.2
+387 silly placeDep ROOT @protobufjs/pool@1.1.0 OK for: protobufjs@7.5.4 want: ^1.1.0
+388 silly placeDep ROOT @protobufjs/utf8@1.1.0 OK for: protobufjs@7.5.4 want: ^1.1.0
+389 silly placeDep node_modules/@grpc/proto-loader cliui@8.0.1 OK for: yargs@17.7.2 want: ^8.0.1
+390 silly placeDep node_modules/@grpc/proto-loader yargs-parser@21.1.1 OK for: yargs@17.7.2 want: ^21.1.1
+391 silly reify moves {}
+392 silly audit bulk request {
+392 silly audit   '@adobe/css-tools': [ '4.4.4' ],
+392 silly audit   '@alloc/quick-lru': [ '5.2.0' ],
+392 silly audit   '@babel/code-frame': [ '7.27.1' ],
+392 silly audit   '@babel/compat-data': [ '7.28.4' ],
+392 silly audit   '@babel/core': [ '7.28.4' ],
+392 silly audit   semver: [ '6.3.1', '7.7.2' ],
+392 silly audit   '@babel/eslint-parser': [ '7.28.4' ],
+392 silly audit   'eslint-visitor-keys': [ '2.1.0', '3.4.3' ],
+392 silly audit   '@babel/generator': [ '7.28.3' ],
+392 silly audit   '@babel/helper-annotate-as-pure': [ '7.27.3' ],
+392 silly audit   '@babel/helper-compilation-targets': [ '7.27.2' ],
+392 silly audit   '@babel/helper-create-class-features-plugin': [ '7.28.3' ],
+392 silly audit   '@babel/helper-create-regexp-features-plugin': [ '7.27.1' ],
+392 silly audit   '@babel/helper-define-polyfill-provider': [ '0.6.5' ],
+392 silly audit   '@babel/helper-globals': [ '7.28.0' ],
+392 silly audit   '@babel/helper-member-expression-to-functions': [ '7.27.1' ],
+392 silly audit   '@babel/helper-module-imports': [ '7.27.1' ],
+392 silly audit   '@babel/helper-module-transforms': [ '7.28.3' ],
+392 silly audit   '@babel/helper-optimise-call-expression': [ '7.27.1' ],
+392 silly audit   '@babel/helper-plugin-utils': [ '7.27.1' ],
+392 silly audit   '@babel/helper-remap-async-to-generator': [ '7.27.1' ],
+392 silly audit   '@babel/helper-replace-supers': [ '7.27.1' ],
+392 silly audit   '@babel/helper-skip-transparent-expression-wrappers': [ '7.27.1' ],
+392 silly audit   '@babel/helper-string-parser': [ '7.27.1' ],
+392 silly audit   '@babel/helper-validator-identifier': [ '7.27.1' ],
+392 silly audit   '@babel/helper-validator-option': [ '7.27.1' ],
+392 silly audit   '@babel/helper-wrap-function': [ '7.28.3' ],
+392 silly audit   '@babel/helpers': [ '7.28.4' ],
+392 silly audit   '@babel/parser': [ '7.28.4' ],
+392 silly audit   '@babel/plugin-bugfix-firefox-class-in-computed-class-key': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-bugfix-safari-class-field-initializer-scope': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-bugfix-v8-static-class-fields-redefine-readonly': [ '7.28.3' ],
+392 silly audit   '@babel/plugin-proposal-class-properties': [ '7.18.6' ],
+392 silly audit   '@babel/plugin-proposal-decorators': [ '7.28.0' ],
+392 silly audit   '@babel/plugin-proposal-nullish-coalescing-operator': [ '7.18.6' ],
+392 silly audit   '@babel/plugin-proposal-numeric-separator': [ '7.18.6' ],
+392 silly audit   '@babel/plugin-proposal-optional-chaining': [ '7.21.0' ],
+392 silly audit   '@babel/plugin-proposal-private-methods': [ '7.18.6' ],
+392 silly audit   '@babel/plugin-proposal-private-property-in-object': [ '7.21.0-placeholder-for-preset-env.2', '7.21.11' ],
+392 silly audit   '@babel/plugin-syntax-async-generators': [ '7.8.4' ],
+392 silly audit   '@babel/plugin-syntax-bigint': [ '7.8.3' ],
+392 silly audit   '@babel/plugin-syntax-class-properties': [ '7.12.13' ],
+392 silly audit   '@babel/plugin-syntax-class-static-block': [ '7.14.5' ],
+392 silly audit   '@babel/plugin-syntax-decorators': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-syntax-flow': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-syntax-import-assertions': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-syntax-import-attributes': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-syntax-import-meta': [ '7.10.4' ],
+392 silly audit   '@babel/plugin-syntax-json-strings': [ '7.8.3' ],
+392 silly audit   '@babel/plugin-syntax-jsx': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-syntax-logical-assignment-operators': [ '7.10.4' ],
+392 silly audit   '@babel/plugin-syntax-nullish-coalescing-operator': [ '7.8.3' ],
+392 silly audit   '@babel/plugin-syntax-numeric-separator': [ '7.10.4' ],
+392 silly audit   '@babel/plugin-syntax-object-rest-spread': [ '7.8.3' ],
+392 silly audit   '@babel/plugin-syntax-optional-catch-binding': [ '7.8.3' ],
+392 silly audit   '@babel/plugin-syntax-optional-chaining': [ '7.8.3' ],
+392 silly audit   '@babel/plugin-syntax-private-property-in-object': [ '7.14.5' ],
+392 silly audit   '@babel/plugin-syntax-top-level-await': [ '7.14.5' ],
+392 silly audit   '@babel/plugin-syntax-typescript': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-syntax-unicode-sets-regex': [ '7.18.6' ],
+392 silly audit   '@babel/plugin-transform-arrow-functions': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-async-generator-functions': [ '7.28.0' ],
+392 silly audit   '@babel/plugin-transform-async-to-generator': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-block-scoped-functions': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-block-scoping': [ '7.28.4' ],
+392 silly audit   '@babel/plugin-transform-class-properties': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-class-static-block': [ '7.28.3' ],
+392 silly audit   '@babel/plugin-transform-classes': [ '7.28.4' ],
+392 silly audit   '@babel/plugin-transform-computed-properties': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-destructuring': [ '7.28.0' ],
+392 silly audit   '@babel/plugin-transform-dotall-regex': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-duplicate-keys': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-duplicate-named-capturing-groups-regex': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-dynamic-import': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-explicit-resource-management': [ '7.28.0' ],
+392 silly audit   '@babel/plugin-transform-exponentiation-operator': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-export-namespace-from': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-flow-strip-types': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-for-of': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-function-name': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-json-strings': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-literals': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-logical-assignment-operators': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-member-expression-literals': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-modules-amd': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-modules-commonjs': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-modules-systemjs': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-modules-umd': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-named-capturing-groups-regex': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-new-target': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-nullish-coalescing-operator': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-numeric-separator': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-object-rest-spread': [ '7.28.4' ],
+392 silly audit   '@babel/plugin-transform-object-super': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-optional-catch-binding': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-optional-chaining': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-parameters': [ '7.27.7' ],
+392 silly audit   '@babel/plugin-transform-private-methods': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-private-property-in-object': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-property-literals': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-react-constant-elements': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-react-display-name': [ '7.28.0' ],
+392 silly audit   '@babel/plugin-transform-react-jsx': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-react-jsx-development': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-react-pure-annotations': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-regenerator': [ '7.28.4' ],
+392 silly audit   '@babel/plugin-transform-regexp-modifiers': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-reserved-words': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-runtime': [ '7.28.3' ],
+392 silly audit   '@babel/plugin-transform-shorthand-properties': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-spread': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-sticky-regex': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-template-literals': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-typeof-symbol': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-typescript': [ '7.28.0' ],
+392 silly audit   '@babel/plugin-transform-unicode-escapes': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-unicode-property-regex': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-unicode-regex': [ '7.27.1' ],
+392 silly audit   '@babel/plugin-transform-unicode-sets-regex': [ '7.27.1' ],
+392 silly audit   '@babel/preset-env': [ '7.28.3' ],
+392 silly audit   '@babel/preset-modules': [ '0.1.6-no-external-plugins' ],
+392 silly audit   '@babel/preset-react': [ '7.27.1' ],
+392 silly audit   '@babel/preset-typescript': [ '7.27.1' ],
+392 silly audit   '@babel/runtime': [ '7.28.4' ],
+392 silly audit   '@babel/template': [ '7.27.2' ],
+392 silly audit   '@babel/traverse': [ '7.28.4' ],
+392 silly audit   '@babel/types': [ '7.28.4' ],
+392 silly audit   '@bcoe/v8-coverage': [ '0.2.3' ],
+392 silly audit   '@csstools/normalize.css': [ '12.1.1' ],
+392 silly audit   '@csstools/postcss-cascade-layers': [ '1.1.1' ],
+392 silly audit   '@csstools/postcss-color-function': [ '1.1.1' ],
+392 silly audit   '@csstools/postcss-font-format-keywords': [ '1.0.1' ],
+392 silly audit   '@csstools/postcss-hwb-function': [ '1.0.2' ],
+392 silly audit   '@csstools/postcss-ic-unit': [ '1.0.1' ],
+392 silly audit   '@csstools/postcss-is-pseudo-class': [ '2.0.7' ],
+392 silly audit   '@csstools/postcss-nested-calc': [ '1.0.0' ],
+392 silly audit   '@csstools/postcss-normalize-display-values': [ '1.0.1' ],
+392 silly audit   '@csstools/postcss-oklab-function': [ '1.1.1' ],
+392 silly audit   '@csstools/postcss-progressive-custom-properties': [ '1.3.0' ],
+392 silly audit   '@csstools/postcss-stepped-value-functions': [ '1.0.1' ],
+392 silly audit   '@csstools/postcss-text-decoration-shorthand': [ '1.0.0' ],
+392 silly audit   '@csstools/postcss-trigonometric-functions': [ '1.0.2' ],
+392 silly audit   '@csstools/postcss-unset-value': [ '1.0.2' ],
+392 silly audit   '@csstools/selector-specificity': [ '2.2.0' ],
+392 silly audit   '@eslint-community/eslint-utils': [ '4.9.0' ],
+392 silly audit   '@eslint-community/regexpp': [ '4.12.1' ],
+392 silly audit   '@eslint/eslintrc': [ '2.1.4' ],
+392 silly audit   argparse: [ '2.0.1', '1.0.10' ],
+392 silly audit   'js-yaml': [ '4.1.0', '3.14.1' ],
+392 silly audit   '@eslint/js': [ '8.57.1' ],
+392 silly audit   '@humanwhocodes/config-array': [ '0.13.0' ],
+392 silly audit   '@humanwhocodes/module-importer': [ '1.0.1' ],
+392 silly audit   '@humanwhocodes/object-schema': [ '2.0.3' ],
+392 silly audit   '@isaacs/cliui': [ '8.0.2' ],
+392 silly audit   'ansi-regex': [ '6.2.2', '5.0.1' ],
+392 silly audit   'ansi-styles': [ '6.2.3', '4.3.0', '3.2.1', '5.2.0' ],
+392 silly audit   'string-width': [ '5.1.2', '4.2.3' ],
+392 silly audit   'strip-ansi': [ '7.1.2', '6.0.1' ],
+392 silly audit   'wrap-ansi': [ '8.1.0', '7.0.0' ],
+392 silly audit   '@istanbuljs/load-nyc-config': [ '1.1.0' ],
+392 silly audit   camelcase: [ '5.3.1', '6.3.0' ],
+392 silly audit   '@istanbuljs/schema': [ '0.1.3' ],
+392 silly audit   '@jest/console': [ '27.5.1', '28.1.3' ],
+392 silly audit   '@jest/core': [ '27.5.1' ],
+392 silly audit   '@jest/environment': [ '27.5.1' ],
+392 silly audit   '@jest/fake-timers': [ '27.5.1' ],
+392 silly audit   '@jest/globals': [ '27.5.1' ],
+392 silly audit   '@jest/reporters': [ '27.5.1' ],
+392 silly audit   'source-map': [ '0.6.1', '0.7.6', '0.8.0-beta.0' ],
+392 silly audit   '@jest/schemas': [ '28.1.3' ],
+392 silly audit   '@jest/source-map': [ '27.5.1' ],
+392 silly audit   '@jest/test-result': [ '27.5.1', '28.1.3' ],
+392 silly audit   '@jest/test-sequencer': [ '27.5.1' ],
+392 silly audit   '@jest/transform': [ '27.5.1' ],
+392 silly audit   'convert-source-map': [ '1.9.0', '2.0.0' ],
+392 silly audit   '@jest/types': [ '27.5.1', '28.1.3' ],
+392 silly audit   '@jridgewell/gen-mapping': [ '0.3.13' ],
+392 silly audit   '@jridgewell/remapping': [ '2.3.5' ],
+392 silly audit   '@jridgewell/resolve-uri': [ '3.1.2' ],
+392 silly audit   '@jridgewell/source-map': [ '0.3.11' ],
+392 silly audit   '@jridgewell/sourcemap-codec': [ '1.5.5' ],
+392 silly audit   '@jridgewell/trace-mapping': [ '0.3.31' ],
+392 silly audit   '@leichtgewicht/ip-codec': [ '2.0.5' ],
+392 silly audit   '@nicolo-ribaudo/eslint-scope-5-internals': [ '5.1.1-v1' ],
+392 silly audit   'eslint-scope': [ '5.1.1', '7.2.2' ],
+392 silly audit   estraverse: [ '4.3.0', '5.3.0' ],
+392 silly audit   '@nodelib/fs.scandir': [ '2.1.5' ],
+392 silly audit   '@nodelib/fs.stat': [ '2.0.5' ],
+392 silly audit   '@nodelib/fs.walk': [ '1.2.8' ],
+392 silly audit   '@pkgjs/parseargs': [ '0.11.0' ],
+392 silly audit   '@pmmmwh/react-refresh-webpack-plugin': [ '0.5.17' ],
+392 silly audit   '@popperjs/core': [ '2.11.8' ],
+392 silly audit   '@rollup/plugin-babel': [ '5.3.1' ],
+392 silly audit   '@rollup/plugin-node-resolve': [ '11.2.1' ],
+392 silly audit   '@rollup/plugin-replace': [ '2.4.2' ],
+392 silly audit   '@rollup/pluginutils': [ '3.1.0' ],
+392 silly audit   '@types/estree': [ '0.0.39', '1.0.8' ],
+392 silly audit   '@rtsao/scc': [ '1.1.0' ],
+392 silly audit   '@rushstack/eslint-patch': [ '1.12.0' ],
+392 silly audit   '@sinclair/typebox': [ '0.24.51' ],
+392 silly audit   '@sinonjs/commons': [ '1.8.6' ],
+392 silly audit   '@sinonjs/fake-timers': [ '8.1.0' ],
+392 silly audit   '@surma/rollup-plugin-off-main-thread': [ '2.2.3' ],
+392 silly audit   '@svgr/babel-plugin-add-jsx-attribute': [ '5.4.0' ],
+392 silly audit   '@svgr/babel-plugin-remove-jsx-attribute': [ '5.4.0' ],
+392 silly audit   '@svgr/babel-plugin-remove-jsx-empty-expression': [ '5.0.1' ],
+392 silly audit   '@svgr/babel-plugin-replace-jsx-attribute-value': [ '5.0.1' ],
+392 silly audit   '@svgr/babel-plugin-svg-dynamic-title': [ '5.4.0' ],
+392 silly audit   '@svgr/babel-plugin-svg-em-dimensions': [ '5.4.0' ],
+392 silly audit   '@svgr/babel-plugin-transform-react-native-svg': [ '5.4.0' ],
+392 silly audit   '@svgr/babel-plugin-transform-svg-component': [ '5.5.0' ],
+392 silly audit   '@svgr/babel-preset': [ '5.5.0' ],
+392 silly audit   '@svgr/core': [ '5.5.0' ],
+392 silly audit   '@svgr/hast-util-to-babel-ast': [ '5.5.0' ],
+392 silly audit   '@svgr/plugin-jsx': [ '5.5.0' ],
+392 silly audit   '@svgr/plugin-svgo': [ '5.5.0' ],
+392 silly audit   '@svgr/webpack': [ '5.5.0' ],
+392 silly audit   '@testing-library/dom': [ '10.4.1' ],
+392 silly audit   '@testing-library/jest-dom': [ '6.8.0' ],
+392 silly audit   'dom-accessibility-api': [ '0.6.3', '0.5.16' ],
+392 silly audit   '@testing-library/react': [ '16.3.0' ],
+392 silly audit   '@testing-library/user-event': [ '13.5.0' ],
+392 silly audit   '@tootallnate/once': [ '1.1.2' ],
+392 silly audit   '@trysound/sax': [ '0.2.0' ],
+392 silly audit   '@types/aria-query': [ '5.0.4' ],
+392 silly audit   '@types/babel__core': [ '7.20.5' ],
+392 silly audit   '@types/babel__generator': [ '7.27.0' ],
+392 silly audit   '@types/babel__template': [ '7.4.4' ],
+392 silly audit   '@types/babel__traverse': [ '7.28.0' ],
+392 silly audit   '@types/body-parser': [ '1.19.6' ],
+392 silly audit   '@types/bonjour': [ '3.5.13' ],
+392 silly audit   '@types/bootstrap': [ '5.2.10' ],
+392 silly audit   '@types/connect': [ '3.4.38' ],
+392 silly audit   '@types/connect-history-api-fallback': [ '1.5.4' ],
+392 silly audit   '@types/eslint': [ '8.56.12' ],
+392 silly audit   '@types/eslint-scope': [ '3.7.7' ],
+392 silly audit   '@types/express': [ '4.17.23' ],
+392 silly audit   '@types/express-serve-static-core': [ '5.0.7', '4.19.6' ],
+392 silly audit   '@types/graceful-fs': [ '4.1.9' ],
+392 silly audit   '@types/history': [ '4.7.11' ],
+392 silly audit   '@types/html-minifier-terser': [ '6.1.0' ],
+392 silly audit   '@types/http-errors': [ '2.0.5' ],
+392 silly audit   '@types/http-proxy': [ '1.17.16' ],
+392 silly audit   '@types/istanbul-lib-coverage': [ '2.0.6' ],
+392 silly audit   '@types/istanbul-lib-report': [ '3.0.3' ],
+392 silly audit   '@types/istanbul-reports': [ '3.0.4' ],
+392 silly audit   '@types/jest': [ '27.5.2' ],
+392 silly audit   '@types/json-schema': [ '7.0.15' ],
+392 silly audit   '@types/json5': [ '0.0.29' ],
+392 silly audit   '@types/mime': [ '1.3.5' ],
+392 silly audit   '@types/node': [ '16.18.126' ],
+392 silly audit   '@types/node-forge': [ '1.3.14' ],
+392 silly audit   '@types/parse-json': [ '4.0.2' ],
+392 silly audit   '@types/prettier': [ '2.7.3' ],
+392 silly audit   '@types/q': [ '1.5.8' ],
+392 silly audit   '@types/qs': [ '6.14.0' ],
+392 silly audit   '@types/range-parser': [ '1.2.7' ],
+392 silly audit   '@types/react': [ '19.1.13' ],
+392 silly audit   '@types/react-dom': [ '19.1.9' ],
+392 silly audit   '@types/react-router': [ '5.1.20' ],
+392 silly audit   '@types/react-router-dom': [ '5.3.3' ],
+392 silly audit   '@types/resolve': [ '1.17.1' ],
+392 silly audit   '@types/retry': [ '0.12.0' ],
+392 silly audit   '@types/semver': [ '7.7.1' ],
+392 silly audit   '@types/send': [ '0.17.5' ],
+392 silly audit   '@types/serve-index': [ '1.9.4' ],
+392 silly audit   '@types/serve-static': [ '1.15.8' ],
+392 silly audit   '@types/sockjs': [ '0.3.36' ],
+392 silly audit   '@types/stack-utils': [ '2.0.3' ],
+392 silly audit   '@types/trusted-types': [ '2.0.7' ],
+392 silly audit   '@types/ws': [ '8.18.1' ],
+392 silly audit   '@types/yargs': [ '16.0.9', '17.0.33' ],
+392 silly audit   '@types/yargs-parser': [ '21.0.3' ],
+392 silly audit   '@typescript-eslint/eslint-plugin': [ '5.62.0' ],
+392 silly audit   '@typescript-eslint/experimental-utils': [ '5.62.0' ],
+392 silly audit   '@typescript-eslint/parser': [ '5.62.0' ],
+392 silly audit   '@typescript-eslint/scope-manager': [ '5.62.0' ],
+392 silly audit   '@typescript-eslint/type-utils': [ '5.62.0' ],
+392 silly audit   '@typescript-eslint/types': [ '5.62.0' ],
+392 silly audit   '@typescript-eslint/typescript-estree': [ '5.62.0' ],
+392 silly audit   '@typescript-eslint/utils': [ '5.62.0' ],
+392 silly audit   '@typescript-eslint/visitor-keys': [ '5.62.0' ],
+392 silly audit   '@ungap/structured-clone': [ '1.3.0' ],
+392 silly audit   '@webassemblyjs/ast': [ '1.14.1' ],
+392 silly audit   '@webassemblyjs/floating-point-hex-parser': [ '1.13.2' ],
+392 silly audit   '@webassemblyjs/helper-api-error': [ '1.13.2' ],
+392 silly audit   '@webassemblyjs/helper-buffer': [ '1.14.1' ],
+392 silly audit   '@webassemblyjs/helper-numbers': [ '1.13.2' ],
+392 silly audit   '@webassemblyjs/helper-wasm-bytecode': [ '1.13.2' ],
+392 silly audit   '@webassemblyjs/helper-wasm-section': [ '1.14.1' ],
+392 silly audit   '@webassemblyjs/ieee754': [ '1.13.2' ],
+392 silly audit   '@webassemblyjs/leb128': [ '1.13.2' ],
+392 silly audit   '@webassemblyjs/utf8': [ '1.13.2' ],
+392 silly audit   '@webassemblyjs/wasm-edit': [ '1.14.1' ],
+392 silly audit   '@webassemblyjs/wasm-gen': [ '1.14.1' ],
+392 silly audit   '@webassemblyjs/wasm-opt': [ '1.14.1' ],
+392 silly audit   '@webassemblyjs/wasm-parser': [ '1.14.1' ],
+392 silly audit   '@webassemblyjs/wast-printer': [ '1.14.1' ],
+392 silly audit   '@xtuc/ieee754': [ '1.2.0' ],
+392 silly audit   '@xtuc/long': [ '4.2.2' ],
+392 silly audit   abab: [ '2.0.6' ],
+392 silly audit   accepts: [ '1.3.8' ],
+392 silly audit   negotiator: [ '0.6.3', '0.6.4' ],
+392 silly audit   acorn: [ '8.15.0', '7.4.1' ],
+392 silly audit   'acorn-globals': [ '6.0.0' ],
+392 silly audit   'acorn-import-phases': [ '1.0.4' ],
+392 silly audit   'acorn-jsx': [ '5.3.2' ],
+392 silly audit   'acorn-walk': [ '7.2.0' ],
+392 silly audit   address: [ '1.2.2' ],
+392 silly audit   'adjust-sourcemap-loader': [ '4.0.0' ],
+392 silly audit   'agent-base': [ '6.0.2' ],
+392 silly audit   ajv: [ '6.12.6', '8.17.1' ],
+392 silly audit   'ajv-formats': [ '2.1.1' ],
+392 silly audit   'json-schema-traverse': [ '1.0.0', '0.4.1' ],
+392 silly audit   'ajv-keywords': [ '3.5.2', '5.1.0' ],
+392 silly audit   'ansi-escapes': [ '4.3.2' ],
+392 silly audit   'type-fest': [ '0.21.3', '0.16.0', '0.20.2' ],
+392 silly audit   'ansi-html': [ '0.0.9' ],
+392 silly audit   'ansi-html-community': [ '0.0.8' ],
+392 silly audit   'any-promise': [ '1.3.0' ],
+392 silly audit   anymatch: [ '3.1.3' ],
+392 silly audit   arg: [ '5.0.2' ],
+392 silly audit   'aria-query': [ '5.3.0', '5.3.2' ],
+392 silly audit   'array-buffer-byte-length': [ '1.0.2' ],
+392 silly audit   'array-flatten': [ '1.1.1' ],
+392 silly audit   'array-includes': [ '3.1.9' ],
+392 silly audit   'array-union': [ '2.1.0' ],
+392 silly audit   'array.prototype.findlast': [ '1.2.5' ],
+392 silly audit   'array.prototype.findlastindex': [ '1.2.6' ],
+392 silly audit   'array.prototype.flat': [ '1.3.3' ],
+392 silly audit   'array.prototype.flatmap': [ '1.3.3' ],
+392 silly audit   'array.prototype.reduce': [ '1.0.8' ],
+392 silly audit   'array.prototype.tosorted': [ '1.1.4' ],
+392 silly audit   'arraybuffer.prototype.slice': [ '1.0.4' ],
+392 silly audit   asap: [ '2.0.6' ],
+392 silly audit   'ast-types-flow': [ '0.0.8' ],
+392 silly audit   async: [ '3.2.6' ],
+392 silly audit   'async-function': [ '1.0.0' ],
+392 silly audit   asynckit: [ '0.4.0' ],
+392 silly audit   'at-least-node': [ '1.0.0' ],
+392 silly audit   autoprefixer: [ '10.4.21' ],
+392 silly audit   'available-typed-arrays': [ '1.0.7' ],
+392 silly audit   'axe-core': [ '4.10.3' ],
+392 silly audit   'axobject-query': [ '4.1.0' ],
+392 silly audit   'babel-jest': [ '27.5.1' ],
+392 silly audit   'babel-loader': [ '8.4.1' ],
+392 silly audit   'schema-utils': [ '2.7.1', '3.3.0', '2.7.0', '4.3.2' ],
+392 silly audit   'babel-plugin-istanbul': [ '6.1.1' ],
+392 silly audit   'babel-plugin-jest-hoist': [ '27.5.1' ],
+392 silly audit   'babel-plugin-macros': [ '3.1.0' ],
+392 silly audit   'babel-plugin-named-asset-import': [ '0.3.8' ],
+392 silly audit   'babel-plugin-polyfill-corejs2': [ '0.4.14' ],
+392 silly audit   'babel-plugin-polyfill-corejs3': [ '0.13.0' ],
+392 silly audit   'babel-plugin-polyfill-regenerator': [ '0.6.5' ],
+392 silly audit   'babel-plugin-transform-react-remove-prop-types': [ '0.4.24' ],
+392 silly audit   'babel-preset-current-node-syntax': [ '1.2.0' ],
+392 silly audit   'babel-preset-jest': [ '27.5.1' ],
+392 silly audit   'babel-preset-react-app': [ '10.1.0' ],
+392 silly audit   'balanced-match': [ '1.0.2' ],
+392 silly audit   'baseline-browser-mapping': [ '2.8.4' ],
+392 silly audit   batch: [ '0.6.1' ],
+392 silly audit   bfj: [ '7.1.0' ],
+392 silly audit   'big.js': [ '5.2.2' ],
+392 silly audit   'binary-extensions': [ '2.3.0' ],
+392 silly audit   bluebird: [ '3.7.2' ],
+392 silly audit   'body-parser': [ '1.20.3' ],
+392 silly audit   debug: [ '2.6.9', '4.4.3', '3.2.7' ],
+392 silly audit   'iconv-lite': [ '0.4.24', '0.6.3' ],
+392 silly audit   ms: [ '2.0.0', '2.1.3' ],
+392 silly audit   'bonjour-service': [ '1.3.0' ],
+392 silly audit   boolbase: [ '1.0.0' ],
+392 silly audit   bootstrap: [ '5.3.8' ],
+392 silly audit   'brace-expansion': [ '1.1.12', '2.0.2' ],
+392 silly audit   braces: [ '3.0.3' ],
+392 silly audit   'browser-process-hrtime': [ '1.0.0' ],
+392 silly audit   browserslist: [ '4.26.0' ],
+392 silly audit   bser: [ '2.1.1' ],
+392 silly audit   'buffer-from': [ '1.1.2' ],
+392 silly audit   'builtin-modules': [ '3.3.0' ],
+392 silly audit   bytes: [ '3.1.2' ],
+392 silly audit   'call-bind': [ '1.0.8' ],
+392 silly audit   'call-bind-apply-helpers': [ '1.0.2' ],
+392 silly audit   'call-bound': [ '1.0.4' ],
+392 silly audit   callsites: [ '3.1.0' ],
+392 silly audit   'camel-case': [ '4.1.2' ],
+392 silly audit   'camelcase-css': [ '2.0.1' ],
+392 silly audit   'caniuse-api': [ '3.0.0' ],
+392 silly audit   'caniuse-lite': [ '1.0.30001741' ],
+392 silly audit   'case-sensitive-paths-webpack-plugin': [ '2.4.0' ],
+392 silly audit   chalk: [ '4.1.2', '2.4.2' ],
+392 silly audit   'char-regex': [ '1.0.2', '2.0.2' ],
+392 silly audit   'check-types': [ '11.2.3' ],
+392 silly audit   chokidar: [ '3.6.0' ],
+392 silly audit   'glob-parent': [ '5.1.2', '6.0.2' ],
+392 silly audit   'chrome-trace-event': [ '1.0.4' ],
+392 silly audit   'ci-info': [ '3.9.0' ],
+392 silly audit   'cjs-module-lexer': [ '1.4.3' ],
+392 silly audit   'clean-css': [ '5.3.3' ],
+392 silly audit   cliui: [ '7.0.4', '8.0.1' ],
+392 silly audit   co: [ '4.6.0' ],
+392 silly audit   coa: [ '2.0.2' ],
+392 silly audit   'color-convert': [ '1.9.3', '2.0.1' ],
+392 silly audit   'color-name': [ '1.1.3', '1.1.4' ],
+392 silly audit   'escape-string-regexp': [ '1.0.5', '4.0.0', '2.0.0' ],
+392 silly audit   'has-flag': [ '3.0.0', '4.0.0' ],
+392 silly audit   'supports-color': [ '5.5.0', '8.1.1', '7.2.0' ],
+392 silly audit   'collect-v8-coverage': [ '1.0.2' ],
+392 silly audit   colord: [ '2.9.3' ],
+392 silly audit   colorette: [ '2.0.20' ],
+392 silly audit   'combined-stream': [ '1.0.8' ],
+392 silly audit   commander: [ '8.3.0', '7.2.0', '4.1.1', '2.20.3' ],
+392 silly audit   'common-tags': [ '1.8.2' ],
+392 silly audit   commondir: [ '1.0.1' ],
+392 silly audit   compressible: [ '2.0.18' ],
+392 silly audit   compression: [ '1.8.1' ],
+392 silly audit   'concat-map': [ '0.0.1' ],
+392 silly audit   'confusing-browser-globals': [ '1.0.11' ],
+392 silly audit   'connect-history-api-fallback': [ '2.0.0' ],
+392 silly audit   'content-disposition': [ '0.5.4' ],
+392 silly audit   'content-type': [ '1.0.5' ],
+392 silly audit   cookie: [ '1.0.2', '0.7.1' ],
+392 silly audit   'cookie-signature': [ '1.0.6' ],
+392 silly audit   'core-js': [ '3.45.1' ],
+392 silly audit   'core-js-compat': [ '3.45.1' ],
+392 silly audit   'core-js-pure': [ '3.45.1' ],
+392 silly audit   'core-util-is': [ '1.0.3' ],
+392 silly audit   cosmiconfig: [ '7.1.0', '6.0.0' ],
+392 silly audit   'cross-spawn': [ '7.0.6' ],
+392 silly audit   'crypto-random-string': [ '2.0.0' ],
+392 silly audit   'css-blank-pseudo': [ '3.0.3' ],
+392 silly audit   'css-declaration-sorter': [ '6.4.1' ],
+392 silly audit   'css-has-pseudo': [ '3.0.4' ],
+392 silly audit   'css-loader': [ '6.11.0' ],
+392 silly audit   'css-minimizer-webpack-plugin': [ '3.4.1' ],
+392 silly audit   'css-prefers-color-scheme': [ '6.0.3' ],
+392 silly audit   'css-select': [ '4.3.0', '2.1.0' ],
+392 silly audit   'css-select-base-adapter': [ '0.1.1' ],
+392 silly audit   'css-tree': [ '1.0.0-alpha.37', '1.1.3' ],
+392 silly audit   'css-what': [ '6.2.2', '3.4.2' ],
+392 silly audit   'css.escape': [ '1.5.1' ],
+392 silly audit   cssdb: [ '7.11.2' ],
+392 silly audit   cssesc: [ '3.0.0' ],
+392 silly audit   cssnano: [ '5.1.15' ],
+392 silly audit   'cssnano-preset-default': [ '5.2.14' ],
+392 silly audit   'cssnano-utils': [ '3.1.0' ],
+392 silly audit   csso: [ '4.2.0' ],
+392 silly audit   'mdn-data': [ '2.0.14', '2.0.4' ],
+392 silly audit   cssom: [ '0.4.4', '0.3.8' ],
+392 silly audit   cssstyle: [ '2.3.0' ],
+392 silly audit   csstype: [ '3.1.3' ],
+392 silly audit   'damerau-levenshtein': [ '1.0.8' ],
+392 silly audit   'data-urls': [ '2.0.0' ],
+392 silly audit   'data-view-buffer': [ '1.0.2' ],
+392 silly audit   'data-view-byte-length': [ '1.0.2' ],
+392 silly audit   'data-view-byte-offset': [ '1.0.1' ],
+392 silly audit   'decimal.js': [ '10.6.0' ],
+392 silly audit   dedent: [ '0.7.0' ],
+392 silly audit   'deep-is': [ '0.1.4' ],
+392 silly audit   deepmerge: [ '4.3.1' ],
+392 silly audit   'default-gateway': [ '6.0.3' ],
+392 silly audit   'define-data-property': [ '1.1.4' ],
+392 silly audit   'define-lazy-prop': [ '2.0.0' ],
+392 silly audit   'define-properties': [ '1.2.1' ],
+392 silly audit   'delayed-stream': [ '1.0.0' ],
+392 silly audit   depd: [ '2.0.0', '1.1.2' ],
+392 silly audit   dequal: [ '2.0.3' ],
+392 silly audit   destroy: [ '1.2.0' ],
+392 silly audit   'detect-newline': [ '3.1.0' ],
+392 silly audit   'detect-node': [ '2.1.0' ],
+392 silly audit   'detect-port-alt': [ '1.1.6' ],
+392 silly audit   didyoumean: [ '1.2.2' ],
+392 silly audit   'diff-sequences': [ '27.5.1' ],
+392 silly audit   'dir-glob': [ '3.0.1' ],
+392 silly audit   dlv: [ '1.1.3' ],
+392 silly audit   'dns-packet': [ '5.6.1' ],
+392 silly audit   doctrine: [ '3.0.0', '2.1.0' ],
+392 silly audit   'dom-converter': [ '0.2.0' ],
+392 silly audit   'dom-serializer': [ '1.4.1', '0.2.2' ],
+392 silly audit   domelementtype: [ '2.3.0', '1.3.1' ],
+392 silly audit   domexception: [ '2.0.1' ],
+392 silly audit   'webidl-conversions': [ '5.0.0', '6.1.0', '4.0.2' ],
+392 silly audit   domhandler: [ '4.3.1' ],
+392 silly audit   domutils: [ '2.8.0', '1.7.0' ],
+392 silly audit   'dot-case': [ '3.0.4' ],
+392 silly audit   dotenv: [ '10.0.0' ],
+392 silly audit   'dotenv-expand': [ '5.1.0' ],
+392 silly audit   'dunder-proto': [ '1.0.1' ],
+392 silly audit   duplexer: [ '0.1.2' ],
+392 silly audit   eastasianwidth: [ '0.2.0' ],
+392 silly audit   'ee-first': [ '1.1.1' ],
+392 silly audit   ejs: [ '3.1.10' ],
+392 silly audit   'electron-to-chromium': [ '1.5.218' ],
+392 silly audit   emittery: [ '0.8.1', '0.10.2' ],
+392 silly audit   'emoji-regex': [ '9.2.2', '8.0.0' ],
+392 silly audit   'emojis-list': [ '3.0.0' ],
+392 silly audit   encodeurl: [ '2.0.0', '1.0.2' ],
+392 silly audit   'enhanced-resolve': [ '5.18.3' ],
+392 silly audit   entities: [ '2.2.0' ],
+392 silly audit   'error-ex': [ '1.3.4' ],
+392 silly audit   'error-stack-parser': [ '2.1.4' ],
+392 silly audit   'es-abstract': [ '1.24.0' ],
+392 silly audit   'es-array-method-boxes-properly': [ '1.0.0' ],
+392 silly audit   'es-define-property': [ '1.0.1' ],
+392 silly audit   'es-errors': [ '1.3.0' ],
+392 silly audit   'es-iterator-helpers': [ '1.2.1' ],
+392 silly audit   'es-module-lexer': [ '1.7.0' ],
+392 silly audit   'es-object-atoms': [ '1.1.1' ],
+392 silly audit   'es-set-tostringtag': [ '2.1.0' ],
+392 silly audit   'es-shim-unscopables': [ '1.1.0' ],
+392 silly audit   'es-to-primitive': [ '1.3.0' ],
+392 silly audit   escalade: [ '3.2.0' ],
+392 silly audit   'escape-html': [ '1.0.3' ],
+392 silly audit   escodegen: [ '2.1.0', '1.14.3' ],
+392 silly audit   eslint: [ '8.57.1' ],
+392 silly audit   'eslint-config-react-app': [ '7.0.1' ],
+392 silly audit   'eslint-import-resolver-node': [ '0.3.9' ],
+392 silly audit   'eslint-module-utils': [ '2.12.1' ],
+392 silly audit   'eslint-plugin-flowtype': [ '8.0.3' ],
+392 silly audit   'eslint-plugin-import': [ '2.32.0' ],
+392 silly audit   'eslint-plugin-jest': [ '25.7.0' ],
+392 silly audit   'eslint-plugin-jsx-a11y': [ '6.10.2' ],
+392 silly audit   'eslint-plugin-react': [ '7.37.5' ],
+392 silly audit   'eslint-plugin-react-hooks': [ '4.6.2' ],
+392 silly audit   resolve: [ '2.0.0-next.5', '1.22.10' ],
+392 silly audit   'eslint-plugin-testing-library': [ '5.11.1' ],
+392 silly audit   'eslint-webpack-plugin': [ '3.2.0' ],
+392 silly audit   'jest-worker': [ '28.1.3', '27.5.1', '26.6.2' ],
+392 silly audit   'find-up': [ '5.0.0', '4.1.0', '3.0.0' ],
+392 silly audit   'locate-path': [ '6.0.0', '5.0.0', '3.0.0' ],
+392 silly audit   'p-limit': [ '3.1.0', '2.3.0' ],
+392 silly audit   'p-locate': [ '5.0.0', '4.1.0', '3.0.0' ],
+392 silly audit   espree: [ '9.6.1' ],
+392 silly audit   esprima: [ '4.0.1', '1.2.2' ],
+392 silly audit   esquery: [ '1.6.0' ],
+392 silly audit   esrecurse: [ '4.3.0' ],
+392 silly audit   'estree-walker': [ '1.0.1' ],
+392 silly audit   esutils: [ '2.0.3' ],
+392 silly audit   etag: [ '1.8.1' ],
+392 silly audit   eventemitter3: [ '4.0.7' ],
+392 silly audit   events: [ '3.3.0' ],
+392 silly audit   execa: [ '5.1.1' ],
+392 silly audit   exit: [ '0.1.2' ],
+392 silly audit   expect: [ '27.5.1' ],
+392 silly audit   express: [ '4.21.2' ],
+392 silly audit   'fast-deep-equal': [ '3.1.3' ],
+392 silly audit   'fast-glob': [ '3.3.3' ],
+392 silly audit   'fast-json-stable-stringify': [ '2.1.0' ],
+392 silly audit   'fast-levenshtein': [ '2.0.6' ],
+392 silly audit   'fast-uri': [ '3.1.0' ],
+392 silly audit   fastq: [ '1.19.1' ],
+392 silly audit   'faye-websocket': [ '0.11.4' ],
+392 silly audit   'fb-watchman': [ '2.0.2' ],
+392 silly audit   'file-entry-cache': [ '6.0.1' ],
+392 silly audit   'file-loader': [ '6.2.0' ],
+392 silly audit   filelist: [ '1.0.4' ],
+392 silly audit   minimatch: [ '5.1.6', '3.1.2', '9.0.5' ],
+392 silly audit   filesize: [ '8.0.7' ],
+392 silly audit   'fill-range': [ '7.1.1' ],
+392 silly audit   finalhandler: [ '1.3.1' ],
+392 silly audit   'find-cache-dir': [ '3.3.2' ],
+392 silly audit   'flat-cache': [ '3.2.0' ],
+392 silly audit   flatted: [ '3.3.3' ],
+392 silly audit   'follow-redirects': [ '1.15.11' ],
+392 silly audit   'for-each': [ '0.3.5' ],
+392 silly audit   'foreground-child': [ '3.3.1' ],
+392 silly audit   'signal-exit': [ '4.1.0', '3.0.7' ],
+392 silly audit   'fork-ts-checker-webpack-plugin': [ '6.5.3' ],
+392 silly audit   'fs-extra': [ '9.1.0', '10.1.0' ],
+392 silly audit   tapable: [ '1.1.3', '2.2.3' ],
+392 silly audit   'form-data': [ '3.0.4' ],
+392 silly audit   forwarded: [ '0.2.0' ],
+392 silly audit   'fraction.js': [ '4.3.7' ],
+392 silly audit   fresh: [ '0.5.2' ],
+392 silly audit   'fs-monkey': [ '1.1.0' ],
+392 silly audit   'fs.realpath': [ '1.0.0' ],
+392 silly audit   fsevents: [ '2.3.3' ],
+392 silly audit   'function-bind': [ '1.1.2' ],
+392 silly audit   'function.prototype.name': [ '1.1.8' ],
+392 silly audit   'functions-have-names': [ '1.2.3' ],
+392 silly audit   gensync: [ '1.0.0-beta.2' ],
+392 silly audit   'get-caller-file': [ '2.0.5' ],
+392 silly audit   'get-intrinsic': [ '1.3.0' ],
+392 silly audit   'get-own-enumerable-property-symbols': [ '3.0.2' ],
+392 silly audit   'get-package-type': [ '0.1.0' ],
+392 silly audit   'get-proto': [ '1.0.1' ],
+392 silly audit   'get-stream': [ '6.0.1' ],
+392 silly audit   'get-symbol-description': [ '1.1.0' ],
+392 silly audit   glob: [ '7.2.3', '10.4.5' ],
+392 silly audit   'glob-to-regexp': [ '0.4.1' ],
+392 silly audit   'global-modules': [ '2.0.0' ],
+392 silly audit   'global-prefix': [ '3.0.0' ],
+392 silly audit   which: [ '1.3.1', '2.0.2' ],
+392 silly audit   globals: [ '13.24.0' ],
+392 silly audit   globalthis: [ '1.0.4' ],
+392 silly audit   globby: [ '11.1.0' ],
+392 silly audit   gopd: [ '1.2.0' ],
+392 silly audit   'graceful-fs': [ '4.2.11' ],
+392 silly audit   graphemer: [ '1.4.0' ],
+392 silly audit   'gzip-size': [ '6.0.0' ],
+392 silly audit   'handle-thing': [ '2.0.1' ],
+392 silly audit   'harmony-reflect': [ '1.6.2' ],
+392 silly audit   'has-bigints': [ '1.1.0' ],
+392 silly audit   'has-property-descriptors': [ '1.0.2' ],
+392 silly audit   'has-proto': [ '1.2.0' ],
+392 silly audit   'has-symbols': [ '1.1.0' ],
+392 silly audit   'has-tostringtag': [ '1.0.2' ],
+392 silly audit   hasown: [ '2.0.2' ],
+392 silly audit   he: [ '1.2.0' ],
+392 silly audit   hoopy: [ '0.1.4' ],
+392 silly audit   'hpack.js': [ '2.1.6' ],
+392 silly audit   isarray: [ '1.0.0', '2.0.5' ],
+392 silly audit   'readable-stream': [ '2.3.8', '3.6.2' ],
+392 silly audit   'safe-buffer': [ '5.1.2', '5.2.1' ],
+392 silly audit   string_decoder: [ '1.1.1', '1.3.0' ],
+392 silly audit   'html-encoding-sniffer': [ '2.0.1' ],
+392 silly audit   'html-entities': [ '2.6.0' ],
+392 silly audit   'html-escaper': [ '2.0.2' ],
+392 silly audit   'html-minifier-terser': [ '6.1.0' ],
+392 silly audit   'html-webpack-plugin': [ '5.6.4' ],
+392 silly audit   htmlparser2: [ '6.1.0' ],
+392 silly audit   'http-deceiver': [ '1.2.7' ],
+392 silly audit   'http-errors': [ '2.0.0', '1.6.3' ],
+392 silly audit   'http-parser-js': [ '0.5.10' ],
+392 silly audit   'http-proxy': [ '1.18.1' ],
+392 silly audit   'http-proxy-agent': [ '4.0.1' ],
+392 silly audit   'http-proxy-middleware': [ '2.0.9' ],
+392 silly audit   'https-proxy-agent': [ '5.0.1' ],
+392 silly audit   'human-signals': [ '2.1.0' ],
+392 silly audit   'icss-utils': [ '5.1.0' ],
+392 silly audit   idb: [ '7.1.1' ],
+392 silly audit   'identity-obj-proxy': [ '3.0.0' ],
+392 silly audit   ignore: [ '5.3.2' ],
+392 silly audit   immer: [ '9.0.21' ],
+392 silly audit   'import-fresh': [ '3.3.1' ],
+392 silly audit   'resolve-from': [ '4.0.0', '5.0.0' ],
+392 silly audit   'import-local': [ '3.2.0' ],
+392 silly audit   imurmurhash: [ '0.1.4' ],
+392 silly audit   'indent-string': [ '4.0.0' ],
+392 silly audit   inflight: [ '1.0.6' ],
+392 silly audit   inherits: [ '2.0.4', '2.0.3' ],
+392 silly audit   ini: [ '1.3.8' ],
+392 silly audit   'internal-slot': [ '1.1.0' ],
+392 silly audit   'ipaddr.js': [ '2.2.0', '1.9.1' ],
+392 silly audit   'is-array-buffer': [ '3.0.5' ],
+392 silly audit   'is-arrayish': [ '0.2.1' ],
+392 silly audit   'is-async-function': [ '2.1.1' ],
+392 silly audit   'is-bigint': [ '1.1.0' ],
+392 silly audit   'is-binary-path': [ '2.1.0' ],
+392 silly audit   'is-boolean-object': [ '1.2.2' ],
+392 silly audit   'is-callable': [ '1.2.7' ],
+392 silly audit   'is-core-module': [ '2.16.1' ],
+392 silly audit   'is-data-view': [ '1.0.2' ],
+392 silly audit   'is-date-object': [ '1.1.0' ],
+392 silly audit   'is-docker': [ '2.2.1' ],
+392 silly audit   'is-extglob': [ '2.1.1' ],
+392 silly audit   'is-finalizationregistry': [ '1.1.1' ],
+392 silly audit   'is-fullwidth-code-point': [ '3.0.0' ],
+392 silly audit   'is-generator-fn': [ '2.1.0' ],
+392 silly audit   'is-generator-function': [ '1.1.0' ],
+392 silly audit   'is-glob': [ '4.0.3' ],
+392 silly audit   'is-map': [ '2.0.3' ],
+392 silly audit   'is-module': [ '1.0.0' ],
+392 silly audit   'is-negative-zero': [ '2.0.3' ],
+392 silly audit   'is-number': [ '7.0.0' ],
+392 silly audit   'is-number-object': [ '1.1.1' ],
+392 silly audit   'is-obj': [ '1.0.1' ],
+392 silly audit   'is-path-inside': [ '3.0.3' ],
+392 silly audit   'is-plain-obj': [ '3.0.0' ],
+392 silly audit   'is-potential-custom-element-name': [ '1.0.1' ],
+392 silly audit   'is-regex': [ '1.2.1' ],
+392 silly audit   'is-regexp': [ '1.0.0' ],
+392 silly audit   'is-root': [ '2.1.0' ],
+392 silly audit   'is-set': [ '2.0.3' ],
+392 silly audit   'is-shared-array-buffer': [ '1.0.4' ],
+392 silly audit   'is-stream': [ '2.0.1' ],
+392 silly audit   'is-string': [ '1.1.1' ],
+392 silly audit   'is-symbol': [ '1.1.1' ],
+392 silly audit   'is-typed-array': [ '1.1.15' ],
+392 silly audit   'is-typedarray': [ '1.0.0' ],
+392 silly audit   'is-weakmap': [ '2.0.2' ],
+392 silly audit   'is-weakref': [ '1.1.1' ],
+392 silly audit   'is-weakset': [ '2.0.4' ],
+392 silly audit   'is-wsl': [ '2.2.0' ],
+392 silly audit   isexe: [ '2.0.0' ],
+392 silly audit   'istanbul-lib-coverage': [ '3.2.2' ],
+392 silly audit   'istanbul-lib-instrument': [ '5.2.1' ],
+392 silly audit   'istanbul-lib-report': [ '3.0.1' ],
+392 silly audit   'make-dir': [ '4.0.0', '3.1.0' ],
+392 silly audit   'istanbul-lib-source-maps': [ '4.0.1' ],
+392 silly audit   'istanbul-reports': [ '3.2.0' ],
+392 silly audit   'iterator.prototype': [ '1.1.5' ],
+392 silly audit   jackspeak: [ '3.4.3' ],
+392 silly audit   jake: [ '10.9.4' ],
+392 silly audit   jest: [ '27.5.1' ],
+392 silly audit   'jest-changed-files': [ '27.5.1' ],
+392 silly audit   'jest-circus': [ '27.5.1' ],
+392 silly audit   'jest-cli': [ '27.5.1' ],
+392 silly audit   'jest-config': [ '27.5.1' ],
+392 silly audit   'jest-diff': [ '27.5.1' ],
+392 silly audit   'jest-docblock': [ '27.5.1' ],
+392 silly audit   'jest-each': [ '27.5.1' ],
+392 silly audit   'jest-environment-jsdom': [ '27.5.1' ],
+392 silly audit   'jest-environment-node': [ '27.5.1' ],
+392 silly audit   'jest-get-type': [ '27.5.1' ],
+392 silly audit   'jest-haste-map': [ '27.5.1' ],
+392 silly audit   'jest-jasmine2': [ '27.5.1' ],
+392 silly audit   'jest-leak-detector': [ '27.5.1' ],
+392 silly audit   'jest-matcher-utils': [ '27.5.1' ],
+392 silly audit   'jest-message-util': [ '27.5.1', '28.1.3' ],
+392 silly audit   'jest-mock': [ '27.5.1' ],
+392 silly audit   'jest-pnp-resolver': [ '1.2.3' ],
+392 silly audit   'jest-regex-util': [ '27.5.1', '28.0.2' ],
+392 silly audit   'jest-resolve': [ '27.5.1' ],
+392 silly audit   'jest-resolve-dependencies': [ '27.5.1' ],
+392 silly audit   'jest-runner': [ '27.5.1' ],
+392 silly audit   'jest-runtime': [ '27.5.1' ],
+392 silly audit   'jest-serializer': [ '27.5.1' ],
+392 silly audit   'jest-snapshot': [ '27.5.1' ],
+392 silly audit   'jest-util': [ '27.5.1', '28.1.3' ],
+392 silly audit   'jest-validate': [ '27.5.1' ],
+392 silly audit   'jest-watch-typeahead': [ '1.1.0' ],
+392 silly audit   slash: [ '3.0.0', '4.0.0' ],
+392 silly audit   'jest-watcher': [ '28.1.3', '27.5.1' ],
+392 silly audit   'string-length': [ '4.0.2', '5.0.1' ],
+392 silly audit   'pretty-format': [ '28.1.3', '27.5.1' ],
+392 silly audit   'react-is': [ '18.3.1', '16.13.1', '17.0.2' ],
+392 silly audit   jiti: [ '1.21.7' ],
+392 silly audit   'js-tokens': [ '4.0.0' ],
+392 silly audit   jsdom: [ '16.7.0' ],
+392 silly audit   jsesc: [ '3.1.0', '3.0.2' ],
+392 silly audit   'json-buffer': [ '3.0.1' ],
+392 silly audit   'json-parse-even-better-errors': [ '2.3.1' ],
+392 silly audit   'json-schema': [ '0.4.0' ],
+392 silly audit   'json-stable-stringify-without-jsonify': [ '1.0.1' ],
+392 silly audit   json5: [ '2.2.3', '1.0.2' ],
+392 silly audit   jsonfile: [ '6.2.0' ],
+392 silly audit   jsonpath: [ '1.1.1' ],
+392 silly audit   jsonpointer: [ '5.0.1' ],
+392 silly audit   'jsx-ast-utils': [ '3.3.5' ],
+392 silly audit   keyv: [ '4.5.4' ],
+392 silly audit   'kind-of': [ '6.0.3' ],
+392 silly audit   kleur: [ '3.0.3' ],
+392 silly audit   klona: [ '2.0.6' ],
+392 silly audit   'language-subtag-registry': [ '0.3.23' ],
+392 silly audit   'language-tags': [ '1.0.9' ],
+392 silly audit   'launch-editor': [ '2.11.1' ],
+392 silly audit   leven: [ '3.1.0' ],
+392 silly audit   levn: [ '0.4.1', '0.3.0' ],
+392 silly audit   lilconfig: [ '2.1.0', '3.1.3' ],
+392 silly audit   'lines-and-columns': [ '1.2.4' ],
+392 silly audit   'loader-runner': [ '4.3.0' ],
+392 silly audit   'loader-utils': [ '2.0.4', '3.3.1' ],
+392 silly audit   lodash: [ '4.17.21' ],
+392 silly audit   'lodash.debounce': [ '4.0.8' ],
+392 silly audit   'lodash.memoize': [ '4.1.2' ],
+392 silly audit   'lodash.merge': [ '4.6.2' ],
+392 silly audit   'lodash.sortby': [ '4.7.0' ],
+392 silly audit   'lodash.uniq': [ '4.5.0' ],
+392 silly audit   'loose-envify': [ '1.4.0' ],
+392 silly audit   'lower-case': [ '2.0.2' ],
+392 silly audit   'lru-cache': [ '5.1.1', '10.4.3' ],
+392 silly audit   'lz-string': [ '1.5.0' ],
+392 silly audit   'magic-string': [ '0.25.9' ],
+392 silly audit   makeerror: [ '1.0.12' ],
+392 silly audit   'math-intrinsics': [ '1.1.0' ],
+392 silly audit   'media-typer': [ '0.3.0' ],
+392 silly audit   memfs: [ '3.5.3' ],
+392 silly audit   'merge-descriptors': [ '1.0.3' ],
+392 silly audit   'merge-stream': [ '2.0.0' ],
+392 silly audit   merge2: [ '1.4.1' ],
+392 silly audit   methods: [ '1.1.2' ],
+392 silly audit   micromatch: [ '4.0.8' ],
+392 silly audit   mime: [ '1.6.0' ],
+392 silly audit   'mime-db': [ '1.52.0' ],
+392 silly audit   'mime-types': [ '2.1.35' ],
+392 silly audit   'mimic-fn': [ '2.1.0' ],
+392 silly audit   'min-indent': [ '1.0.1' ],
+392 silly audit   'mini-css-extract-plugin': [ '2.9.4' ],
+392 silly audit   'minimalistic-assert': [ '1.0.1' ],
+392 silly audit   minimist: [ '1.2.8' ],
+392 silly audit   minipass: [ '7.1.2' ],
+392 silly audit   mkdirp: [ '0.5.6' ],
+392 silly audit   'multicast-dns': [ '7.2.5' ],
+392 silly audit   mz: [ '2.7.0' ],
+392 silly audit   nanoid: [ '3.3.11' ],
+392 silly audit   'natural-compare': [ '1.4.0' ],
+392 silly audit   'natural-compare-lite': [ '1.4.0' ],
+392 silly audit   'neo-async': [ '2.6.2' ],
+392 silly audit   'no-case': [ '3.0.4' ],
+392 silly audit   'node-forge': [ '1.3.1' ],
+392 silly audit   'node-int64': [ '0.4.0' ],
+392 silly audit   'node-releases': [ '2.0.21' ],
+392 silly audit   'normalize-path': [ '3.0.0' ],
+392 silly audit   'normalize-range': [ '0.1.2' ],
+392 silly audit   'normalize-url': [ '6.1.0' ],
+392 silly audit   'npm-run-path': [ '4.0.1' ],
+392 silly audit   'nth-check': [ '2.1.1', '1.0.2' ],
+392 silly audit   nwsapi: [ '2.2.22' ],
+392 silly audit   'object-assign': [ '4.1.1' ],
+392 silly audit   'object-hash': [ '3.0.0' ],
+392 silly audit   'object-inspect': [ '1.13.4' ],
+392 silly audit   'object-keys': [ '1.1.1' ],
+392 silly audit   'object.assign': [ '4.1.7' ],
+392 silly audit   'object.entries': [ '1.1.9' ],
+392 silly audit   'object.fromentries': [ '2.0.8' ],
+392 silly audit   'object.getownpropertydescriptors': [ '2.1.8' ],
+392 silly audit   'object.groupby': [ '1.0.3' ],
+392 silly audit   'object.values': [ '1.2.1' ],
+392 silly audit   obuf: [ '1.1.2' ],
+392 silly audit   'on-finished': [ '2.4.1' ],
+392 silly audit   'on-headers': [ '1.1.0' ],
+392 silly audit   once: [ '1.4.0' ],
+392 silly audit   onetime: [ '5.1.2' ],
+392 silly audit   open: [ '8.4.2' ],
+392 silly audit   optionator: [ '0.9.4', '0.8.3' ],
+392 silly audit   'own-keys': [ '1.0.1' ],
+392 silly audit   'p-retry': [ '4.6.2' ],
+392 silly audit   'p-try': [ '2.2.0' ],
+392 silly audit   'package-json-from-dist': [ '1.0.1' ],
+392 silly audit   'param-case': [ '3.0.4' ],
+392 silly audit   'parent-module': [ '1.0.1' ],
+392 silly audit   'parse-json': [ '5.2.0' ],
+392 silly audit   parse5: [ '6.0.1' ],
+392 silly audit   parseurl: [ '1.3.3' ],
+392 silly audit   'pascal-case': [ '3.1.2' ],
+392 silly audit   'path-exists': [ '4.0.0', '3.0.0' ],
+392 silly audit   'path-is-absolute': [ '1.0.1' ],
+392 silly audit   'path-key': [ '3.1.1' ],
+392 silly audit   'path-parse': [ '1.0.7' ],
+392 silly audit   'path-scurry': [ '1.11.1' ],
+392 silly audit   'path-to-regexp': [ '0.1.12' ],
+392 silly audit   'path-type': [ '4.0.0' ],
+392 silly audit   'performance-now': [ '2.1.0' ],
+392 silly audit   picocolors: [ '1.1.1', '0.2.1' ],
+392 silly audit   picomatch: [ '2.3.1' ],
+392 silly audit   pify: [ '2.3.0' ],
+392 silly audit   pirates: [ '4.0.7' ],
+392 silly audit   'pkg-dir': [ '4.2.0' ],
+392 silly audit   'pkg-up': [ '3.1.0' ],
+392 silly audit   'possible-typed-array-names': [ '1.1.0' ],
+392 silly audit   postcss: [ '8.5.6', '7.0.39' ],
+392 silly audit   'postcss-attribute-case-insensitive': [ '5.0.2' ],
+392 silly audit   'postcss-browser-comments': [ '4.0.0' ],
+392 silly audit   'postcss-calc': [ '8.2.4' ],
+392 silly audit   'postcss-clamp': [ '4.1.0' ],
+392 silly audit   'postcss-color-functional-notation': [ '4.2.4' ],
+392 silly audit   'postcss-color-hex-alpha': [ '8.0.4' ],
+392 silly audit   'postcss-color-rebeccapurple': [ '7.1.1' ],
+392 silly audit   'postcss-colormin': [ '5.3.1' ],
+392 silly audit   'postcss-convert-values': [ '5.1.3' ],
+392 silly audit   'postcss-custom-media': [ '8.0.2' ],
+392 silly audit   'postcss-custom-properties': [ '12.1.11' ],
+392 silly audit   'postcss-custom-selectors': [ '6.0.3' ],
+392 silly audit   'postcss-dir-pseudo-class': [ '6.0.5' ],
+392 silly audit   'postcss-discard-comments': [ '5.1.2' ],
+392 silly audit   'postcss-discard-duplicates': [ '5.1.0' ],
+392 silly audit   'postcss-discard-empty': [ '5.1.1' ],
+392 silly audit   'postcss-discard-overridden': [ '5.1.0' ],
+392 silly audit   'postcss-double-position-gradients': [ '3.1.2' ],
+392 silly audit   'postcss-env-function': [ '4.0.6' ],
+392 silly audit   'postcss-flexbugs-fixes': [ '5.0.2' ],
+392 silly audit   'postcss-focus-visible': [ '6.0.4' ],
+392 silly audit   'postcss-focus-within': [ '5.0.4' ],
+392 silly audit   'postcss-font-variant': [ '5.0.0' ],
+392 silly audit   'postcss-gap-properties': [ '3.0.5' ],
+392 silly audit   'postcss-image-set-function': [ '4.0.7' ],
+392 silly audit   'postcss-import': [ '15.1.0' ],
+392 silly audit   'postcss-initial': [ '4.0.1' ],
+392 silly audit   'postcss-js': [ '4.0.1' ],
+392 silly audit   'postcss-lab-function': [ '4.2.1' ],
+392 silly audit   'postcss-load-config': [ '4.0.2' ],
+392 silly audit   yaml: [ '2.8.1', '1.10.2' ],
+392 silly audit   'postcss-loader': [ '6.2.1' ],
+392 silly audit   'postcss-logical': [ '5.0.4' ],
+392 silly audit   'postcss-media-minmax': [ '5.0.0' ],
+392 silly audit   'postcss-merge-longhand': [ '5.1.7' ],
+392 silly audit   'postcss-merge-rules': [ '5.1.4' ],
+392 silly audit   'postcss-minify-font-values': [ '5.1.0' ],
+392 silly audit   'postcss-minify-gradients': [ '5.1.1' ],
+392 silly audit   'postcss-minify-params': [ '5.1.4' ],
+392 silly audit   'postcss-minify-selectors': [ '5.2.1' ],
+392 silly audit   'postcss-modules-extract-imports': [ '3.1.0' ],
+392 silly audit   'postcss-modules-local-by-default': [ '4.2.0' ],
+392 silly audit   'postcss-selector-parser': [ '7.1.0', '6.1.2' ],
+392 silly audit   'postcss-modules-scope': [ '3.2.1' ],
+392 silly audit   'postcss-modules-values': [ '4.0.0' ],
+392 silly audit   'postcss-nested': [ '6.2.0' ],
+392 silly audit   'postcss-nesting': [ '10.2.0' ],
+392 silly audit   'postcss-normalize': [ '10.0.1' ],
+392 silly audit   'postcss-normalize-charset': [ '5.1.0' ],
+392 silly audit   'postcss-normalize-display-values': [ '5.1.0' ],
+392 silly audit   'postcss-normalize-positions': [ '5.1.1' ],
+392 silly audit   'postcss-normalize-repeat-style': [ '5.1.1' ],
+392 silly audit   'postcss-normalize-string': [ '5.1.0' ],
+392 silly audit   'postcss-normalize-timing-functions': [ '5.1.0' ],
+392 silly audit   'postcss-normalize-unicode': [ '5.1.1' ],
+392 silly audit   'postcss-normalize-url': [ '5.1.0' ],
+392 silly audit   'postcss-normalize-whitespace': [ '5.1.1' ],
+392 silly audit   'postcss-opacity-percentage': [ '1.1.3' ],
+392 silly audit   'postcss-ordered-values': [ '5.1.3' ],
+392 silly audit   'postcss-overflow-shorthand': [ '3.0.4' ],
+392 silly audit   'postcss-page-break': [ '3.0.4' ],
+392 silly audit   'postcss-place': [ '7.0.5' ],
+392 silly audit   'postcss-preset-env': [ '7.8.3' ],
+392 silly audit   'postcss-pseudo-class-any-link': [ '7.1.6' ],
+392 silly audit   'postcss-reduce-initial': [ '5.1.2' ],
+392 silly audit   'postcss-reduce-transforms': [ '5.1.0' ],
+392 silly audit   'postcss-replace-overflow-wrap': [ '4.0.0' ],
+392 silly audit   'postcss-selector-not': [ '6.0.1' ],
+392 silly audit   'postcss-svgo': [ '5.1.0' ],
+392 silly audit   svgo: [ '2.8.0', '1.3.2' ],
+392 silly audit   'postcss-unique-selectors': [ '5.1.1' ],
+392 silly audit   'postcss-value-parser': [ '4.2.0' ],
+392 silly audit   'prelude-ls': [ '1.2.1', '1.1.2' ],
+392 silly audit   'pretty-bytes': [ '5.6.0' ],
+392 silly audit   'pretty-error': [ '4.0.0' ],
+392 silly audit   'process-nextick-args': [ '2.0.1' ],
+392 silly audit   promise: [ '8.3.0' ],
+392 silly audit   prompts: [ '2.4.2' ],
+392 silly audit   'prop-types': [ '15.8.1' ],
+392 silly audit   'proxy-addr': [ '2.0.7' ],
+392 silly audit   psl: [ '1.15.0' ],
+392 silly audit   punycode: [ '2.3.1' ],
+392 silly audit   q: [ '1.5.1' ],
+392 silly audit   qs: [ '6.13.0' ],
+392 silly audit   querystringify: [ '2.2.0' ],
+392 silly audit   'queue-microtask': [ '1.2.3' ],
+392 silly audit   raf: [ '3.4.1' ],
+392 silly audit   randombytes: [ '2.1.0' ],
+392 silly audit   'range-parser': [ '1.2.1' ],
+392 silly audit   'raw-body': [ '2.5.2' ],
+392 silly audit   react: [ '19.1.1' ],
+392 silly audit   'react-app-polyfill': [ '3.0.0' ],
+392 silly audit   'react-dev-utils': [ '12.0.1' ],
+392 silly audit   'react-dom': [ '19.1.1' ],
+392 silly audit   'react-error-overlay': [ '6.1.0' ],
+392 silly audit   'react-refresh': [ '0.11.0' ],
+392 silly audit   'react-router': [ '7.9.1' ],
+392 silly audit   'react-router-dom': [ '7.9.1' ],
+392 silly audit   'react-scripts': [ '5.0.1' ],
+392 silly audit   'read-cache': [ '1.0.0' ],
+392 silly audit   readdirp: [ '3.6.0' ],
+392 silly audit   'recursive-readdir': [ '2.2.3' ],
+392 silly audit   redent: [ '3.0.0' ],
+392 silly audit   'reflect.getprototypeof': [ '1.0.10' ],
+392 silly audit   regenerate: [ '1.4.2' ],
+392 silly audit   'regenerate-unicode-properties': [ '10.2.2' ],
+392 silly audit   'regenerator-runtime': [ '0.13.11' ],
+392 silly audit   'regex-parser': [ '2.3.1' ],
+392 silly audit   'regexp.prototype.flags': [ '1.5.4' ],
+392 silly audit   'regexpu-core': [ '6.3.1' ],
+392 silly audit   regjsgen: [ '0.8.0' ],
+392 silly audit   regjsparser: [ '0.12.0' ],
+392 silly audit   relateurl: [ '0.2.7' ],
+392 silly audit   renderkid: [ '3.0.0' ],
+392 silly audit   'require-directory': [ '2.1.1' ],
+392 silly audit   'require-from-string': [ '2.0.2' ],
+392 silly audit   'requires-port': [ '1.0.0' ],
+392 silly audit   'resolve-cwd': [ '3.0.0' ],
+392 silly audit   'resolve-url-loader': [ '4.0.0' ],
+392 silly audit   'resolve.exports': [ '1.1.1' ],
+392 silly audit   retry: [ '0.13.1' ],
+392 silly audit   reusify: [ '1.1.0' ],
+392 silly audit   rimraf: [ '3.0.2' ],
+392 silly audit   rollup: [ '2.79.2' ],
+392 silly audit   'rollup-plugin-terser': [ '7.0.2' ],
+392 silly audit   'serialize-javascript': [ '4.0.0', '6.0.2' ],
+392 silly audit   'run-parallel': [ '1.2.0' ],
+392 silly audit   'safe-array-concat': [ '1.1.3' ],
+392 silly audit   'safe-push-apply': [ '1.0.0' ],
+392 silly audit   'safe-regex-test': [ '1.1.0' ],
+392 silly audit   'safer-buffer': [ '2.1.2' ],
+392 silly audit   'sanitize.css': [ '13.0.0' ],
+392 silly audit   'sass-loader': [ '12.6.0' ],
+392 silly audit   sax: [ '1.2.4' ],
+392 silly audit   saxes: [ '5.0.1' ],
+392 silly audit   scheduler: [ '0.26.0' ],
+392 silly audit   'select-hose': [ '2.0.0' ],
+392 silly audit   selfsigned: [ '2.4.1' ],
+392 silly audit   send: [ '0.19.0' ],
+392 silly audit   'serve-index': [ '1.9.1' ],
+392 silly audit   setprototypeof: [ '1.1.0', '1.2.0' ],
+392 silly audit   statuses: [ '1.5.0', '2.0.1' ],
+392 silly audit   'serve-static': [ '1.16.2' ],
+392 silly audit   'set-cookie-parser': [ '2.7.1' ],
+392 silly audit   'set-function-length': [ '1.2.2' ],
+392 silly audit   'set-function-name': [ '2.0.2' ],
+392 silly audit   'set-proto': [ '1.0.0' ],
+392 silly audit   'shebang-command': [ '2.0.0' ],
+392 silly audit   'shebang-regex': [ '3.0.0' ],
+392 silly audit   'shell-quote': [ '1.8.3' ],
+392 silly audit   'side-channel': [ '1.1.0' ],
+392 silly audit   'side-channel-list': [ '1.0.0' ],
+392 silly audit   'side-channel-map': [ '1.0.1' ],
+392 silly audit   'side-channel-weakmap': [ '1.0.2' ],
+392 silly audit   sisteransi: [ '1.0.5' ],
+392 silly audit   sockjs: [ '0.3.24' ],
+392 silly audit   'source-list-map': [ '2.0.1' ],
+392 silly audit   'source-map-js': [ '1.2.1' ],
+392 silly audit   'source-map-loader': [ '3.0.2' ],
+392 silly audit   'source-map-support': [ '0.5.21' ],
+392 silly audit   'sourcemap-codec': [ '1.4.8' ],
+392 silly audit   spdy: [ '4.0.2' ],
+392 silly audit   'spdy-transport': [ '3.0.0' ],
+392 silly audit   'sprintf-js': [ '1.0.3' ],
+392 silly audit   stable: [ '0.1.8' ],
+392 silly audit   'stack-utils': [ '2.0.6' ],
+392 silly audit   stackframe: [ '1.3.4' ],
+392 silly audit   'static-eval': [ '2.0.2' ],
+392 silly audit   'type-check': [ '0.3.2', '0.4.0' ],
+392 silly audit   'stop-iteration-iterator': [ '1.1.0' ],
+392 silly audit   'string-natural-compare': [ '3.0.1' ],
+392 silly audit   'string.prototype.includes': [ '2.0.1' ],
+392 silly audit   'string.prototype.matchall': [ '4.0.12' ],
+392 silly audit   'string.prototype.repeat': [ '1.0.0' ],
+392 silly audit   'string.prototype.trim': [ '1.2.10' ],
+392 silly audit   'string.prototype.trimend': [ '1.0.9' ],
+392 silly audit   'string.prototype.trimstart': [ '1.0.8' ],
+392 silly audit   'stringify-object': [ '3.3.0' ],
+392 silly audit   'strip-bom': [ '4.0.0', '3.0.0' ],
+392 silly audit   'strip-comments': [ '2.0.1' ],
+392 silly audit   'strip-final-newline': [ '2.0.0' ],
+392 silly audit   'strip-indent': [ '3.0.0' ],
+392 silly audit   'strip-json-comments': [ '3.1.1' ],
+392 silly audit   'style-loader': [ '3.3.4' ],
+392 silly audit   stylehacks: [ '5.1.1' ],
+392 silly audit   sucrase: [ '3.35.0' ],
+392 silly audit   'supports-hyperlinks': [ '2.3.0' ],
+392 silly audit   'supports-preserve-symlinks-flag': [ '1.0.0' ],
+392 silly audit   'svg-parser': [ '2.0.4' ],
+392 silly audit   'symbol-tree': [ '3.2.4' ],
+392 silly audit   tailwindcss: [ '3.4.17' ],
+392 silly audit   'temp-dir': [ '2.0.0' ],
+392 silly audit   tempy: [ '0.6.0' ],
+392 silly audit   'terminal-link': [ '2.1.1' ],
+392 silly audit   terser: [ '5.44.0' ],
+392 silly audit   'terser-webpack-plugin': [ '5.3.14' ],
+392 silly audit   'test-exclude': [ '6.0.0' ],
+392 silly audit   'text-table': [ '0.2.0' ],
+392 silly audit   thenify: [ '3.3.1' ],
+392 silly audit   'thenify-all': [ '1.6.0' ],
+392 silly audit   throat: [ '6.0.2' ],
+392 silly audit   thunky: [ '1.1.0' ],
+392 silly audit   tmpl: [ '1.0.5' ],
+392 silly audit   'to-regex-range': [ '5.0.1' ],
+392 silly audit   toidentifier: [ '1.0.1' ],
+392 silly audit   'tough-cookie': [ '4.1.4' ],
+392 silly audit   universalify: [ '0.2.0', '2.0.1' ],
+392 silly audit   tr46: [ '2.1.0', '1.0.1' ],
+392 silly audit   tryer: [ '1.0.1' ],
+392 silly audit   'ts-interface-checker': [ '0.1.13' ],
+392 silly audit   'tsconfig-paths': [ '3.15.0' ],
+392 silly audit   tslib: [ '2.8.1', '1.14.1' ],
+392 silly audit   tsutils: [ '3.21.0' ],
+392 silly audit   'type-detect': [ '4.0.8' ],
+392 silly audit   'type-is': [ '1.6.18' ],
+392 silly audit   'typed-array-buffer': [ '1.0.3' ],
+392 silly audit   'typed-array-byte-length': [ '1.0.3' ],
+392 silly audit   'typed-array-byte-offset': [ '1.0.4' ],
+392 silly audit   'typed-array-length': [ '1.0.7' ],
+392 silly audit   'typedarray-to-buffer': [ '3.1.5' ],
+392 silly audit   typescript: [ '4.9.5' ],
+392 silly audit   'unbox-primitive': [ '1.1.0' ],
+392 silly audit   underscore: [ '1.12.1' ],
+392 silly audit   'unicode-canonical-property-names-ecmascript': [ '2.0.1' ],
+392 silly audit   'unicode-match-property-ecmascript': [ '2.0.0' ],
+392 silly audit   'unicode-match-property-value-ecmascript': [ '2.2.1' ],
+392 silly audit   'unicode-property-aliases-ecmascript': [ '2.2.0' ],
+392 silly audit   'unique-string': [ '2.0.0' ],
+392 silly audit   unpipe: [ '1.0.0' ],
+392 silly audit   unquote: [ '1.1.1' ],
+392 silly audit   upath: [ '1.2.0' ],
+392 silly audit   'update-browserslist-db': [ '1.1.3' ],
+392 silly audit   'uri-js': [ '4.4.1' ],
+392 silly audit   'url-parse': [ '1.5.10' ],
+392 silly audit   'util-deprecate': [ '1.0.2' ],
+392 silly audit   'util.promisify': [ '1.0.1' ],
+392 silly audit   utila: [ '0.4.0' ],
+392 silly audit   'utils-merge': [ '1.0.1' ],
+392 silly audit   uuid: [ '8.3.2' ],
+392 silly audit   'v8-to-istanbul': [ '8.1.1' ],
+392 silly audit   vary: [ '1.1.2' ],
+392 silly audit   'w3c-hr-time': [ '1.0.2' ],
+392 silly audit   'w3c-xmlserializer': [ '2.0.0' ],
+392 silly audit   walker: [ '1.0.8' ],
+392 silly audit   watchpack: [ '2.4.4' ],
+392 silly audit   wbuf: [ '1.7.3' ],
+392 silly audit   'web-vitals': [ '2.1.4', '4.2.4' ],
+392 silly audit   webpack: [ '5.101.3' ],
+392 silly audit   'webpack-dev-middleware': [ '5.3.4' ],
+392 silly audit   'webpack-dev-server': [ '4.15.2' ],
+392 silly audit   ws: [ '8.18.3', '7.5.10' ],
+392 silly audit   'webpack-manifest-plugin': [ '4.1.1' ],
+392 silly audit   'webpack-sources': [ '2.3.1', '3.3.3', '1.4.3' ],
+392 silly audit   'websocket-driver': [ '0.7.4' ],
+392 silly audit   'websocket-extensions': [ '0.1.4' ],
+392 silly audit   'whatwg-encoding': [ '1.0.5' ],
+392 silly audit   'whatwg-fetch': [ '3.6.20' ],
+392 silly audit   'whatwg-mimetype': [ '2.3.0' ],
+392 silly audit   'whatwg-url': [ '8.7.0', '7.1.0' ],
+392 silly audit   'which-boxed-primitive': [ '1.1.1' ],
+392 silly audit   'which-builtin-type': [ '1.2.1' ],
+392 silly audit   'which-collection': [ '1.0.2' ],
+392 silly audit   'which-typed-array': [ '1.1.19' ],
+392 silly audit   'word-wrap': [ '1.2.5' ],
+392 silly audit   'workbox-background-sync': [ '6.6.0' ],
+392 silly audit   'workbox-broadcast-update': [ '6.6.0' ],
+392 silly audit   'workbox-build': [ '6.6.0' ],
+392 silly audit   '@apideck/better-ajv-errors': [ '0.3.6' ],
+392 silly audit   'workbox-cacheable-response': [ '6.6.0' ],
+392 silly audit   'workbox-core': [ '6.6.0' ],
+392 silly audit   'workbox-expiration': [ '6.6.0' ],
+392 silly audit   'workbox-google-analytics': [ '6.6.0' ],
+392 silly audit   'workbox-navigation-preload': [ '6.6.0' ],
+392 silly audit   'workbox-precaching': [ '6.6.0' ],
+392 silly audit   'workbox-range-requests': [ '6.6.0' ],
+392 silly audit   'workbox-recipes': [ '6.6.0' ],
+392 silly audit   'workbox-routing': [ '6.6.0' ],
+392 silly audit   'workbox-strategies': [ '6.6.0' ],
+392 silly audit   'workbox-streams': [ '6.6.0' ],
+392 silly audit   'workbox-sw': [ '6.6.0' ],
+392 silly audit   'workbox-webpack-plugin': [ '6.6.0' ],
+392 silly audit   'workbox-window': [ '6.6.0' ],
+392 silly audit   wrappy: [ '1.0.2' ],
+392 silly audit   'write-file-atomic': [ '3.0.3' ],
+392 silly audit   'xml-name-validator': [ '3.0.0' ],
+392 silly audit   xmlchars: [ '2.2.0' ],
+392 silly audit   y18n: [ '5.0.8' ],
+392 silly audit   yallist: [ '3.1.1' ],
+392 silly audit   yargs: [ '16.2.0', '17.7.2' ],
+392 silly audit   'yargs-parser': [ '20.2.9', '21.1.1' ],
+392 silly audit   'yocto-queue': [ '0.1.0' ],
+392 silly audit   firebase: [ '12.3.0' ],
+392 silly audit   '@firebase/ai': [ '2.3.0' ],
+392 silly audit   '@firebase/app': [ '0.14.3' ],
+392 silly audit   '@firebase/app-types': [ '0.9.3' ],
+392 silly audit   '@firebase/analytics': [ '0.10.18' ],
+392 silly audit   '@firebase/analytics-compat': [ '0.2.24' ],
+392 silly audit   '@firebase/app-compat': [ '0.5.3' ],
+392 silly audit   '@firebase/app-check': [ '0.11.0' ],
+392 silly audit   '@firebase/app-check-compat': [ '0.4.0' ],
+392 silly audit   '@firebase/auth': [ '1.11.0' ],
+392 silly audit   '@firebase/auth-compat': [ '0.6.0' ],
+392 silly audit   '@firebase/data-connect': [ '0.3.11' ],
+392 silly audit   '@firebase/database': [ '1.1.0' ],
+392 silly audit   '@firebase/database-compat': [ '2.1.0' ],
+392 silly audit   '@firebase/firestore': [ '4.9.2' ],
+392 silly audit   '@firebase/firestore-compat': [ '0.4.2' ],
+392 silly audit   '@firebase/functions': [ '0.13.1' ],
+392 silly audit   '@firebase/functions-compat': [ '0.4.1' ],
+392 silly audit   '@firebase/installations': [ '0.6.19' ],
+392 silly audit   '@firebase/installations-compat': [ '0.2.19' ],
+392 silly audit   '@firebase/messaging': [ '0.12.23' ],
+392 silly audit   '@firebase/messaging-compat': [ '0.2.23' ],
+392 silly audit   '@firebase/performance': [ '0.7.9' ],
+392 silly audit   '@firebase/performance-compat': [ '0.2.22' ],
+392 silly audit   '@firebase/remote-config': [ '0.7.0' ],
+392 silly audit   '@firebase/remote-config-compat': [ '0.2.20' ],
+392 silly audit   '@firebase/storage': [ '0.14.0' ],
+392 silly audit   '@firebase/storage-compat': [ '0.4.0' ],
+392 silly audit   '@firebase/util': [ '1.13.0' ],
+392 silly audit   '@firebase/app-check-interop-types': [ '0.3.3' ],
+392 silly audit   '@firebase/component': [ '0.7.0' ],
+392 silly audit   '@firebase/logger': [ '0.5.0' ],
+392 silly audit   '@firebase/analytics-types': [ '0.8.3' ],
+392 silly audit   '@firebase/app-check-types': [ '0.5.3' ],
+392 silly audit   '@firebase/auth-types': [ '0.13.0' ],
+392 silly audit   '@firebase/auth-interop-types': [ '0.2.4' ],
+392 silly audit   '@firebase/database-types': [ '1.0.16' ],
+392 silly audit   '@firebase/webchannel-wrapper': [ '1.0.5' ],
+392 silly audit   '@grpc/grpc-js': [ '1.9.15' ],
+392 silly audit   '@grpc/proto-loader': [ '0.7.15' ],
+392 silly audit   '@firebase/firestore-types': [ '3.0.3' ],
+392 silly audit   '@firebase/messaging-interop-types': [ '0.2.3' ],
+392 silly audit   '@firebase/functions-types': [ '0.6.3' ],
+392 silly audit   '@firebase/installations-types': [ '0.5.3' ],
+392 silly audit   '@firebase/performance-types': [ '0.2.3' ],
+392 silly audit   '@firebase/remote-config-types': [ '0.5.0' ],
+392 silly audit   '@firebase/storage-types': [ '0.8.3' ],
+392 silly audit   'lodash.camelcase': [ '4.3.0' ],
+392 silly audit   long: [ '5.3.2' ],
+392 silly audit   protobufjs: [ '7.5.4' ],
+392 silly audit   '@protobufjs/aspromise': [ '1.1.2' ],
+392 silly audit   '@protobufjs/base64': [ '1.1.2' ],
+392 silly audit   '@protobufjs/codegen': [ '2.0.4' ],
+392 silly audit   '@protobufjs/eventemitter': [ '1.1.0' ],
+392 silly audit   '@protobufjs/fetch': [ '1.1.0' ],
+392 silly audit   '@protobufjs/float': [ '1.0.2' ],
+392 silly audit   '@protobufjs/inquire': [ '1.1.0' ],
+392 silly audit   '@protobufjs/path': [ '1.1.2' ],
+392 silly audit   '@protobufjs/pool': [ '1.1.0' ],
+392 silly audit   '@protobufjs/utf8': [ '1.1.0' ]
+392 silly audit }
+393 http cache @protobufjs/utf8@https://registry.npmjs.org/@protobufjs/utf8/-/utf8-1.1.0.tgz 0ms (cache hit)
+394 http cache @protobufjs/pool@https://registry.npmjs.org/@protobufjs/pool/-/pool-1.1.0.tgz 0ms (cache hit)
+395 http cache @protobufjs/inquire@https://registry.npmjs.org/@protobufjs/inquire/-/inquire-1.1.0.tgz 0ms (cache hit)
+396 http cache @protobufjs/eventemitter@https://registry.npmjs.org/@protobufjs/eventemitter/-/eventemitter-1.1.0.tgz 0ms (cache hit)
+397 http cache @protobufjs/codegen@https://registry.npmjs.org/@protobufjs/codegen/-/codegen-2.0.4.tgz 0ms (cache hit)
+398 http cache @protobufjs/base64@https://registry.npmjs.org/@protobufjs/base64/-/base64-1.1.2.tgz 0ms (cache hit)
+399 http cache @protobufjs/fetch@https://registry.npmjs.org/@protobufjs/fetch/-/fetch-1.1.0.tgz 0ms (cache hit)
+400 http cache long@https://registry.npmjs.org/long/-/long-5.3.2.tgz 0ms (cache hit)
+401 http cache @protobufjs/aspromise@https://registry.npmjs.org/@protobufjs/aspromise/-/aspromise-1.1.2.tgz 0ms (cache hit)
+402 http cache @protobufjs/path@https://registry.npmjs.org/@protobufjs/path/-/path-1.1.2.tgz 0ms (cache hit)
+403 http cache @protobufjs/float@https://registry.npmjs.org/@protobufjs/float/-/float-1.0.2.tgz 0ms (cache hit)
+404 http cache protobufjs@https://registry.npmjs.org/protobufjs/-/protobufjs-7.5.4.tgz 0ms (cache hit)
+405 http cache @firebase/functions-types@https://registry.npmjs.org/@firebase/functions-types/-/functions-types-0.6.3.tgz 0ms (cache hit)
+406 http cache @firebase/installations-types@https://registry.npmjs.org/@firebase/installations-types/-/installations-types-0.5.3.tgz 0ms (cache hit)
+407 http cache @firebase/messaging-interop-types@https://registry.npmjs.org/@firebase/messaging-interop-types/-/messaging-interop-types-0.2.3.tgz 0ms (cache hit)
+408 http cache @firebase/firestore-types@https://registry.npmjs.org/@firebase/firestore-types/-/firestore-types-3.0.3.tgz 0ms (cache hit)
+409 http cache @grpc/proto-loader@https://registry.npmjs.org/@grpc/proto-loader/-/proto-loader-0.7.15.tgz 0ms (cache hit)
+410 http cache @grpc/grpc-js@https://registry.npmjs.org/@grpc/grpc-js/-/grpc-js-1.9.15.tgz 0ms (cache hit)
+411 http cache @firebase/database-types@https://registry.npmjs.org/@firebase/database-types/-/database-types-1.0.16.tgz 0ms (cache hit)
+412 http cache @firebase/remote-config-types@https://registry.npmjs.org/@firebase/remote-config-types/-/remote-config-types-0.5.0.tgz 0ms (cache hit)
+413 http cache @firebase/auth-interop-types@https://registry.npmjs.org/@firebase/auth-interop-types/-/auth-interop-types-0.2.4.tgz 0ms (cache hit)
+414 http cache @firebase/auth-types@https://registry.npmjs.org/@firebase/auth-types/-/auth-types-0.13.0.tgz 0ms (cache hit)
+415 http cache @firebase/performance-types@https://registry.npmjs.org/@firebase/performance-types/-/performance-types-0.2.3.tgz 0ms (cache hit)
+416 http cache lodash.camelcase@https://registry.npmjs.org/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz 0ms (cache hit)
+417 http cache @firebase/analytics-types@https://registry.npmjs.org/@firebase/analytics-types/-/analytics-types-0.8.3.tgz 0ms (cache hit)
+418 http cache @firebase/webchannel-wrapper@https://registry.npmjs.org/@firebase/webchannel-wrapper/-/webchannel-wrapper-1.0.5.tgz 0ms (cache hit)
+419 http cache @firebase/app-check-types@https://registry.npmjs.org/@firebase/app-check-types/-/app-check-types-0.5.3.tgz 0ms (cache hit)
+420 http cache @firebase/component@https://registry.npmjs.org/@firebase/component/-/component-0.7.0.tgz 0ms (cache hit)
+421 http cache @firebase/logger@https://registry.npmjs.org/@firebase/logger/-/logger-0.5.0.tgz 0ms (cache hit)
+422 http cache @firebase/app-check-interop-types@https://registry.npmjs.org/@firebase/app-check-interop-types/-/app-check-interop-types-0.3.3.tgz 0ms (cache hit)
+423 http cache @firebase/util@https://registry.npmjs.org/@firebase/util/-/util-1.13.0.tgz 0ms (cache hit)
+424 http cache @firebase/remote-config@https://registry.npmjs.org/@firebase/remote-config/-/remote-config-0.7.0.tgz 0ms (cache hit)
+425 http cache @firebase/storage@https://registry.npmjs.org/@firebase/storage/-/storage-0.14.0.tgz 0ms (cache hit)
+426 http cache @firebase/performance-compat@https://registry.npmjs.org/@firebase/performance-compat/-/performance-compat-0.2.22.tgz 0ms (cache hit)
+427 http cache @firebase/storage-compat@https://registry.npmjs.org/@firebase/storage-compat/-/storage-compat-0.4.0.tgz 0ms (cache hit)
+428 http cache @firebase/remote-config-compat@https://registry.npmjs.org/@firebase/remote-config-compat/-/remote-config-compat-0.2.20.tgz 0ms (cache hit)
+429 http cache @firebase/performance@https://registry.npmjs.org/@firebase/performance/-/performance-0.7.9.tgz 0ms (cache hit)
+430 http cache @firebase/messaging@https://registry.npmjs.org/@firebase/messaging/-/messaging-0.12.23.tgz 0ms (cache hit)
+431 http cache @firebase/messaging-compat@https://registry.npmjs.org/@firebase/messaging-compat/-/messaging-compat-0.2.23.tgz 0ms (cache hit)
+432 http cache @firebase/installations-compat@https://registry.npmjs.org/@firebase/installations-compat/-/installations-compat-0.2.19.tgz 0ms (cache hit)
+433 http cache @firebase/installations@https://registry.npmjs.org/@firebase/installations/-/installations-0.6.19.tgz 0ms (cache hit)
+434 http cache @firebase/functions-compat@https://registry.npmjs.org/@firebase/functions-compat/-/functions-compat-0.4.1.tgz 0ms (cache hit)
+435 http cache @firebase/firestore@https://registry.npmjs.org/@firebase/firestore/-/firestore-4.9.2.tgz 0ms (cache hit)
+436 http cache @firebase/functions@https://registry.npmjs.org/@firebase/functions/-/functions-0.13.1.tgz 0ms (cache hit)
+437 http cache @firebase/storage-types@https://registry.npmjs.org/@firebase/storage-types/-/storage-types-0.8.3.tgz 0ms (cache hit)
+438 http cache @firebase/database-compat@https://registry.npmjs.org/@firebase/database-compat/-/database-compat-2.1.0.tgz 0ms (cache hit)
+439 http cache @firebase/database@https://registry.npmjs.org/@firebase/database/-/database-1.1.0.tgz 0ms (cache hit)
+440 http cache @firebase/firestore-compat@https://registry.npmjs.org/@firebase/firestore-compat/-/firestore-compat-0.4.2.tgz 0ms (cache hit)
+441 http cache @firebase/data-connect@https://registry.npmjs.org/@firebase/data-connect/-/data-connect-0.3.11.tgz 0ms (cache hit)
+442 http cache @firebase/app-check-compat@https://registry.npmjs.org/@firebase/app-check-compat/-/app-check-compat-0.4.0.tgz 0ms (cache hit)
+443 http cache @firebase/auth@https://registry.npmjs.org/@firebase/auth/-/auth-1.11.0.tgz 0ms (cache hit)
+444 http cache @firebase/auth-compat@https://registry.npmjs.org/@firebase/auth-compat/-/auth-compat-0.6.0.tgz 0ms (cache hit)
+445 http cache @firebase/app-compat@https://registry.npmjs.org/@firebase/app-compat/-/app-compat-0.5.3.tgz 0ms (cache hit)
+446 http cache @firebase/analytics@https://registry.npmjs.org/@firebase/analytics/-/analytics-0.10.18.tgz 0ms (cache hit)
+447 http cache @firebase/app-check@https://registry.npmjs.org/@firebase/app-check/-/app-check-0.11.0.tgz 0ms (cache hit)
+448 http cache @firebase/analytics-compat@https://registry.npmjs.org/@firebase/analytics-compat/-/analytics-compat-0.2.24.tgz 0ms (cache hit)
+449 http cache @firebase/app-types@https://registry.npmjs.org/@firebase/app-types/-/app-types-0.9.3.tgz 0ms (cache hit)
+450 http cache @firebase/app@https://registry.npmjs.org/@firebase/app/-/app-0.14.3.tgz 0ms (cache hit)
+451 http cache yargs@https://registry.npmjs.org/yargs/-/yargs-17.7.2.tgz 0ms (cache hit)
+452 http cache cliui@https://registry.npmjs.org/cliui/-/cliui-8.0.1.tgz 0ms (cache hit)
+453 http cache firebase@https://registry.npmjs.org/firebase/-/firebase-12.3.0.tgz 0ms (cache hit)
+454 http cache yargs-parser@https://registry.npmjs.org/yargs-parser/-/yargs-parser-21.1.1.tgz 0ms (cache hit)
+455 http cache @firebase/ai@https://registry.npmjs.org/@firebase/ai/-/ai-2.3.0.tgz 0ms (cache hit)
+456 http cache web-vitals@https://registry.npmjs.org/web-vitals/-/web-vitals-4.2.4.tgz 0ms (cache hit)
+457 silly tarball no local data for @protobufjs/utf8@https://registry.npmjs.org/@protobufjs/utf8/-/utf8-1.1.0.tgz. Extracting by manifest.
+458 silly tarball no local data for @protobufjs/pool@https://registry.npmjs.org/@protobufjs/pool/-/pool-1.1.0.tgz. Extracting by manifest.
+459 silly tarball no local data for @protobufjs/inquire@https://registry.npmjs.org/@protobufjs/inquire/-/inquire-1.1.0.tgz. Extracting by manifest.
+460 silly tarball no local data for @protobufjs/eventemitter@https://registry.npmjs.org/@protobufjs/eventemitter/-/eventemitter-1.1.0.tgz. Extracting by manifest.
+461 silly tarball no local data for @protobufjs/codegen@https://registry.npmjs.org/@protobufjs/codegen/-/codegen-2.0.4.tgz. Extracting by manifest.
+462 silly tarball no local data for @protobufjs/base64@https://registry.npmjs.org/@protobufjs/base64/-/base64-1.1.2.tgz. Extracting by manifest.
+463 silly tarball no local data for @protobufjs/fetch@https://registry.npmjs.org/@protobufjs/fetch/-/fetch-1.1.0.tgz. Extracting by manifest.
+464 silly tarball no local data for long@https://registry.npmjs.org/long/-/long-5.3.2.tgz. Extracting by manifest.
+465 silly tarball no local data for @protobufjs/aspromise@https://registry.npmjs.org/@protobufjs/aspromise/-/aspromise-1.1.2.tgz. Extracting by manifest.
+466 silly tarball no local data for @protobufjs/path@https://registry.npmjs.org/@protobufjs/path/-/path-1.1.2.tgz. Extracting by manifest.
+467 silly tarball no local data for @protobufjs/float@https://registry.npmjs.org/@protobufjs/float/-/float-1.0.2.tgz. Extracting by manifest.
+468 silly tarball no local data for protobufjs@https://registry.npmjs.org/protobufjs/-/protobufjs-7.5.4.tgz. Extracting by manifest.
+469 silly tarball no local data for @firebase/functions-types@https://registry.npmjs.org/@firebase/functions-types/-/functions-types-0.6.3.tgz. Extracting by manifest.
+470 silly tarball no local data for @firebase/installations-types@https://registry.npmjs.org/@firebase/installations-types/-/installations-types-0.5.3.tgz. Extracting by manifest.
+471 silly tarball no local data for @firebase/messaging-interop-types@https://registry.npmjs.org/@firebase/messaging-interop-types/-/messaging-interop-types-0.2.3.tgz. Extracting by manifest.
+472 silly tarball no local data for @firebase/firestore-types@https://registry.npmjs.org/@firebase/firestore-types/-/firestore-types-3.0.3.tgz. Extracting by manifest.
+473 silly tarball no local data for @grpc/proto-loader@https://registry.npmjs.org/@grpc/proto-loader/-/proto-loader-0.7.15.tgz. Extracting by manifest.
+474 silly tarball no local data for @grpc/grpc-js@https://registry.npmjs.org/@grpc/grpc-js/-/grpc-js-1.9.15.tgz. Extracting by manifest.
+475 silly tarball no local data for @firebase/database-types@https://registry.npmjs.org/@firebase/database-types/-/database-types-1.0.16.tgz. Extracting by manifest.
+476 silly tarball no local data for @firebase/remote-config-types@https://registry.npmjs.org/@firebase/remote-config-types/-/remote-config-types-0.5.0.tgz. Extracting by manifest.
+477 silly tarball no local data for @firebase/auth-interop-types@https://registry.npmjs.org/@firebase/auth-interop-types/-/auth-interop-types-0.2.4.tgz. Extracting by manifest.
+478 silly tarball no local data for @firebase/auth-types@https://registry.npmjs.org/@firebase/auth-types/-/auth-types-0.13.0.tgz. Extracting by manifest.
+479 silly tarball no local data for @firebase/performance-types@https://registry.npmjs.org/@firebase/performance-types/-/performance-types-0.2.3.tgz. Extracting by manifest.
+480 silly tarball no local data for lodash.camelcase@https://registry.npmjs.org/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz. Extracting by manifest.
+481 silly tarball no local data for @firebase/analytics-types@https://registry.npmjs.org/@firebase/analytics-types/-/analytics-types-0.8.3.tgz. Extracting by manifest.
+482 silly tarball no local data for @firebase/webchannel-wrapper@https://registry.npmjs.org/@firebase/webchannel-wrapper/-/webchannel-wrapper-1.0.5.tgz. Extracting by manifest.
+483 silly tarball no local data for @firebase/app-check-types@https://registry.npmjs.org/@firebase/app-check-types/-/app-check-types-0.5.3.tgz. Extracting by manifest.
+484 silly tarball no local data for @firebase/component@https://registry.npmjs.org/@firebase/component/-/component-0.7.0.tgz. Extracting by manifest.
+485 silly tarball no local data for @firebase/logger@https://registry.npmjs.org/@firebase/logger/-/logger-0.5.0.tgz. Extracting by manifest.
+486 silly tarball no local data for @firebase/app-check-interop-types@https://registry.npmjs.org/@firebase/app-check-interop-types/-/app-check-interop-types-0.3.3.tgz. Extracting by manifest.
+487 silly tarball no local data for @firebase/util@https://registry.npmjs.org/@firebase/util/-/util-1.13.0.tgz. Extracting by manifest.
+488 silly tarball no local data for @firebase/remote-config@https://registry.npmjs.org/@firebase/remote-config/-/remote-config-0.7.0.tgz. Extracting by manifest.
+489 silly tarball no local data for @firebase/storage@https://registry.npmjs.org/@firebase/storage/-/storage-0.14.0.tgz. Extracting by manifest.
+490 silly tarball no local data for @firebase/performance-compat@https://registry.npmjs.org/@firebase/performance-compat/-/performance-compat-0.2.22.tgz. Extracting by manifest.
+491 silly tarball no local data for @firebase/storage-compat@https://registry.npmjs.org/@firebase/storage-compat/-/storage-compat-0.4.0.tgz. Extracting by manifest.
+492 silly tarball no local data for @firebase/remote-config-compat@https://registry.npmjs.org/@firebase/remote-config-compat/-/remote-config-compat-0.2.20.tgz. Extracting by manifest.
+493 silly tarball no local data for @firebase/performance@https://registry.npmjs.org/@firebase/performance/-/performance-0.7.9.tgz. Extracting by manifest.
+494 silly tarball no local data for @firebase/messaging@https://registry.npmjs.org/@firebase/messaging/-/messaging-0.12.23.tgz. Extracting by manifest.
+495 silly tarball no local data for @firebase/messaging-compat@https://registry.npmjs.org/@firebase/messaging-compat/-/messaging-compat-0.2.23.tgz. Extracting by manifest.
+496 silly tarball no local data for @firebase/installations-compat@https://registry.npmjs.org/@firebase/installations-compat/-/installations-compat-0.2.19.tgz. Extracting by manifest.
+497 silly tarball no local data for @firebase/installations@https://registry.npmjs.org/@firebase/installations/-/installations-0.6.19.tgz. Extracting by manifest.
+498 silly tarball no local data for @firebase/functions-compat@https://registry.npmjs.org/@firebase/functions-compat/-/functions-compat-0.4.1.tgz. Extracting by manifest.
+499 silly tarball no local data for @firebase/firestore@https://registry.npmjs.org/@firebase/firestore/-/firestore-4.9.2.tgz. Extracting by manifest.
+500 silly tarball no local data for @firebase/functions@https://registry.npmjs.org/@firebase/functions/-/functions-0.13.1.tgz. Extracting by manifest.
+501 silly tarball no local data for @firebase/storage-types@https://registry.npmjs.org/@firebase/storage-types/-/storage-types-0.8.3.tgz. Extracting by manifest.
+502 silly tarball no local data for @firebase/database-compat@https://registry.npmjs.org/@firebase/database-compat/-/database-compat-2.1.0.tgz. Extracting by manifest.
+503 silly tarball no local data for @firebase/database@https://registry.npmjs.org/@firebase/database/-/database-1.1.0.tgz. Extracting by manifest.
+504 silly tarball no local data for @firebase/firestore-compat@https://registry.npmjs.org/@firebase/firestore-compat/-/firestore-compat-0.4.2.tgz. Extracting by manifest.
+505 silly tarball no local data for @firebase/data-connect@https://registry.npmjs.org/@firebase/data-connect/-/data-connect-0.3.11.tgz. Extracting by manifest.
+506 silly tarball no local data for @firebase/app-check-compat@https://registry.npmjs.org/@firebase/app-check-compat/-/app-check-compat-0.4.0.tgz. Extracting by manifest.
+507 silly tarball no local data for @firebase/auth@https://registry.npmjs.org/@firebase/auth/-/auth-1.11.0.tgz. Extracting by manifest.
+508 silly tarball no local data for @firebase/auth-compat@https://registry.npmjs.org/@firebase/auth-compat/-/auth-compat-0.6.0.tgz. Extracting by manifest.
+509 silly tarball no local data for @firebase/app-compat@https://registry.npmjs.org/@firebase/app-compat/-/app-compat-0.5.3.tgz. Extracting by manifest.
+510 silly tarball no local data for @firebase/analytics@https://registry.npmjs.org/@firebase/analytics/-/analytics-0.10.18.tgz. Extracting by manifest.
+511 silly tarball no local data for @firebase/app-check@https://registry.npmjs.org/@firebase/app-check/-/app-check-0.11.0.tgz. Extracting by manifest.
+512 silly tarball no local data for @firebase/analytics-compat@https://registry.npmjs.org/@firebase/analytics-compat/-/analytics-compat-0.2.24.tgz. Extracting by manifest.
+513 silly tarball no local data for @firebase/app-types@https://registry.npmjs.org/@firebase/app-types/-/app-types-0.9.3.tgz. Extracting by manifest.
+514 silly tarball no local data for @firebase/app@https://registry.npmjs.org/@firebase/app/-/app-0.14.3.tgz. Extracting by manifest.
+515 silly tarball no local data for yargs@https://registry.npmjs.org/yargs/-/yargs-17.7.2.tgz. Extracting by manifest.
+516 silly tarball no local data for cliui@https://registry.npmjs.org/cliui/-/cliui-8.0.1.tgz. Extracting by manifest.
+517 silly tarball no local data for firebase@https://registry.npmjs.org/firebase/-/firebase-12.3.0.tgz. Extracting by manifest.
+518 silly tarball no local data for yargs-parser@https://registry.npmjs.org/yargs-parser/-/yargs-parser-21.1.1.tgz. Extracting by manifest.
+519 silly tarball no local data for @firebase/ai@https://registry.npmjs.org/@firebase/ai/-/ai-2.3.0.tgz. Extracting by manifest.
+520 silly tarball no local data for web-vitals@https://registry.npmjs.org/web-vitals/-/web-vitals-4.2.4.tgz. Extracting by manifest.
+521 http fetch GET 200 https://registry.npmjs.org/long/-/long-5.3.2.tgz 43ms (cache miss)
+522 http fetch GET 200 https://registry.npmjs.org/@protobufjs/fetch/-/fetch-1.1.0.tgz 44ms (cache miss)
+523 http fetch GET 200 https://registry.npmjs.org/@protobufjs/base64/-/base64-1.1.2.tgz 55ms (cache miss)
+524 http fetch GET 200 https://registry.npmjs.org/@protobufjs/codegen/-/codegen-2.0.4.tgz 59ms (cache miss)
+525 http fetch GET 200 https://registry.npmjs.org/@protobufjs/pool/-/pool-1.1.0.tgz 59ms (cache miss)
+526 http fetch GET 200 https://registry.npmjs.org/@protobufjs/utf8/-/utf8-1.1.0.tgz 64ms (cache miss)
+527 http fetch GET 200 https://registry.npmjs.org/@protobufjs/eventemitter/-/eventemitter-1.1.0.tgz 79ms (cache miss)
+528 http fetch GET 200 https://registry.npmjs.org/@firebase/installations-types/-/installations-types-0.5.3.tgz 81ms (cache miss)
+529 http fetch GET 200 https://registry.npmjs.org/@protobufjs/aspromise/-/aspromise-1.1.2.tgz 87ms (cache miss)
+530 http fetch GET 200 https://registry.npmjs.org/@protobufjs/path/-/path-1.1.2.tgz 97ms (cache miss)
+531 http fetch GET 200 https://registry.npmjs.org/@firebase/messaging-interop-types/-/messaging-interop-types-0.2.3.tgz 97ms (cache miss)
+532 http fetch GET 200 https://registry.npmjs.org/@protobufjs/inquire/-/inquire-1.1.0.tgz 98ms (cache miss)
+533 http fetch GET 200 https://registry.npmjs.org/@grpc/proto-loader/-/proto-loader-0.7.15.tgz 125ms (cache miss)
+534 http fetch GET 200 https://registry.npmjs.org/@firebase/remote-config-types/-/remote-config-types-0.5.0.tgz 129ms (cache miss)
+535 http fetch GET 200 https://registry.npmjs.org/@protobufjs/float/-/float-1.0.2.tgz 130ms (cache miss)
+536 http fetch GET 200 https://registry.npmjs.org/protobufjs/-/protobufjs-7.5.4.tgz 131ms (cache miss)
+537 http fetch GET 200 https://registry.npmjs.org/@firebase/functions-types/-/functions-types-0.6.3.tgz 131ms (cache miss)
+538 http fetch GET 200 https://registry.npmjs.org/@firebase/database-types/-/database-types-1.0.16.tgz 131ms (cache miss)
+539 http fetch GET 200 https://registry.npmjs.org/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz 131ms (cache miss)
+540 http fetch GET 200 https://registry.npmjs.org/@firebase/auth-interop-types/-/auth-interop-types-0.2.4.tgz 133ms (cache miss)
+541 http fetch GET 200 https://registry.npmjs.org/@firebase/auth-types/-/auth-types-0.13.0.tgz 136ms (cache miss)
+542 http fetch GET 200 https://registry.npmjs.org/@firebase/analytics-types/-/analytics-types-0.8.3.tgz 144ms (cache miss)
+543 http fetch GET 200 https://registry.npmjs.org/@firebase/firestore-types/-/firestore-types-3.0.3.tgz 146ms (cache miss)
+544 http fetch GET 200 https://registry.npmjs.org/@firebase/webchannel-wrapper/-/webchannel-wrapper-1.0.5.tgz 156ms (cache miss)
+545 http fetch GET 200 https://registry.npmjs.org/@firebase/logger/-/logger-0.5.0.tgz 162ms (cache miss)
+546 http fetch GET 200 https://registry.npmjs.org/@firebase/app-check-interop-types/-/app-check-interop-types-0.3.3.tgz 181ms (cache miss)
+547 http fetch GET 200 https://registry.npmjs.org/@firebase/remote-config/-/remote-config-0.7.0.tgz 189ms (cache miss)
+548 http fetch GET 200 https://registry.npmjs.org/@firebase/performance-compat/-/performance-compat-0.2.22.tgz 196ms (cache miss)
+549 http fetch GET 200 https://registry.npmjs.org/@firebase/storage-compat/-/storage-compat-0.4.0.tgz 196ms (cache miss)
+550 http fetch GET 200 https://registry.npmjs.org/@firebase/performance-types/-/performance-types-0.2.3.tgz 196ms (cache miss)
+551 http fetch GET 200 https://registry.npmjs.org/@firebase/component/-/component-0.7.0.tgz 200ms (cache miss)
+552 http fetch GET 200 https://registry.npmjs.org/@firebase/remote-config-compat/-/remote-config-compat-0.2.20.tgz 200ms (cache miss)
+553 http fetch GET 200 https://registry.npmjs.org/@firebase/app-check-types/-/app-check-types-0.5.3.tgz 207ms (cache miss)
+554 http fetch GET 200 https://registry.npmjs.org/@firebase/installations-compat/-/installations-compat-0.2.19.tgz 225ms (cache miss)
+555 http fetch GET 200 https://registry.npmjs.org/@firebase/messaging-compat/-/messaging-compat-0.2.23.tgz 233ms (cache miss)
+556 http fetch GET 200 https://registry.npmjs.org/@firebase/storage/-/storage-0.14.0.tgz 237ms (cache miss)
+557 http fetch GET 200 https://registry.npmjs.org/@firebase/performance/-/performance-0.7.9.tgz 238ms (cache miss)
+558 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 258ms
+559 silly audit report {
+559 silly audit report   'nth-check': [
+559 silly audit report     {
+559 silly audit report       id: 1095141,
+559 silly audit report       url: 'https://github.com/advisories/GHSA-rp65-9cf3-cjxr',
+559 silly audit report       title: 'Inefficient Regular Expression Complexity in nth-check',
+559 silly audit report       severity: 'high',
+559 silly audit report       vulnerable_versions: '<2.0.1',
+559 silly audit report       cwe: [Array],
+559 silly audit report       cvss: [Object]
+559 silly audit report     }
+559 silly audit report   ],
+559 silly audit report   postcss: [
+559 silly audit report     {
+559 silly audit report       id: 1094544,
+559 silly audit report       url: 'https://github.com/advisories/GHSA-7fh5-64p2-3v2j',
+559 silly audit report       title: 'PostCSS line return parsing error',
+559 silly audit report       severity: 'moderate',
+559 silly audit report       vulnerable_versions: '<8.4.31',
+559 silly audit report       cwe: [Array],
+559 silly audit report       cvss: [Object]
+559 silly audit report     }
+559 silly audit report   ],
+559 silly audit report   'webpack-dev-server': [
+559 silly audit report     {
+559 silly audit report       id: 1105256,
+559 silly audit report       url: 'https://github.com/advisories/GHSA-9jgg-88mc-972h',
+559 silly audit report       title: "webpack-dev-server users' source code may be stolen when they access a malicious web site with non-Chromium based browser",
+559 silly audit report       severity: 'moderate',
+559 silly audit report       vulnerable_versions: '<=5.2.0',
+559 silly audit report       cwe: [Array],
+559 silly audit report       cvss: [Object]
+559 silly audit report     },
+559 silly audit report     {
+559 silly audit report       id: 1105257,
+559 silly audit report       url: 'https://github.com/advisories/GHSA-4v9v-hfq4-rm2v',
+559 silly audit report       title: "webpack-dev-server users' source code may be stolen when they access a malicious web site",
+559 silly audit report       severity: 'moderate',
+559 silly audit report       vulnerable_versions: '<=5.2.0',
+559 silly audit report       cwe: [Array],
+559 silly audit report       cvss: [Object]
+559 silly audit report     }
+559 silly audit report   ]
+559 silly audit report }
+560 silly packumentCache corgi:https://registry.npmjs.org/nth-check cache-miss
+561 silly packumentCache corgi:https://registry.npmjs.org/postcss cache-miss
+562 silly packumentCache corgi:https://registry.npmjs.org/webpack-dev-server cache-miss
+563 http fetch GET 200 https://registry.npmjs.org/@firebase/messaging/-/messaging-0.12.23.tgz 254ms (cache miss)
+564 http fetch GET 200 https://registry.npmjs.org/@firebase/installations/-/installations-0.6.19.tgz 256ms (cache miss)
+565 http fetch GET 200 https://registry.npmjs.org/@grpc/grpc-js/-/grpc-js-1.9.15.tgz 261ms (cache miss)
+566 http fetch GET 200 https://registry.npmjs.org/@firebase/functions-compat/-/functions-compat-0.4.1.tgz 337ms (cache miss)
+567 http fetch GET 200 https://registry.npmjs.org/@firebase/app-check-compat/-/app-check-compat-0.4.0.tgz 370ms (cache miss)
+568 http fetch GET 200 https://registry.npmjs.org/@firebase/firestore-compat/-/firestore-compat-0.4.2.tgz 385ms (cache miss)
+569 http fetch GET 200 https://registry.npmjs.org/@firebase/functions/-/functions-0.13.1.tgz 414ms (cache miss)
+570 http fetch GET 200 https://registry.npmjs.org/@firebase/storage-types/-/storage-types-0.8.3.tgz 425ms (cache miss)
+571 http fetch GET 200 https://registry.npmjs.org/@firebase/analytics/-/analytics-0.10.18.tgz 426ms (cache miss)
+572 http fetch GET 200 https://registry.npmjs.org/@firebase/app-compat/-/app-compat-0.5.3.tgz 427ms (cache miss)
+573 http fetch GET 200 https://registry.npmjs.org/@firebase/app-check/-/app-check-0.11.0.tgz 433ms (cache miss)
+574 http fetch GET 200 https://registry.npmjs.org/@firebase/data-connect/-/data-connect-0.3.11.tgz 435ms (cache miss)
+575 http fetch GET 200 https://registry.npmjs.org/@firebase/analytics-compat/-/analytics-compat-0.2.24.tgz 437ms (cache miss)
+576 http fetch GET 200 https://registry.npmjs.org/@firebase/app-types/-/app-types-0.9.3.tgz 450ms (cache miss)
+577 http fetch GET 200 https://registry.npmjs.org/@firebase/app/-/app-0.14.3.tgz 457ms (cache miss)
+578 http fetch GET 200 https://registry.npmjs.org/yargs/-/yargs-17.7.2.tgz 478ms (cache miss)
+579 http fetch GET 200 https://registry.npmjs.org/cliui/-/cliui-8.0.1.tgz 493ms (cache miss)
+580 http fetch GET 200 https://registry.npmjs.org/@firebase/util/-/util-1.13.0.tgz 503ms (cache miss)
+581 http fetch GET 200 https://registry.npmjs.org/yargs-parser/-/yargs-parser-21.1.1.tgz 505ms (cache miss)
+582 http fetch GET 200 https://registry.npmjs.org/@firebase/database-compat/-/database-compat-2.1.0.tgz 519ms (cache miss)
+583 http fetch GET 200 https://registry.npmjs.org/nth-check 283ms (cache miss)
+584 silly packumentCache corgi:https://registry.npmjs.org/nth-check set size:undefined disposed:false
+585 http fetch GET 200 https://registry.npmjs.org/web-vitals/-/web-vitals-4.2.4.tgz 526ms (cache miss)
+586 http fetch GET 200 https://registry.npmjs.org/postcss 309ms (cache miss)
+587 silly packumentCache corgi:https://registry.npmjs.org/postcss set size:undefined disposed:false
+588 http fetch GET 200 https://registry.npmjs.org/webpack-dev-server 320ms (cache miss)
+589 silly packumentCache corgi:https://registry.npmjs.org/webpack-dev-server set size:undefined disposed:false
+590 silly packumentCache corgi:https://registry.npmjs.org/css-select cache-miss
+591 http fetch GET 200 https://registry.npmjs.org/css-select 122ms (cache miss)
+592 silly packumentCache corgi:https://registry.npmjs.org/css-select set size:undefined disposed:false
+593 silly packumentCache corgi:https://registry.npmjs.org/resolve-url-loader cache-miss
+594 http fetch GET 200 https://registry.npmjs.org/@firebase/ai/-/ai-2.3.0.tgz 702ms (cache miss)
+595 http fetch GET 200 https://registry.npmjs.org/@firebase/auth-compat/-/auth-compat-0.6.0.tgz 705ms (cache miss)
+596 http fetch GET 200 https://registry.npmjs.org/resolve-url-loader 176ms (cache miss)
+597 silly packumentCache corgi:https://registry.npmjs.org/resolve-url-loader set size:undefined disposed:false
+598 silly packumentCache corgi:https://registry.npmjs.org/@pmmmwh%2freact-refresh-webpack-plugin cache-miss
+599 silly packumentCache corgi:https://registry.npmjs.org/react-scripts cache-miss
+600 http fetch GET 200 https://registry.npmjs.org/react-scripts 80ms (cache miss)
+601 silly packumentCache corgi:https://registry.npmjs.org/react-scripts set size:undefined disposed:false
+602 http fetch GET 200 https://registry.npmjs.org/@pmmmwh%2freact-refresh-webpack-plugin 129ms (cache miss)
+603 silly packumentCache corgi:https://registry.npmjs.org/@pmmmwh%2freact-refresh-webpack-plugin set size:undefined disposed:false
+604 silly packumentCache corgi:https://registry.npmjs.org/svgo cache-miss
+605 http fetch GET 200 https://registry.npmjs.org/@firebase/database/-/database-1.1.0.tgz 1066ms (cache miss)
+606 http fetch GET 200 https://registry.npmjs.org/svgo 75ms (cache miss)
+607 silly packumentCache corgi:https://registry.npmjs.org/svgo set size:undefined disposed:false
+608 silly packumentCache corgi:https://registry.npmjs.org/@svgr%2fplugin-svgo cache-miss
+609 http fetch GET 200 https://registry.npmjs.org/@svgr%2fplugin-svgo 51ms (cache miss)
+610 silly packumentCache corgi:https://registry.npmjs.org/@svgr%2fplugin-svgo set size:undefined disposed:false
+611 silly packumentCache corgi:https://registry.npmjs.org/@svgr%2fwebpack cache-miss
+612 http fetch GET 200 https://registry.npmjs.org/@svgr%2fwebpack 56ms (cache miss)
+613 silly packumentCache corgi:https://registry.npmjs.org/@svgr%2fwebpack set size:undefined disposed:false
+614 http fetch GET 200 https://registry.npmjs.org/@firebase/firestore/-/firestore-4.9.2.tgz 1271ms (cache miss)
+615 http fetch GET 200 https://registry.npmjs.org/@firebase/auth/-/auth-1.11.0.tgz 1542ms (cache miss)
+616 http fetch GET 200 https://registry.npmjs.org/firebase/-/firebase-12.3.0.tgz 2483ms (cache miss)
+617 info run @firebase/util@1.13.0 postinstall node_modules/@firebase/util node ./postinstall.js
+618 info run protobufjs@7.5.4 postinstall node_modules/protobufjs node scripts/postinstall
+619 info run @firebase/util@1.13.0 postinstall { code: 0, signal: null }
+620 info run protobufjs@7.5.4 postinstall { code: 0, signal: null }
+621 silly ADD node_modules/@protobufjs/utf8
+622 silly ADD node_modules/@protobufjs/pool
+623 silly ADD node_modules/@protobufjs/path
+624 silly ADD node_modules/@protobufjs/inquire
+625 silly ADD node_modules/@protobufjs/float
+626 silly ADD node_modules/@protobufjs/fetch
+627 silly ADD node_modules/@protobufjs/eventemitter
+628 silly ADD node_modules/@protobufjs/codegen
+629 silly ADD node_modules/@protobufjs/base64
+630 silly ADD node_modules/@protobufjs/aspromise
+631 silly ADD node_modules/protobufjs
+632 silly ADD node_modules/long
+633 silly ADD node_modules/lodash.camelcase
+634 silly ADD node_modules/@firebase/storage-types
+635 silly ADD node_modules/@firebase/remote-config-types
+636 silly ADD node_modules/@firebase/performance-types
+637 silly ADD node_modules/@firebase/installations-types
+638 silly ADD node_modules/@firebase/functions-types
+639 silly ADD node_modules/@firebase/messaging-interop-types
+640 silly ADD node_modules/@firebase/firestore-types
+641 silly ADD node_modules/@grpc/proto-loader
+642 silly ADD node_modules/@grpc/proto-loader/node_modules/yargs-parser
+643 silly ADD node_modules/@grpc/proto-loader/node_modules/cliui
+644 silly ADD node_modules/@grpc/proto-loader/node_modules/yargs
+645 silly ADD node_modules/@grpc/grpc-js
+646 silly ADD node_modules/@firebase/webchannel-wrapper
+647 silly ADD node_modules/@firebase/database-types
+648 silly ADD node_modules/@firebase/auth-interop-types
+649 silly ADD node_modules/@firebase/auth-types
+650 silly ADD node_modules/@firebase/app-check-types
+651 silly ADD node_modules/@firebase/analytics-types
+652 silly ADD node_modules/@firebase/logger
+653 silly ADD node_modules/@firebase/component
+654 silly ADD node_modules/@firebase/app-check-interop-types
+655 silly ADD node_modules/@firebase/util
+656 silly ADD node_modules/@firebase/storage-compat
+657 silly ADD node_modules/@firebase/storage
+658 silly ADD node_modules/@firebase/remote-config-compat
+659 silly ADD node_modules/@firebase/remote-config
+660 silly ADD node_modules/@firebase/performance-compat
+661 silly ADD node_modules/@firebase/performance
+662 silly ADD node_modules/@firebase/performance/node_modules/web-vitals
+663 silly ADD node_modules/@firebase/messaging-compat
+664 silly ADD node_modules/@firebase/messaging
+665 silly ADD node_modules/@firebase/installations-compat
+666 silly ADD node_modules/@firebase/installations
+667 silly ADD node_modules/@firebase/functions-compat
+668 silly ADD node_modules/@firebase/functions
+669 silly ADD node_modules/@firebase/firestore-compat
+670 silly ADD node_modules/@firebase/firestore
+671 silly ADD node_modules/@firebase/database-compat
+672 silly ADD node_modules/@firebase/database
+673 silly ADD node_modules/@firebase/data-connect
+674 silly ADD node_modules/@firebase/auth-compat
+675 silly ADD node_modules/@firebase/auth
+676 silly ADD node_modules/@firebase/app-check-compat
+677 silly ADD node_modules/@firebase/app-check
+678 silly ADD node_modules/@firebase/app-compat
+679 silly ADD node_modules/@firebase/analytics-compat
+680 silly ADD node_modules/@firebase/analytics
+681 silly ADD node_modules/@firebase/app-types
+682 silly ADD node_modules/@firebase/app
+683 silly ADD node_modules/@firebase/ai
+684 silly ADD node_modules/firebase
+685 verbose cwd /Users/junhyuck/Documents/vibeCoding/news_backend/news-frontend
+686 verbose os Darwin 25.0.0
+687 verbose node v22.15.1
+688 verbose npm  v10.9.2
+689 notice
+689 notice New major version of npm available! 10.9.2 -> 11.6.0
+689 notice Changelog: https://github.com/npm/cli/releases/tag/v11.6.0
+689 notice To update run: npm install -g npm@11.6.0
+689 notice  { force: true, [Symbol(proc-log.meta)]: true }
+690 verbose exit 0
+691 info ok

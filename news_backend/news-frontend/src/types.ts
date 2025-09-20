@@ -5,4 +5,7 @@ export interface NewsArticle {
   imageUrl: string;
   summary: string;
   publishedAt: string;
+  url?: string;
+  politicalLeaning?: string;
+  neutralityScore?: number;
 }
