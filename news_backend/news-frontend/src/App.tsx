@@ -6,11 +6,58 @@ import Header from './components/Header';
 import NewsFeed from './components/NewsFeed';
 import ScrappedNews from './components/ScrappedNews';
 import Auth from './components/Auth';
-import MyPage from './components/MyPage';
+import { NewsArticle } from './types';
 
 function App() {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
+    const [scrappedNews, setScrappedNews] = useState<NewsArticle[]>([]);
+    const [userPoliticalIndex, setUserPoliticalIndex] = useState<number | null>(
+        null
+    );
+
+    // 스크랩된 뉴스에서 정치성향지수 계산
+    const calculateUserPoliticalIndex = (
+        scrappedArticles: NewsArticle[]
+    ): number | null => {
+        if (scrappedArticles.length === 0) return null;
+
+        const validScores = scrappedArticles
+            .filter(
+                (article) =>
+                    article.politicalScore &&
+                    typeof article.politicalScore === 'number'
+            )
+            .map((article) => article.politicalScore as number);
+
+        if (validScores.length === 0) return null;
+
+        const averageScore =
+            validScores.reduce((sum, score) => sum + score, 0) /
+            validScores.length;
+        return Math.round(averageScore);
+    };
+
+    // 뉴스 스크랩 함수
+    const handleScrapNews = (article: NewsArticle) => {
+        const isAlreadyScrapped = scrappedNews.some(
+            (scrapped) => scrapped.id === article.id
+        );
+
+        if (isAlreadyScrapped) {
+            // 이미 스크랩된 경우 제거
+            const updatedScrapped = scrappedNews.filter(
+                (scrapped) => scrapped.id !== article.id
+            );
+            setScrappedNews(updatedScrapped);
+            setUserPoliticalIndex(calculateUserPoliticalIndex(updatedScrapped));
+        } else {
+            // 새로 스크랩
+            const updatedScrapped = [...scrappedNews, article];
+            setScrappedNews(updatedScrapped);
+            setUserPoliticalIndex(calculateUserPoliticalIndex(updatedScrapped));
+        }
+    };
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -70,7 +117,11 @@ function App() {
                     flexDirection: 'column',
                 }}
             >
-                <Header user={user} />
+                <Header
+                    user={user}
+                    userPoliticalIndex={userPoliticalIndex}
+                    scrappedCount={scrappedNews.length}
+                />
                 <main
                     className="container"
                     style={{
@@ -83,17 +134,25 @@ function App() {
                         <Routes>
                             <Route
                                 path="/"
-                                element={<NewsFeed user={user} />}
+                                element={
+                                    <NewsFeed
+                                        user={user}
+                                        onScrap={handleScrapNews}
+                                        scrappedNews={scrappedNews}
+                                    />
+                                }
                             />
                             <Route
                                 path="/scrapped"
-                                element={<ScrappedNews user={user} />}
+                                element={
+                                    <ScrappedNews
+                                        user={user}
+                                        scrappedNews={scrappedNews}
+                                        onScrap={handleScrapNews}
+                                    />
+                                }
                             />
                             <Route path="/auth" element={<Auth />} />
-                            <Route
-                                path="/mypage"
-                                element={<MyPage user={user} />}
-                            />
                         </Routes>
                     </div>
                 </main>

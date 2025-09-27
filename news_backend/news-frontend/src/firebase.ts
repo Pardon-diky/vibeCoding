@@ -29,6 +29,14 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const analytics = getAnalytics(app);
 
+// Firestore 설정 개선
+try {
+    // Firebase v9+에서는 settings가 다르게 작동
+    console.log('Firestore 초기화 완료');
+} catch (error) {
+    console.warn('Firestore 설정 중 오류:', error);
+}
+
 // Firebase 연결 상태 관리
 let isOnline = navigator.onLine;
 

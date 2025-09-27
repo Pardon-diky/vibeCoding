@@ -32,14 +32,20 @@ class NewsHandler(http.server.BaseHTTPRequestHandler):
             self.end_headers()
             
             try:
+                print("API 요청 받음: /news/political")
                 conn = sqlite3.connect('news.db')
                 conn.row_factory = sqlite3.Row
                 c = conn.cursor()
-                c.execute("SELECT id, title, url, summary, political_leaning, neutrality_score, source, image_url, created_at FROM news ORDER BY created_at DESC LIMIT 20")
+                c.execute("SELECT id, title, url, summary, political_leaning, political_score, neutrality_score, source, image_url, created_at FROM news ORDER BY created_at DESC LIMIT 20")
                 news_list = c.fetchall()
+                print(f"데이터베이스에서 {len(news_list)}개 뉴스 조회됨")
                 conn.close()
                 
-                response = [dict(row) for row in news_list]
+                response = []
+                for row in news_list:
+                    row_dict = dict(row)
+                    response.append(row_dict)
+                print(f"응답 데이터 크기: {len(response)}")
                 self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
             except Exception as e:
                 error_response = {"error": str(e)}
@@ -100,7 +106,7 @@ class NewsHandler(http.server.BaseHTTPRequestHandler):
         self.end_headers()
 
 if __name__ == "__main__":
-    PORT = 8002
+    PORT = 8000
     
     with socketserver.TCPServer(("", PORT), NewsHandler) as httpd:
         print(f"서버가 포트 {PORT}에서 실행 중입니다...")

@@ -3,5 +3,4 @@ beautifulsoup4
 lxml
 fastapi
 uvicorn[standard]
-google-generativeai
 bcrypt

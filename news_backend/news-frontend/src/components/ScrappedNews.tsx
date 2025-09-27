@@ -1,47 +1,114 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { User } from 'firebase/auth';
 import { NewsArticle } from '../types';
+import NewsItem from './NewsItem';
 
 interface ScrappedNewsProps {
-  user: User | null;
+    user: User | null;
+    scrappedNews: NewsArticle[];
+    onScrap: (article: NewsArticle) => void;
 }
 
-const ScrappedNews: React.FC<ScrappedNewsProps> = ({ user }) => {
-  const [scrappedArticles, setScrappedArticles] = useState<NewsArticle[]>([]);
-
-  useEffect(() => {
-    const storedScrappedArticles = localStorage.getItem('scrappedNews');
-    if (storedScrappedArticles) {
-      setScrappedArticles(JSON.parse(storedScrappedArticles));
-    }
-  }, []);
-
-  const handleRemoveScrap = (articleId: string) => {
-    const newScrappedArticles = scrappedArticles.filter(article => article.id !== articleId);
-    setScrappedArticles(newScrappedArticles);
-    localStorage.setItem('scrappedNews', JSON.stringify(newScrappedArticles));
-    alert('스크랩을 취소했습니다.');
-  };
-
-  return (
-    <div>
-      <h2 className="mb-4">스크랩한 뉴스</h2>
-      {scrappedArticles.length > 0 ? (
-        scrappedArticles.map(article => (
-          <div key={article.id} className="card mb-3">
-            <div className="card-body">
-              <h5 className="card-title">{article.title}</h5>
-              <p className="card-text"><small className="text-muted">{article.source} - {new Date(article.publishedAt).toLocaleString()}</small></p>
-              <p className="card-text">{article.summary}</p>
-              <button onClick={() => handleRemoveScrap(article.id)} className="btn btn-danger">스크랩 취소</button>
+const ScrappedNews: React.FC<ScrappedNewsProps> = ({
+    user,
+    scrappedNews,
+    onScrap,
+}) => {
+    return (
+        <div>
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: 'var(--space-6)',
+                }}
+            >
+                <h1
+                    style={{
+                        fontSize: '2rem',
+                        fontWeight: '700',
+                        color: 'var(--gray-900)',
+                        margin: 0,
+                    }}
+                >
+                    📌 스크랩한 뉴스
+                </h1>
+                <div
+                    style={{
+                        background: 'var(--primary-100)',
+                        color: 'var(--primary-700)',
+                        padding: 'var(--space-2) var(--space-4)',
+                        borderRadius: 'var(--radius-full)',
+                        fontSize: '0.875rem',
+                        fontWeight: '600',
+                    }}
+                >
+                    총 {scrappedNews.length}개
+                </div>
             </div>
-          </div>
-        ))
-      ) : (
-        <p>스크랩한 뉴스가 없습니다.</p>
-      )}
-    </div>
-  );
+
+            {scrappedNews.length > 0 ? (
+                <div
+                    style={{
+                        display: 'grid',
+                        gap: 'var(--space-4)',
+                    }}
+                >
+                    {scrappedNews.map((article, index) => (
+                        <div
+                            key={article.id}
+                            className="fade-in"
+                            style={{
+                                animationDelay: `${index * 0.1}s`,
+                            }}
+                        >
+                            <NewsItem
+                                article={article}
+                                onScrap={onScrap}
+                                isScrapped={true}
+                            />
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <div
+                    style={{
+                        textAlign: 'center',
+                        padding: 'var(--space-12) var(--space-4)',
+                        color: 'var(--gray-500)',
+                    }}
+                >
+                    <div
+                        style={{
+                            fontSize: '4rem',
+                            marginBottom: 'var(--space-4)',
+                        }}
+                    >
+                        📰
+                    </div>
+                    <h3
+                        style={{
+                            fontSize: '1.5rem',
+                            fontWeight: '600',
+                            marginBottom: 'var(--space-2)',
+                            color: 'var(--gray-700)',
+                        }}
+                    >
+                        아직 스크랩한 뉴스가 없습니다
+                    </h3>
+                    <p
+                        style={{
+                            fontSize: '1rem',
+                            marginBottom: 'var(--space-6)',
+                        }}
+                    >
+                        관심 있는 뉴스를 스크랩해보세요!
+                    </p>
+                </div>
+            )}
+        </div>
+    );
 };
 
 export default ScrappedNews;

@@ -1,9 +1,10 @@
 import requests
 import os
+import json
 from typing import List, Dict, Optional
 from datetime import datetime
 import sqlite3
-from gemini_analyzer import summarize_text, analyze_political_leaning
+from gemini_analyzer import summarize_text, analyze_political_leaning, analyze_political_leaning_detailed
 
 class SerperNewsAPI:
     def __init__(self, api_key: str):
@@ -119,11 +120,18 @@ def save_serper_news_to_db(news_list: List[Dict], db_path: str):
          content TEXT,
          summary TEXT,
          political_leaning TEXT,
+         political_score INTEGER DEFAULT 50,
          image_url TEXT,
          source TEXT,
          neutrality_score REAL,
          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)
     ''')
+    
+    # 기존 테이블에 political_score 컬럼이 없으면 추가
+    try:
+        c.execute("ALTER TABLE news ADD COLUMN political_score INTEGER DEFAULT 50")
+    except sqlite3.OperationalError:
+        pass  # 컬럼이 이미 존재하는 경우
     
     saved_count = 0
     for news in news_list:
@@ -133,27 +141,31 @@ def save_serper_news_to_db(news_list: List[Dict], db_path: str):
             if c.fetchone():
                 continue  # 이미 존재하면 건너뛰기
             
-            # Gemini API로 정치 성향 분석 (요약은 이미 Serper에서 제공)
+            # 키워드 기반 정치 성향 분석 (요약은 이미 Serper에서 제공)
             try:
                 # 요약이 너무 짧으면 제목을 사용
                 content_for_analysis = news['summary'] if len(news['summary']) > 50 else news['title']
                 political_leaning = analyze_political_leaning(content_for_analysis)
+                # 단일 점수 계산 (1-100, 낮을수록 보수, 높을수록 진보)
+                political_score = calculate_political_score(content_for_analysis)
             except Exception as e:
-                print(f"Gemini API 오류, 기본값 사용: {e}")
-                political_leaning = "중립"
+                print(f"정치성향 분석 오류, 기본값 사용: {e}")
+                political_leaning = "중도"
+                political_score = 50  # 중립 점수
             
             # 중립성 점수 계산 (간단한 휴리스틱)
             neutrality_score = calculate_neutrality_score(news['title'], news['summary'])
             
             c.execute("""
-                INSERT INTO news (title, url, content, summary, political_leaning, image_url, source, neutrality_score, created_at) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO news (title, url, content, summary, political_leaning, political_score, image_url, source, neutrality_score, created_at) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 news['title'],
                 news['url'],
                 news['summary'],  # content로 사용
                 news['summary'],
                 political_leaning,
+                political_score,  # 단일 점수로 저장
                 news['image_url'],
                 news['source'],
                 neutrality_score,

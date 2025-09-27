@@ -8,9 +8,15 @@ import { db } from '../firebase';
 
 interface NewsFeedProps {
     user: User | null;
+    onScrap?: (article: NewsArticle) => void;
+    scrappedNews?: NewsArticle[];
 }
 
-const NewsFeed: React.FC<NewsFeedProps> = ({ user }) => {
+const NewsFeed: React.FC<NewsFeedProps> = ({
+    user,
+    onScrap,
+    scrappedNews = [],
+}) => {
     const [articles, setArticles] = useState<NewsArticle[]>([]);
     const [scrappedArticles, setScrappedArticles] = useState<NewsArticle[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -338,7 +344,7 @@ const NewsFeed: React.FC<NewsFeedProps> = ({ user }) => {
         try {
             console.log('Refreshing news with Serper API...');
             const response = await fetch(
-                'http://127.0.0.1:8002/news/serper/refresh',
+                'http://localhost:8000/news/serper/refresh',
                 {
                     method: 'POST',
                     headers: {
@@ -371,7 +377,7 @@ const NewsFeed: React.FC<NewsFeedProps> = ({ user }) => {
         try {
             console.log('Fetching news from API...');
             const response = await fetch(
-                'http://127.0.0.1:8002/news/political'
+                'http://localhost:8000/news/political'
             );
             console.log('Response status:', response.status);
 
@@ -395,6 +401,7 @@ const NewsFeed: React.FC<NewsFeedProps> = ({ user }) => {
                 publishedAt: item.created_at, // created_at을 publishedAt에 매핑
                 url: item.url, // 뉴스 원문 URL
                 politicalLeaning: item.political_leaning, // 정치 성향
+                politicalScore: item.political_score || null, // 정치성향 점수 (1-100)
                 neutralityScore: item.neutrality_score, // 중립지수
             }));
 
@@ -649,7 +656,11 @@ const NewsFeed: React.FC<NewsFeedProps> = ({ user }) => {
                                     >
                                         <NewsItem
                                             article={article}
-                                            onScrap={handleScrap}
+                                            onScrap={onScrap || handleScrap}
+                                            isScrapped={scrappedNews.some(
+                                                (scrapped) =>
+                                                    scrapped.id === article.id
+                                            )}
                                         />
                                     </div>
                                 ))}
@@ -781,7 +792,11 @@ const NewsFeed: React.FC<NewsFeedProps> = ({ user }) => {
                                     >
                                         <NewsItem
                                             article={article}
-                                            onScrap={handleScrap}
+                                            onScrap={onScrap || handleScrap}
+                                            isScrapped={scrappedNews.some(
+                                                (scrapped) =>
+                                                    scrapped.id === article.id
+                                            )}
                                         />
                                     </div>
                                 ))}
