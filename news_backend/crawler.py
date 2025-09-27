@@ -21,6 +21,12 @@ def init_db():
         c.execute("ALTER TABLE news ADD COLUMN summary TEXT")
     if 'political_leaning' not in columns:
         c.execute("ALTER TABLE news ADD COLUMN political_leaning TEXT")
+    if 'image_url' not in columns:
+        c.execute("ALTER TABLE news ADD COLUMN image_url TEXT")
+    if 'source' not in columns:
+        c.execute("ALTER TABLE news ADD COLUMN source TEXT")
+    if 'neutrality_score' not in columns:
+        c.execute("ALTER TABLE news ADD COLUMN neutrality_score REAL")
 
     c.execute('''
         CREATE TABLE IF NOT EXISTS news
@@ -30,6 +36,9 @@ def init_db():
          content TEXT,
          summary TEXT,
          political_leaning TEXT,
+         image_url TEXT,
+         source TEXT,
+         neutrality_score REAL,
          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)
     ''')
     conn.commit()
@@ -66,6 +75,48 @@ def crawl_news_from_rss():
             
     print(f"총 {len(crawled_data)}개의 뉴스를 RSS 피드에서 가져왔습니다.")
     return crawled_data
+
+def get_article_image(url):
+    """기사 URL에서 대표 이미지를 추출합니다."""
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.content, 'html.parser')
+        
+        # 다양한 이미지 선택자 시도
+        img_selectors = [
+            'meta[property="og:image"]',
+            'meta[name="twitter:image"]',
+            '.article-image img',
+            '.news-image img',
+            '.content-image img',
+            'img[class*="article"]',
+            'img[class*="news"]',
+            'img[class*="content"]'
+        ]
+        
+        for selector in img_selectors:
+            if selector.startswith('meta'):
+                meta_tag = soup.select_one(selector)
+                if meta_tag and meta_tag.get('content'):
+                    return meta_tag.get('content')
+            else:
+                img_tag = soup.select_one(selector)
+                if img_tag and img_tag.get('src'):
+                    src = img_tag.get('src')
+                    # 상대 URL을 절대 URL로 변환
+                    if src.startswith('//'):
+                        return 'https:' + src
+                    elif src.startswith('/'):
+                        from urllib.parse import urljoin
+                        return urljoin(url, src)
+                    elif src.startswith('http'):
+                        return src
+        
+        return None
+    except Exception as e:
+        print(f"이미지 추출 실패 ({url}): {e}")
+        return None
 
 def get_article_content(url):
     """
@@ -106,12 +157,24 @@ def save_news_to_db(news_data):
             # 기사 본문 내용 가져오기
             content = get_article_content(news['url'])
             if content:
-                # Gemini API로 요약 및 정치 성향 분석
-                summary = summarize_text(content)
-                political_leaning = analyze_political_leaning(content)
+                # 이미지 URL 추출
+                image_url = get_article_image(news['url'])
+                
+                # 소스 추출 (URL에서 도메인 추출)
+                from urllib.parse import urlparse
+                source = urlparse(news['url']).netloc.replace('www.', '')
+                
+                # Gemini API로 요약 및 정치 성향 분석 (임시로 기본값 사용)
+                try:
+                    summary = summarize_text(content)
+                    political_leaning = analyze_political_leaning(content)
+                except Exception as e:
+                    print(f"Gemini API 오류, 기본값 사용: {e}")
+                    summary = content[:200] + "..." if len(content) > 200 else content
+                    political_leaning = "중립"
 
-                c.execute("INSERT INTO news (title, url, content, summary, political_leaning) VALUES (?, ?, ?, ?, ?)", 
-                          (news['title'], news['url'], content, summary, political_leaning))
+                c.execute("INSERT INTO news (title, url, content, summary, political_leaning, image_url, source) VALUES (?, ?, ?, ?, ?, ?, ?)", 
+                          (news['title'], news['url'], content, summary, political_leaning, image_url, source))
                 if c.rowcount > 0:
                     saved_count += 1
         except sqlite3.IntegrityError:
