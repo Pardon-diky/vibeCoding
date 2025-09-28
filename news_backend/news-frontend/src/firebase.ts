@@ -14,13 +14,13 @@ import {
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: 'AIzaSyALocfIJW0dttQuTKFudwrWn4-PPYRF3S4',
-    authDomain: 'vibecoding-90e10.firebaseapp.com',
-    projectId: 'vibecoding-90e10',
-    storageBucket: 'vibecoding-90e10.firebasestorage.app',
-    messagingSenderId: '673752301940',
-    appId: '1:673752301940:web:92ff2038087f79f638ec21',
-    measurementId: 'G-VBZL79NJYZ',
+    apiKey: 'AIzaSyCeBeueJ1pQRr82xykVyhBhkd7FJ1EorV4',
+    authDomain: 'vibecoding-b71da.firebaseapp.com',
+    projectId: 'vibecoding-b71da',
+    storageBucket: 'vibecoding-b71da.firebasestorage.app',
+    messagingSenderId: '230280060987',
+    appId: '1:230280060987:web:4060330eb36068a42b7c1e',
+    measurementId: 'G-GG3G9NK9W8',
 };
 
 // Initialize Firebase

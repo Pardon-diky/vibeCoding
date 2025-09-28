@@ -1,0 +1,21 @@
+// Firebase Firestore 보안 규칙
+// Firebase 콘솔 > Firestore Database > Rules에서 설정
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 사용자 문서에 대한 규칙
+    match /users/{userId} {
+      // 인증된 사용자만 자신의 문서에 읽기/쓰기 가능
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
+
+// 설정 방법:
+// 1. Firebase 콘솔 (https://console.firebase.google.com) 접속
+// 2. 프로젝트 선택 (vibecoding-90e10)
+// 3. 왼쪽 메뉴에서 "Firestore Database" 클릭
+// 4. "Rules" 탭 클릭
+// 5. 위의 규칙을 복사해서 붙여넣기
+// 6. "Publish" 버튼 클릭

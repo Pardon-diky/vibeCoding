@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { User, onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase';
+import { auth, db } from './firebase';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import Header from './components/Header';
 import NewsFeed from './components/NewsFeed';
 import ScrappedNews from './components/ScrappedNews';
 import Auth from './components/Auth';
+import MyPage from './components/MyPage';
 import { NewsArticle } from './types';
 
 function App() {
@@ -55,8 +57,69 @@ function App() {
         return Math.round(averageScore);
     };
 
-    // 스크랩된 뉴스 가져오기
-    const fetchScrappedNews = async (firebaseUid: string) => {
+    // Firebase에서 사용자 데이터 가져오기
+    const fetchUserDataFromFirebase = async (user: User) => {
+        try {
+            const userDoc = await getDoc(doc(db, 'users', user.uid));
+            if (userDoc.exists()) {
+                const userData = userDoc.data();
+                console.log('Firebase에서 사용자 데이터 가져옴:', userData);
+
+                const score =
+                    userData.political_leaning_score ||
+                    userData.politicalScore ||
+                    50;
+                setUserInitialPoliticalScore(score);
+                setUserPoliticalIndex(score);
+
+                // 변환 상태 확인
+                const isConverted = userData.isConvertedToProfile || false;
+                setIsConvertedToProfile(isConverted);
+
+                // 스크랩된 뉴스 가져오기
+                if (userData.scrappedNews) {
+                    setScrappedNews(userData.scrappedNews);
+                } else {
+                    // 백엔드에서도 가져오기 (호환성)
+                    fetchScrappedNewsFromBackend(user.uid);
+                }
+            } else {
+                console.log('Firebase에 사용자 데이터 없음, 기본값 사용');
+                setUserInitialPoliticalScore(50);
+                setUserPoliticalIndex(50);
+                setIsConvertedToProfile(false);
+            }
+        } catch (error) {
+            console.error('Firebase에서 사용자 데이터 가져오기 실패:', error);
+            // 백엔드에서 가져오기 (fallback)
+            fetchUserDataFromBackend(user.uid);
+        }
+    };
+
+    // 백엔드에서 사용자 데이터 가져오기 (fallback)
+    const fetchUserDataFromBackend = async (firebaseUid: string) => {
+        try {
+            const response = await fetch(
+                `http://127.0.0.1:8000/users/firebase/${firebaseUid}`
+            );
+            if (response.ok) {
+                const userData = await response.json();
+                const score =
+                    userData.political_leaning_score ||
+                    userData.politicalScore ||
+                    50;
+                setUserInitialPoliticalScore(score);
+                setUserPoliticalIndex(score);
+                setIsConvertedToProfile(false);
+                fetchScrappedNewsFromBackend(firebaseUid);
+            }
+        } catch (error) {
+            console.error('백엔드에서 사용자 데이터 가져오기 실패:', error);
+        }
+    };
+
+    // 스크랩된 뉴스 가져오기 (백엔드)
+    const fetchScrappedNewsFromBackend = async (firebaseUid: string) => {
         try {
             const response = await fetch(
                 `http://127.0.0.1:8000/users/firebase/${firebaseUid}/scraps`
@@ -70,6 +133,19 @@ function App() {
             }
         } catch (error) {
             console.error('스크랩된 뉴스 가져오기 오류:', error);
+        }
+    };
+
+    // 스크랩된 뉴스 가져오기 (기존 함수 유지)
+    const fetchScrappedNews = fetchScrappedNewsFromBackend;
+
+    // Firebase에 사용자 데이터 저장
+    const saveUserDataToFirebase = async (user: User, data: any) => {
+        try {
+            await setDoc(doc(db, 'users', user.uid), data, { merge: true });
+            console.log('Firebase에 사용자 데이터 저장 완료:', data);
+        } catch (error) {
+            console.error('Firebase에 사용자 데이터 저장 실패:', error);
         }
     };
 
@@ -110,9 +186,18 @@ function App() {
 
                     // 변환된 상태가 아니면 활동기반 점수 업데이트
                     if (!isConvertedToProfile) {
-                        setUserPoliticalIndex(
-                            calculateUserPoliticalIndex(updatedScrapped)
-                        );
+                        const newIndex =
+                            calculateUserPoliticalIndex(updatedScrapped);
+                        setUserPoliticalIndex(newIndex);
+
+                        // Firebase에 저장
+                        if (user) {
+                            saveUserDataToFirebase(user, {
+                                scrappedNews: updatedScrapped,
+                                activityPoliticalScore: newIndex,
+                                lastUpdated: new Date().toISOString(),
+                            });
+                        }
                     }
                 } else {
                     // 새로 스크랩
@@ -121,9 +206,18 @@ function App() {
 
                     // 변환된 상태가 아니면 활동기반 점수 업데이트
                     if (!isConvertedToProfile) {
-                        setUserPoliticalIndex(
-                            calculateUserPoliticalIndex(updatedScrapped)
-                        );
+                        const newIndex =
+                            calculateUserPoliticalIndex(updatedScrapped);
+                        setUserPoliticalIndex(newIndex);
+
+                        // Firebase에 저장
+                        if (user) {
+                            saveUserDataToFirebase(user, {
+                                scrappedNews: updatedScrapped,
+                                activityPoliticalScore: newIndex,
+                                lastUpdated: new Date().toISOString(),
+                            });
+                        }
                     }
                 }
             } else {
@@ -190,6 +284,16 @@ function App() {
                 setIsConvertedToProfile(true);
                 // localStorage에 변환 상태 저장
                 localStorage.setItem('isConvertedToProfile', 'true');
+
+                // Firebase에 저장
+                if (user) {
+                    saveUserDataToFirebase(user, {
+                        political_leaning_score: currentActivityScore,
+                        isConvertedToProfile: true,
+                        lastUpdated: new Date().toISOString(),
+                    });
+                }
+
                 alert(
                     `프로필정치성향지수가 ${currentActivityScore}점으로 업데이트되었습니다!`
                 );
@@ -216,46 +320,13 @@ function App() {
                 setUserInitialPoliticalScore(50);
                 setUserPoliticalIndex(50);
 
-                // 백그라운드에서 사용자 정보 가져오기 (비동기, 3초 타임아웃)
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 3000);
-
-                fetch(`http://127.0.0.1:8000/users/firebase/${user.uid}`, {
-                    signal: controller.signal,
-                })
-                    .then((response) => {
-                        clearTimeout(timeoutId);
-                        if (response.ok) {
-                            return response.json();
-                        }
-                        throw new Error('API 호출 실패');
-                    })
-                    .then((userData) => {
-                        const score = userData.political_leaning_score || 50;
-                        setUserInitialPoliticalScore(score);
-                        setUserPoliticalIndex(score);
-
-                        // 변환 상태 확인
-                        const isConverted =
-                            localStorage.getItem('isConvertedToProfile') ===
-                            'true';
-                        setIsConvertedToProfile(isConverted);
-
-                        // 스크랩된 뉴스 가져오기
-                        fetchScrappedNews(user.uid);
-                    })
-                    .catch((error) => {
-                        clearTimeout(timeoutId);
-                        if (error.name !== 'AbortError') {
-                            console.warn(
-                                '사용자 정보 가져오기 실패, 기본값 사용:',
-                                error
-                            );
-                        }
-                    });
+                // Firebase에서 사용자 데이터 가져오기 (우선)
+                fetchUserDataFromFirebase(user);
             } else {
                 setUserInitialPoliticalScore(null);
                 setUserPoliticalIndex(null);
+                setScrappedNews([]);
+                setIsConvertedToProfile(false);
             }
 
             // 최소 로딩 시간이 지났으면 로딩 완료
@@ -317,6 +388,31 @@ function App() {
 
     return (
         <Router>
+            <style
+                dangerouslySetInnerHTML={{
+                    __html: `
+                        .fade-in {
+                            animation: fadeIn 0.6s ease-in-out;
+                        }
+                        
+                        @keyframes fadeIn {
+                            from {
+                                opacity: 0;
+                                transform: translateY(20px);
+                            }
+                            to {
+                                opacity: 1;
+                                transform: translateY(0);
+                            }
+                        }
+                        
+                        @keyframes spin {
+                            0% { transform: rotate(0deg); }
+                            100% { transform: rotate(360deg); }
+                        }
+                    `,
+                }}
+            />
             <div
                 className="App"
                 style={{
@@ -330,6 +426,14 @@ function App() {
                     user={user}
                     userPoliticalIndex={userInitialPoliticalScore}
                     scrappedCount={scrappedNews.length}
+                    onSearch={(query) => {
+                        // NewsFeed 컴포넌트에서 검색을 처리하도록 이벤트 전달
+                        const event = new CustomEvent('search', {
+                            detail: { query },
+                        });
+                        window.dispatchEvent(event);
+                    }}
+                    isSearching={false}
                 />
                 <main
                     className="container"
@@ -381,6 +485,18 @@ function App() {
                                 }
                             />
                             <Route path="/auth" element={<Auth />} />
+                            <Route
+                                path="/mypage"
+                                element={
+                                    <MyPage
+                                        user={user!}
+                                        onLogout={() => setUser(null)}
+                                        onGoHome={() =>
+                                            (window.location.href = '/')
+                                        }
+                                    />
+                                }
+                            />
                         </Routes>
                     </div>
                 </main>

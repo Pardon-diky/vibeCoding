@@ -22,8 +22,6 @@ const Auth = () => {
 
     // 추가 회원가입 필드
     const [name, setName] = useState('');
-    const [gender, setGender] = useState('');
-    const [birthDate, setBirthDate] = useState('');
     const [nickname, setNickname] = useState('');
 
     const toggleAuthMode = () => {
@@ -66,10 +64,13 @@ const Auth = () => {
                         setPoliticalAffiliation(
                             userData.politicalAffiliation || ''
                         );
-                        setPoliticalScore(userData.politicalScore || 50);
+                        // App.tsx와 동일하게 political_leaning_score를 우선 사용
+                        const score =
+                            userData.political_leaning_score ||
+                            userData.politicalScore ||
+                            50;
+                        setPoliticalScore(score);
                         setName(userData.name || '');
-                        setGender(userData.gender || '');
-                        setBirthDate(userData.birthDate || '');
                         setNickname(userData.nickname || '');
                     }
                 } catch (error) {
@@ -80,8 +81,6 @@ const Auth = () => {
                 setPoliticalAffiliation('');
                 setPoliticalScore(50);
                 setName('');
-                setGender('');
-                setBirthDate('');
                 setNickname('');
             }
         });
@@ -100,8 +99,8 @@ const Auth = () => {
             return;
         }
 
-        if (!name || !gender || !birthDate || !nickname) {
-            setError('모든 필드를 입력해주세요.');
+        if (!name || !nickname) {
+            setError('이름과 닉네임을 입력해주세요.');
             setLoading(false);
             return;
         }
@@ -123,11 +122,10 @@ const Auth = () => {
             await setDoc(doc(db, 'users', user.uid), {
                 email: user.email,
                 name: name,
-                gender: gender,
-                birthDate: birthDate,
                 nickname: nickname,
                 politicalAffiliation: politicalAffiliationFromScore,
-                politicalScore: politicalScore, // 0~100 점수 저장
+                politicalScore: politicalScore, // 0~100 점수 저장 (기존 호환성)
+                political_leaning_score: politicalScore, // App.tsx에서 사용하는 필드명
                 createdAt: new Date().toISOString(),
             });
 
@@ -534,43 +532,6 @@ const Auth = () => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="gender" className="form-label">
-                                    성별
-                                </label>
-                                <select
-                                    id="gender"
-                                    name="gender"
-                                    value={gender}
-                                    onChange={(e) => setGender(e.target.value)}
-                                    required
-                                    className="form-input"
-                                >
-                                    <option value="">성별을 선택하세요</option>
-                                    <option value="male">남성</option>
-                                    <option value="female">여성</option>
-                                    <option value="other">기타</option>
-                                </select>
-                            </div>
-                            <div className="form-group">
-                                <label
-                                    htmlFor="birthDate"
-                                    className="form-label"
-                                >
-                                    생년월일
-                                </label>
-                                <input
-                                    type="date"
-                                    id="birthDate"
-                                    name="birthDate"
-                                    value={birthDate}
-                                    onChange={(e) =>
-                                        setBirthDate(e.target.value)
-                                    }
-                                    required
-                                    className="form-input"
-                                />
-                            </div>
-                            <div className="form-group">
                                 <label
                                     htmlFor="confirmPassword"
                                     className="form-label"
@@ -610,7 +571,7 @@ const Auth = () => {
                                             fontWeight: '600',
                                         }}
                                     >
-                                        진보
+                                        보수
                                     </span>
                                     <input
                                         type="range"
@@ -625,7 +586,7 @@ const Auth = () => {
                                         style={{
                                             flex: 1,
                                             height: '8px',
-                                            background: `linear-gradient(to right, var(--error-500) 0%, var(--success-500) 50%, var(--primary-500) 100%)`,
+                                            background: `linear-gradient(to right, var(--error-500) 0%, var(--gray-500) 50%, var(--primary-500) 100%)`,
                                             outline: 'none',
                                             borderRadius: 'var(--radius-full)',
                                             cursor: 'pointer',
@@ -640,7 +601,7 @@ const Auth = () => {
                                             fontWeight: '600',
                                         }}
                                     >
-                                        보수
+                                        진보
                                     </span>
                                 </div>
                                 <div
@@ -652,9 +613,9 @@ const Auth = () => {
                                         marginBottom: 'var(--space-3)',
                                     }}
                                 >
-                                    <span>0 (진보)</span>
+                                    <span>0 (보수)</span>
                                     <span>50 (중립)</span>
-                                    <span>100 (보수)</span>
+                                    <span>100 (진보)</span>
                                 </div>
                                 <div
                                     style={{

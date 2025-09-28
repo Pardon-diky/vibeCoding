@@ -36,6 +36,10 @@ const NewsFeed: React.FC<NewsFeedProps> = ({
     const [isGuidelineModalOpen, setIsGuidelineModalOpen] =
         useState<boolean>(false);
     const [refreshing, setRefreshing] = useState<boolean>(false);
+    const [searchQuery, setSearchQuery] = useState<string>('');
+    const [searchResults, setSearchResults] = useState<NewsArticle[]>([]);
+    const [isSearching, setIsSearching] = useState<boolean>(false);
+    const [showSearchResults, setShowSearchResults] = useState<boolean>(false);
 
     // 활동 기반 정치성향 계산 함수
     const calculateActivityPoliticalScore = () => {
@@ -339,6 +343,41 @@ const NewsFeed: React.FC<NewsFeedProps> = ({
         }
     };
 
+    // 검색 함수
+    const handleSearch = async (query: string) => {
+        setSearchQuery(query);
+
+        if (!query.trim()) {
+            setShowSearchResults(false);
+            setSearchResults([]);
+            return;
+        }
+
+        setIsSearching(true);
+        setShowSearchResults(true);
+
+        try {
+            const response = await fetch(
+                `http://localhost:8000/news/search?q=${encodeURIComponent(
+                    query
+                )}`
+            );
+
+            if (!response.ok) {
+                throw new Error('검색 요청 실패');
+            }
+
+            const results = await response.json();
+            setSearchResults(results);
+        } catch (error) {
+            console.error('검색 오류:', error);
+            alert('검색 중 오류가 발생했습니다. 다시 시도해주세요.');
+            setSearchResults([]);
+        } finally {
+            setIsSearching(false);
+        }
+    };
+
     // Serper API를 사용해서 뉴스 새로고침
     const refreshNewsWithSerper = async () => {
         setRefreshing(true);
@@ -372,6 +411,23 @@ const NewsFeed: React.FC<NewsFeedProps> = ({
             setRefreshing(false);
         }
     };
+
+    // 검색 이벤트 리스너 등록
+    useEffect(() => {
+        const handleSearchEvent = (event: CustomEvent) => {
+            const { query } = event.detail;
+            handleSearch(query);
+        };
+
+        window.addEventListener('search', handleSearchEvent as EventListener);
+
+        return () => {
+            window.removeEventListener(
+                'search',
+                handleSearchEvent as EventListener
+            );
+        };
+    }, []);
 
     // 뉴스 가져오기 함수 (기존 fetchNews를 별도 함수로 분리)
     const fetchNews = async () => {
@@ -646,87 +702,281 @@ const NewsFeed: React.FC<NewsFeedProps> = ({
                         </div>
                     )}
 
-                    {/* 균형 잡힌 뉴스 추천 섹션 */}
-                    {user && balancedArticles.length > 0 && (
-                        <div style={{ marginBottom: 'var(--space-8)' }}>
+                    {/* 검색 결과 섹션 */}
+                    {showSearchResults && (
+                        <div
+                            className="card"
+                            style={{
+                                background: 'white',
+                                border: '1px solid var(--primary-200)',
+                                marginBottom: 'var(--space-8)',
+                                padding: 'var(--space-8)',
+                            }}
+                        >
                             <div
                                 style={{
                                     display: 'flex',
                                     alignItems: 'center',
-                                    gap: 'var(--space-3)',
+                                    justifyContent: 'space-between',
                                     marginBottom: 'var(--space-6)',
                                 }}
                             >
                                 <div
                                     style={{
-                                        width: '40px',
-                                        height: '40px',
-                                        background:
-                                            'linear-gradient(135deg, var(--success-500) 0%, var(--success-600) 100%)',
-                                        borderRadius: 'var(--radius-lg)',
                                         display: 'flex',
                                         alignItems: 'center',
-                                        justifyContent: 'center',
-                                        fontSize: '1.25rem',
+                                        gap: 'var(--space-4)',
                                     }}
                                 >
-                                    🔄
-                                </div>
-                                <div>
-                                    <h4
+                                    <div
                                         style={{
-                                            margin: 0,
-                                            fontSize: '1.5rem',
-                                            fontWeight: '700',
-                                            color: 'var(--gray-900)',
+                                            width: '40px',
+                                            height: '40px',
+                                            background:
+                                                'linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600) 100%)',
+                                            borderRadius: 'var(--radius-lg)',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            fontSize: '1.25rem',
                                         }}
                                     >
-                                        🎯 맞춤 뉴스 추천
-                                    </h4>
+                                        🔍
+                                    </div>
+                                    <div>
+                                        <h4
+                                            style={{
+                                                margin: 0,
+                                                fontSize: '1.5rem',
+                                                fontWeight: '700',
+                                                color: 'var(--gray-900)',
+                                            }}
+                                        >
+                                            🔍 검색 결과
+                                        </h4>
+                                        <p
+                                            style={{
+                                                margin: 0,
+                                                fontSize: '0.875rem',
+                                                color: 'var(--gray-600)',
+                                            }}
+                                        >
+                                            "{searchQuery}"에 대한 검색 결과 (
+                                            {searchResults.length}개)
+                                        </p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => {
+                                        setShowSearchResults(false);
+                                        setSearchQuery('');
+                                        setSearchResults([]);
+                                    }}
+                                    style={{
+                                        background: 'var(--gray-100)',
+                                        border: '1px solid var(--gray-300)',
+                                        borderRadius: 'var(--radius-md)',
+                                        padding:
+                                            'var(--space-2) var(--space-4)',
+                                        color: 'var(--gray-700)',
+                                        cursor: 'pointer',
+                                        fontSize: '0.875rem',
+                                        fontWeight: '500',
+                                        transition:
+                                            'all var(--transition-fast)',
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.background =
+                                            'var(--gray-200)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.background =
+                                            'var(--gray-100)';
+                                    }}
+                                >
+                                    ✕ 검색 닫기
+                                </button>
+                            </div>
+
+                            {isSearching ? (
+                                <div
+                                    style={{
+                                        textAlign: 'center',
+                                        padding: 'var(--space-12)',
+                                        color: 'var(--gray-600)',
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            width: '40px',
+                                            height: '40px',
+                                            border: '4px solid var(--gray-200)',
+                                            borderTop:
+                                                '4px solid var(--primary-500)',
+                                            borderRadius: '50%',
+                                            animation:
+                                                'spin 1s linear infinite',
+                                            margin: '0 auto var(--space-4)',
+                                        }}
+                                    />
+                                    검색 중...
+                                </div>
+                            ) : searchResults.length > 0 ? (
+                                <div
+                                    style={{
+                                        display: 'grid',
+                                        gridTemplateColumns:
+                                            'repeat(auto-fit, minmax(600px, 1fr))',
+                                        gap: 'var(--space-8)',
+                                        marginBottom: 'var(--space-8)',
+                                        maxWidth: '1600px',
+                                        margin: '0 auto var(--space-8)',
+                                    }}
+                                >
+                                    {searchResults.map((article) => (
+                                        <div
+                                            key={`search-${article.id}`}
+                                            className="fade-in"
+                                            style={{
+                                                animationDelay: '0.1s',
+                                            }}
+                                        >
+                                            <NewsItem
+                                                article={article}
+                                                onScrap={onScrap || handleScrap}
+                                                isScrapped={scrappedNews.some(
+                                                    (scrapped) =>
+                                                        scrapped.id ===
+                                                        article.id
+                                                )}
+                                                userProfileScore={null} // 검색 결과는 추천 라벨 없음
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div
+                                    style={{
+                                        textAlign: 'center',
+                                        padding: 'var(--space-12)',
+                                        color: 'var(--gray-500)',
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            fontSize: '3rem',
+                                            marginBottom: 'var(--space-4)',
+                                        }}
+                                    >
+                                        🔍
+                                    </div>
+                                    <h3
+                                        style={{
+                                            margin: '0 0 var(--space-2) 0',
+                                            fontSize: '1.25rem',
+                                            fontWeight: '600',
+                                            color: 'var(--gray-700)',
+                                        }}
+                                    >
+                                        검색 결과가 없습니다
+                                    </h3>
                                     <p
                                         style={{
                                             margin: 0,
                                             fontSize: '0.875rem',
-                                            color: 'var(--gray-600)',
                                         }}
                                     >
-                                        사용자님의 프로필에 맞춘 60:40 균형 뉴스
-                                        추천
+                                        다른 키워드로 검색해보세요
                                     </p>
                                 </div>
-                            </div>
-                            <div
-                                style={{
-                                    display: 'grid',
-                                    gridTemplateColumns:
-                                        'repeat(auto-fit, minmax(600px, 1fr))',
-                                    gap: 'var(--space-8)',
-                                    marginBottom: 'var(--space-8)',
-                                    maxWidth: '1600px',
-                                    margin: '0 auto var(--space-8)',
-                                }}
-                            >
-                                {balancedArticles.map((article) => (
-                                    <div
-                                        key={`balanced-${article.id}`}
-                                        className="fade-in"
-                                    >
-                                        <NewsItem
-                                            article={article}
-                                            onScrap={onScrap || handleScrap}
-                                            isScrapped={scrappedNews.some(
-                                                (scrapped) =>
-                                                    scrapped.id === article.id
-                                            )}
-                                            userProfileScore={
-                                                userInitialPoliticalScore
-                                            }
-                                        />
-                                    </div>
-                                ))}
-                            </div>
+                            )}
                         </div>
                     )}
+
+                    {/* 균형 잡힌 뉴스 추천 섹션 */}
+                    {!showSearchResults &&
+                        user &&
+                        balancedArticles.length > 0 && (
+                            <div style={{ marginBottom: 'var(--space-8)' }}>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 'var(--space-3)',
+                                        marginBottom: 'var(--space-6)',
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            width: '40px',
+                                            height: '40px',
+                                            background:
+                                                'linear-gradient(135deg, var(--success-500) 0%, var(--success-600) 100%)',
+                                            borderRadius: 'var(--radius-lg)',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            fontSize: '1.25rem',
+                                        }}
+                                    >
+                                        🔄
+                                    </div>
+                                    <div>
+                                        <h4
+                                            style={{
+                                                margin: 0,
+                                                fontSize: '1.5rem',
+                                                fontWeight: '700',
+                                                color: 'var(--gray-900)',
+                                            }}
+                                        >
+                                            🎯 맞춤 뉴스 추천
+                                        </h4>
+                                        <p
+                                            style={{
+                                                margin: 0,
+                                                fontSize: '0.875rem',
+                                                color: 'var(--gray-600)',
+                                            }}
+                                        >
+                                            사용자님의 프로필에 맞춘 60:40 균형
+                                            뉴스 추천
+                                        </p>
+                                    </div>
+                                </div>
+                                <div
+                                    style={{
+                                        display: 'grid',
+                                        gridTemplateColumns:
+                                            'repeat(auto-fit, minmax(600px, 1fr))',
+                                        gap: 'var(--space-8)',
+                                        marginBottom: 'var(--space-8)',
+                                        maxWidth: '1600px',
+                                        margin: '0 auto var(--space-8)',
+                                    }}
+                                >
+                                    {balancedArticles.map((article) => (
+                                        <div
+                                            key={`balanced-${article.id}`}
+                                            className="fade-in"
+                                        >
+                                            <NewsItem
+                                                article={article}
+                                                onScrap={onScrap || handleScrap}
+                                                isScrapped={scrappedNews.some(
+                                                    (scrapped) =>
+                                                        scrapped.id ===
+                                                        article.id
+                                                )}
+                                                userProfileScore={
+                                                    userInitialPoliticalScore
+                                                }
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
 
                     {/* 정치 뉴스 섹션 */}
                     <div

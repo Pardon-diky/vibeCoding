@@ -9,12 +9,16 @@ interface HeaderProps {
     user: User | null;
     userPoliticalIndex?: number | null;
     scrappedCount?: number;
+    onSearch?: (query: string) => void;
+    isSearching?: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({
     user,
     userPoliticalIndex,
     scrappedCount = 0,
+    onSearch,
+    isSearching = false,
 }) => {
     const [nickname, setNickname] = useState<string>('');
 
@@ -111,7 +115,10 @@ const Header: React.FC<HeaderProps> = ({
                         gap: 'var(--space-4)',
                     }}
                 >
-                    <SearchBar />
+                    <SearchBar
+                        onSearch={onSearch || (() => {})}
+                        isSearching={isSearching}
+                    />
 
                     {user ? (
                         <>
@@ -173,7 +180,8 @@ const Header: React.FC<HeaderProps> = ({
                             </Link>
 
                             {/* User Profile */}
-                            <div
+                            <Link
+                                to="/mypage"
                                 style={{
                                     display: 'flex',
                                     alignItems: 'center',
@@ -183,6 +191,16 @@ const Header: React.FC<HeaderProps> = ({
                                     borderRadius: 'var(--radius-full)',
                                     fontSize: '0.875rem',
                                     color: 'var(--gray-700)',
+                                    textDecoration: 'none',
+                                    transition: 'all 0.2s ease',
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.background =
+                                        'var(--gray-200)';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.background =
+                                        'var(--gray-100)';
                                 }}
                             >
                                 <div
@@ -208,7 +226,7 @@ const Header: React.FC<HeaderProps> = ({
                                         user.email?.split('@')[0] ||
                                         '사용자'}
                                 </span>
-                            </div>
+                            </Link>
 
                             <Link
                                 to="/auth"
