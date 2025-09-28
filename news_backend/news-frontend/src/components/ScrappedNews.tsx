@@ -7,12 +7,18 @@ interface ScrappedNewsProps {
     user: User | null;
     scrappedNews: NewsArticle[];
     onScrap: (article: NewsArticle) => void;
+    isConvertedToProfile?: boolean;
+    userPoliticalIndex?: number | null;
+    userInitialPoliticalScore?: number | null;
 }
 
 const ScrappedNews: React.FC<ScrappedNewsProps> = ({
     user,
     scrappedNews,
     onScrap,
+    isConvertedToProfile = false,
+    userPoliticalIndex = null,
+    userInitialPoliticalScore = null,
 }) => {
     return (
         <div>

@@ -10,12 +10,20 @@ interface NewsFeedProps {
     user: User | null;
     onScrap?: (article: NewsArticle) => void;
     scrappedNews?: NewsArticle[];
+    isConvertedToProfile?: boolean;
+    userPoliticalIndex?: number | null;
+    userInitialPoliticalScore?: number | null;
+    onConvertToProfile?: () => void;
 }
 
 const NewsFeed: React.FC<NewsFeedProps> = ({
     user,
     onScrap,
     scrappedNews = [],
+    isConvertedToProfile = false,
+    userPoliticalIndex = null,
+    userInitialPoliticalScore = null,
+    onConvertToProfile,
 }) => {
     const [articles, setArticles] = useState<NewsArticle[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -535,16 +543,67 @@ const NewsFeed: React.FC<NewsFeedProps> = ({
                                 }}
                             >
                                 <CircularChart
-                                    score={userPoliticalScore}
+                                    score={userInitialPoliticalScore || 50}
                                     title="프로필 정치성향 지수"
                                     size={160}
                                 />
                                 <CircularChart
-                                    score={activityPoliticalScore}
+                                    score={
+                                        isConvertedToProfile
+                                            ? calculateActivityPoliticalScore()
+                                            : userPoliticalIndex || 50
+                                    }
                                     title="활동 기반 정치성향 지수"
                                     size={160}
                                 />
                             </div>
+
+                            {/* 변환 버튼 */}
+                            {user &&
+                                scrappedNews.length > 0 &&
+                                onConvertToProfile && (
+                                    <div
+                                        style={{
+                                            marginTop: 'var(--space-6)',
+                                            textAlign: 'center',
+                                        }}
+                                    >
+                                        <button
+                                            onClick={onConvertToProfile}
+                                            style={{
+                                                padding:
+                                                    'var(--space-3) var(--space-6)',
+                                                background:
+                                                    'linear-gradient(135deg, var(--success-500) 0%, var(--success-600) 100%)',
+                                                color: 'white',
+                                                border: 'none',
+                                                borderRadius:
+                                                    'var(--radius-lg)',
+                                                fontSize: '1rem',
+                                                fontWeight: '600',
+                                                cursor: 'pointer',
+                                                boxShadow:
+                                                    '0 4px 12px rgba(34, 197, 94, 0.3)',
+                                                transition: 'all 0.3s ease',
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                e.currentTarget.style.transform =
+                                                    'translateY(-2px)';
+                                                e.currentTarget.style.boxShadow =
+                                                    '0 6px 20px rgba(34, 197, 94, 0.4)';
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.currentTarget.style.transform =
+                                                    'translateY(0)';
+                                                e.currentTarget.style.boxShadow =
+                                                    '0 4px 12px rgba(34, 197, 94, 0.3)';
+                                            }}
+                                        >
+                                            🔄 활동지수를 프로필 지수로 변환하기
+                                        </button>
+                                    </div>
+                                )}
+
                             <div
                                 style={{
                                     marginTop: 'var(--space-6)',

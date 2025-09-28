@@ -123,33 +123,43 @@ const Header: React.FC<HeaderProps> = ({
                                             display: 'flex',
                                             alignItems: 'center',
                                             gap: 'var(--space-2)',
-                                            padding:
-                                                'var(--space-2) var(--space-3)',
-                                            background:
-                                                userPoliticalIndex <= 45
-                                                    ? 'linear-gradient(135deg, #dc2626, #b91c1c)' // 보수적
-                                                    : userPoliticalIndex >= 56
-                                                    ? 'linear-gradient(135deg, #2563eb, #1d4ed8)' // 진보적
-                                                    : 'linear-gradient(135deg, #6b7280, #4b5563)', // 중립
-                                            borderRadius: 'var(--radius-full)',
-                                            color: 'white',
-                                            fontSize: '0.75rem',
-                                            fontWeight: '600',
-                                            boxShadow: 'var(--shadow-sm)',
                                         }}
-                                        title={`활동기반 정치성향지수: ${userPoliticalIndex}점 (${scrappedCount}개 기사 기준)`}
                                     >
-                                        <span>🎯</span>
-                                        <span>
-                                            {userPoliticalIndex <= 45
-                                                ? '보수적'
-                                                : userPoliticalIndex >= 56
-                                                ? '진보적'
-                                                : '중립적'}
-                                        </span>
-                                        <span style={{ opacity: 0.8 }}>
-                                            {userPoliticalIndex}점
-                                        </span>
+                                        <div
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: 'var(--space-2)',
+                                                padding:
+                                                    'var(--space-2) var(--space-3)',
+                                                background:
+                                                    userPoliticalIndex <= 45
+                                                        ? 'linear-gradient(135deg, #dc2626, #b91c1c)' // 보수적
+                                                        : userPoliticalIndex >=
+                                                          56
+                                                        ? 'linear-gradient(135deg, #2563eb, #1d4ed8)' // 진보적
+                                                        : 'linear-gradient(135deg, #6b7280, #4b5563)', // 중립
+                                                borderRadius:
+                                                    'var(--radius-full)',
+                                                color: 'white',
+                                                fontSize: '0.75rem',
+                                                fontWeight: '600',
+                                                boxShadow: 'var(--shadow-sm)',
+                                            }}
+                                            title={`활동기반 정치성향지수: ${userPoliticalIndex}점 (${scrappedCount}개 기사 기준)`}
+                                        >
+                                            <span>🎯</span>
+                                            <span>
+                                                {userPoliticalIndex <= 45
+                                                    ? '보수적'
+                                                    : userPoliticalIndex >= 56
+                                                    ? '진보적'
+                                                    : '중립적'}
+                                            </span>
+                                            <span style={{ opacity: 0.8 }}>
+                                                {userPoliticalIndex}점
+                                            </span>
+                                        </div>
                                     </div>
                                 )}
 

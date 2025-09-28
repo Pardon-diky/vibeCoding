@@ -1,295 +1,477 @@
+#!/usr/bin/env python3
+"""
+간단한 HTTP 서버 - 뉴스 API 제공
+"""
+import http.server
+import socketserver
+import json
 import sqlite3
-from fastapi import FastAPI, Depends, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
 import os
-from user_management import init_user_db, create_firebase_user, get_user_by_firebase_uid, update_user_info, get_user_by_email
+from urllib.parse import urlparse, parse_qs
 from serper_news import SerperNewsAPI, save_serper_news_to_db
 
-# FastAPI 앱 생성
-app = FastAPI()
+# Serper API 키
+SERPER_API_KEY = "324e82a232a260a167a7f1bfd699873a356b5f4d"
 
-# CORS 설정
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # React 앱의 주소
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# 데이터베이스 파일 경로
-DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'news.db')
-
-# Pydantic 모델 정의
-class UserCreate(BaseModel):
-    username: str
-    password: str
-    political_leaning: str
-
-class UserLogin(BaseModel):
-    username: str
-    password: str
-
-class FirebaseUserCreate(BaseModel):
-    firebase_uid: str
-    email: str
-    nickname: str = None
-    display_name: str = None
-    political_leaning: str = None
-    political_leaning_score: float = None
-
-class UserUpdate(BaseModel):
-    nickname: str = None
-    display_name: str = None
-    political_leaning: str = None
-    political_leaning_score: float = None
-    profile_image_url: str = None
-
-class SerperNewsRequest(BaseModel):
-    query: str = "정치 뉴스"
-    num_results: int = 10
-    save_to_db: bool = True
-
-# @app.on_event("startup")
-# def startup_event():
-#     init_user_db()
-
-def get_db_connection():
-    """데이터베이스 연결을 생성하고 row_factory를 설정합니다."""
-    if not os.path.exists(DB_PATH):
-        raise HTTPException(status_code=500, detail=f"데이터베이스 파일('{DB_PATH}')을 찾을 수 없습니다. 먼저 crawler.py를 실행하여 데이터베이스를 생성하세요.")
+class NewsHandler(http.server.BaseHTTPRequestHandler):
+    def _set_cors_headers(self):
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+        self.send_header('Access-Control-Max-Age', '86400')
     
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
-    return conn
-
-@app.get("/")
-def read_root():
-    return {"message": "News API에 오신 것을 환영합니다. /news 로 접속하여 최신 뉴스를 확인하세요."}
-
-# 사용자 관련 API 엔드포인트들
-@app.post("/users/firebase")
-def create_firebase_user_endpoint(user_data: FirebaseUserCreate):
-    """Firebase 사용자를 데이터베이스에 저장합니다."""
-    result = create_firebase_user(
-        firebase_uid=user_data.firebase_uid,
-        email=user_data.email,
-        nickname=user_data.nickname,
-        display_name=user_data.display_name,
-        political_leaning=user_data.political_leaning,
-        political_leaning_score=user_data.political_leaning_score
-    )
-    if "error" in result:
-        raise HTTPException(status_code=400, detail=result["error"])
-    return result
-
-@app.get("/users/firebase/{firebase_uid}")
-def get_user_by_firebase_uid_endpoint(firebase_uid: str):
-    """Firebase UID로 사용자 정보를 조회합니다."""
-    user = get_user_by_firebase_uid(firebase_uid)
-    if not user:
-        raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
-    return user
-
-@app.put("/users/firebase/{firebase_uid}")
-def update_user_info_endpoint(firebase_uid: str, user_data: UserUpdate):
-    """사용자 정보를 업데이트합니다."""
-    update_data = user_data.dict(exclude_unset=True)
-    if not update_data:
-        raise HTTPException(status_code=400, detail="업데이트할 데이터가 없습니다.")
-    
-    success = update_user_info(firebase_uid, **update_data)
-    if not success:
-        raise HTTPException(status_code=500, detail="사용자 정보 업데이트에 실패했습니다.")
-    
-    # 업데이트된 사용자 정보 반환
-    updated_user = get_user_by_firebase_uid(firebase_uid)
-    return updated_user
-
-@app.get("/users/email/{email}")
-def get_user_by_email_endpoint(email: str):
-    """이메일로 사용자 정보를 조회합니다."""
-    user = get_user_by_email(email)
-    if not user:
-        raise HTTPException(status_code=404, detail="사용자를 찾을 수 없습니다.")
-    return user
-
-# @app.post("/users/register")
-# def register_user(user: UserCreate):
-#     """새로운 사용자를 등록합니다."""
-#     result = create_user(user.username, user.password, user.political_leaning)
-#     if "error" in result:
-#         raise HTTPException(status_code=400, detail=result["error"])
-#     return result
-
-# @app.post("/users/login")
-# def login_for_access_token(form_data: UserLogin):
-#     """사용자 로그인 및 인증"""
-#     user = verify_user(form_data.username, form_data.password)
-#     if not user:
-#         raise HTTPException(
-#             status_code=401,
-#             detail="Incorrect username or password",
-#             headers={"WWW-Authenticate": "Bearer"},
-#         )
-#     return {"message": f"Welcome {user['username']}"}
-
-@app.get("/news")
-def get_news():
-    """데이터베이스에서 모든 뉴스 기사를 가져와 반환합니다."""
-    try:
-        conn = sqlite3.connect(DB_PATH)
-        conn.row_factory = sqlite3.Row
-        c = conn.cursor()
-        c.execute("SELECT id, title, url, summary, political_leaning, political_score, neutrality_score, source, image_url, created_at FROM news ORDER BY created_at DESC")
-        news_list = c.fetchall()
-        return [dict(row) for row in news_list]
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-    finally:
-        if 'conn' in locals():
-            conn.close()
-
-@app.get("/news/political")
-def get_political_news():
-    """정치 관련 뉴스만 가져와 반환합니다."""
-    try:
-        conn = sqlite3.connect(DB_PATH)
-        conn.row_factory = sqlite3.Row
-        c = conn.cursor()
+    def do_GET(self):
+        parsed_path = urlparse(self.path)
         
-        # 정치 관련 키워드로 필터링 (더 포괄적으로)
-        political_keywords = [
-            '정치', '정부', '대통령', '국회', '의회', '선거', '당', '정당', '여당', '야당',
-            '보수', '진보', '좌파', '우파', '정치인', '정치적', '정책', '법안', '입법',
-            '국정', '국정감사', '국정원', '검찰', '법원', '사법', '사법부', '헌법',
-            '민주주의', '자유', '평등', '인권', '시민', '국민', '국가', '사회',
-            '경제정책', '복지', '교육정책', '외교', '국방', '안보', '통일',
-            '윤석열', '이재명', '한동훈', '조국', '이준석', '이낙연', '문재인',
-            '국민의힘', '더불어민주당', '민주당', '국힘', '개혁신당', '조국혁신당',
-            # 더 포괄적인 키워드 추가
-            '청년', '노동', '고용', '경제', '금리', '인플레이션', '물가', '부동산',
-            '주택', '임대료', '세금', '예산', '지출', '투자', '성장', '발전',
-            '개발', '건설', '교통', '환경', '기후', '에너지', '재생에너지',
-            '의료', '보건', '복지', '연금', '보험', '교육', '학교', '대학',
-            '학생', '교사', '교수', '연구', '과학', '기술', '디지털', 'AI',
-            '인공지능', '데이터', '개인정보', '보안', '사이버', '인터넷',
-            '미디어', '언론', '방송', '신문', '기자', '보도', '취재',
-            '여성', '남성', '아동', '노인', '장애인', '소수자', '차별',
-            '평등', '공정', '정의', '윤리', '도덕', '가치', '문화',
-            '예술', '스포츠', '올림픽', '월드컵', '축구', '야구', '농구',
-            '국제', '글로벌', '세계', '아시아', '유럽', '미국', '중국',
-            '일본', '북한', '러시아', '우크라이나', '전쟁', '평화',
-            '안전', '재난', '재해', '방재', '소방', '경찰', '군대',
-            '국방', '무기', '군사', '전쟁', '평화', '통일', '분단'
-        ]
+        if parsed_path.path == '/':
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self._set_cors_headers()
+            self.end_headers()
+            response = {"message": "News API Server - 뉴스 API 서버입니다."}
+            self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
+            
+        elif parsed_path.path == '/news/political':
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self._set_cors_headers()
+            self.end_headers()
+            
+            try:
+                print("API 요청 받음: /news/political")
+                conn = sqlite3.connect('news.db', check_same_thread=False, timeout=10)
+                conn.row_factory = sqlite3.Row
+                c = conn.cursor()
+                c.execute("SELECT id, title, url, summary, political_leaning, political_score, neutrality_score, source, image_url, created_at FROM news ORDER BY created_at DESC LIMIT 20")
+                news_list = c.fetchall()
+                print(f"데이터베이스에서 {len(news_list)}개 뉴스 조회됨")
+                conn.close()
+                
+                response = []
+                for row in news_list:
+                    row_dict = dict(row)
+                    response.append(row_dict)
+                print(f"응답 데이터 크기: {len(response)}")
+                self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
+            except Exception as e:
+                error_response = {"error": str(e)}
+                self.wfile.write(json.dumps(error_response, ensure_ascii=False).encode('utf-8'))
         
-        # SQL LIKE 쿼리로 정치 관련 뉴스 필터링
-        like_conditions = " OR ".join([f"title LIKE '%{keyword}%' OR summary LIKE '%{keyword}%'" for keyword in political_keywords])
-        query = f"SELECT id, title, url, summary, political_leaning, political_score, neutrality_score, source, image_url, created_at FROM news WHERE {like_conditions} ORDER BY created_at DESC"
+        elif parsed_path.path == '/news/search':
+            # 뉴스 검색
+            query_params = parse_qs(parsed_path.query)
+            search_query = query_params.get('q', [''])[0]
+            
+            try:
+                conn = sqlite3.connect('news.db', check_same_thread=False, timeout=10)
+                conn.row_factory = sqlite3.Row
+                c = conn.cursor()
+                
+                if search_query:
+                    c.execute("""
+                        SELECT id, title, url, summary, political_leaning, political_score, 
+                               neutrality_score, source, image_url, created_at 
+                        FROM news 
+                        WHERE title LIKE ? OR summary LIKE ?
+                        ORDER BY created_at DESC 
+                        LIMIT 20
+                    """, (f'%{search_query}%', f'%{search_query}%'))
+                else:
+                    c.execute("""
+                        SELECT id, title, url, summary, political_leaning, political_score, 
+                               neutrality_score, source, image_url, created_at 
+                        FROM news 
+                        ORDER BY created_at DESC 
+                        LIMIT 20
+                    """)
+                
+                news_list = c.fetchall()
+                conn.close()
+                
+                self.send_response(200)
+                self.send_header('Content-type', 'application/json')
+                self._set_cors_headers()
+                self.end_headers()
+                
+                response = [dict(row) for row in news_list]
+                self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
+                
+            except Exception as e:
+                self.send_response(500)
+                self.send_header('Content-type', 'application/json')
+                self._set_cors_headers()
+                self.end_headers()
+                
+                error_response = {"error": str(e)}
+                self.wfile.write(json.dumps(error_response, ensure_ascii=False).encode('utf-8'))
         
-        c.execute(query)
-        news_list = c.fetchall()
-        return [dict(row) for row in news_list]
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-    finally:
-        if 'conn' in locals():
-            conn.close()
-
-@app.get("/news/recommended")
-def get_recommended_news(political_leaning: str, conn: sqlite3.Connection = Depends(get_db_connection)):
-    """사용자의 정치 성향에 기반하여 뉴스를 추천합니다."""
-    try:
-        c = conn.cursor()
-        # 사용자의 성향과 일치하는 뉴스를 우선적으로 추천
-        c.execute("SELECT * FROM news WHERE political_leaning LIKE ? ORDER BY created_at DESC LIMIT 10", (f'%{political_leaning}%',))
-        recommended_news = c.fetchall()
-        return [dict(row) for row in recommended_news]
-    finally:
-        conn.close()
-
-@app.get("/news/balance")
-def get_news_balance(user_id: int, conn: sqlite3.Connection = Depends(get_db_connection)):
-    """사용자가 소비한 뉴스의 정치 성향 균형 지수를 계산합니다."""
-    # TBD: 사용자가 읽은 기사 기록을 추적하는 기능이 필요합니다.
-    # 우선은 전체 기사의 성향 분포를 보여주는 것으로 대체합니다.
-    try:
-        c = conn.cursor()
-        c.execute("SELECT political_leaning, COUNT(*) as count FROM news GROUP BY political_leaning")
-        balance_data = c.fetchall()
-        return {row['political_leaning']: row['count'] for row in balance_data}
-    finally:
-        conn.close()
-
-# Serper API 관련 엔드포인트들
-@app.post("/news/serper/search")
-def search_news_with_serper(request: SerperNewsRequest):
-    """Serper API를 사용하여 뉴스를 검색합니다."""
-    api_key = os.getenv("SERPER_API_KEY")
-    if not api_key:
-        raise HTTPException(status_code=500, detail="SERPER_API_KEY가 설정되지 않았습니다.")
-    
-    try:
-        serper = SerperNewsAPI(api_key)
-        news_list = serper.search_political_news(request.query, request.num_results)
-        
-        if request.save_to_db and news_list:
-            save_serper_news_to_db(news_list, DB_PATH)
-        
-        return {
-            "message": f"총 {len(news_list)}개의 뉴스를 검색했습니다.",
-            "news": news_list,
-            "saved_to_db": request.save_to_db
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"뉴스 검색 중 오류가 발생했습니다: {str(e)}")
-
-@app.get("/news/serper/latest")
-def get_latest_political_news_with_serper(num_results: int = 20, save_to_db: bool = True):
-    """Serper API를 사용하여 최신 정치 뉴스를 가져옵니다."""
-    api_key = os.getenv("SERPER_API_KEY")
-    if not api_key:
-        raise HTTPException(status_code=500, detail="SERPER_API_KEY가 설정되지 않았습니다.")
-    
-    try:
-        serper = SerperNewsAPI(api_key)
-        news_list = serper.get_latest_political_news(num_results)
-        
-        if save_to_db and news_list:
-            save_serper_news_to_db(news_list, DB_PATH)
-        
-        return {
-            "message": f"총 {len(news_list)}개의 최신 정치 뉴스를 가져왔습니다.",
-            "news": news_list,
-            "saved_to_db": save_to_db
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"뉴스 가져오기 중 오류가 발생했습니다: {str(e)}")
-
-@app.post("/news/serper/refresh")
-def refresh_political_news_with_serper():
-    """Serper API를 사용하여 정치 뉴스를 새로고침하고 데이터베이스에 저장합니다."""
-    api_key = os.getenv("SERPER_API_KEY")
-    if not api_key:
-        raise HTTPException(status_code=500, detail="SERPER_API_KEY가 설정되지 않았습니다.")
-    
-    try:
-        serper = SerperNewsAPI(api_key)
-        news_list = serper.get_latest_political_news(30)  # 더 많은 뉴스 가져오기
-        
-        if news_list:
-            save_serper_news_to_db(news_list, DB_PATH)
-            return {
-                "message": f"총 {len(news_list)}개의 새로운 정치 뉴스를 데이터베이스에 저장했습니다.",
-                "news_count": len(news_list)
-            }
+        elif parsed_path.path.startswith('/users/firebase/') and parsed_path.path.endswith('/scraps'):
+            # 사용자 스크랩 목록 조회
+            path_parts = parsed_path.path.split('/')
+            firebase_uid = path_parts[3]
+            self.get_user_scraps(firebase_uid)
+            
+        elif parsed_path.path.startswith('/users/firebase/'):
+            # Firebase UID 추출
+            path_parts = parsed_path.path.split('/')
+            firebase_uid = path_parts[3]
+            
+            try:
+                conn = sqlite3.connect('news.db', check_same_thread=False, timeout=10)
+                conn.row_factory = sqlite3.Row
+                c = conn.cursor()
+                
+                # 사용자 정보 조회
+                c.execute('''
+                    SELECT * FROM users WHERE firebase_uid = ?
+                ''', (firebase_uid,))
+                
+                user = c.fetchone()
+                conn.close()
+                
+                if user:
+                    self.send_response(200)
+                    self.send_header('Content-type', 'application/json')
+                    self._set_cors_headers()
+                    self.end_headers()
+                    
+                    user_dict = dict(user)
+                    self.wfile.write(json.dumps(user_dict, ensure_ascii=False).encode('utf-8'))
+                else:
+                    self.send_response(404)
+                    self.send_header('Content-type', 'application/json')
+                    self._set_cors_headers()
+                    self.end_headers()
+                    
+                    response = {"error": "사용자를 찾을 수 없습니다."}
+                    self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
+                    
+            except Exception as e:
+                self.send_response(500)
+                self.send_header('Content-type', 'application/json')
+                self._set_cors_headers()
+                self.end_headers()
+                
+                error_response = {"error": str(e)}
+                self.wfile.write(json.dumps(error_response, ensure_ascii=False).encode('utf-8'))
         else:
-            return {
-                "message": "새로운 뉴스를 찾지 못했습니다.",
-                "news_count": 0
-            }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"뉴스 새로고침 중 오류가 발생했습니다: {str(e)}")
+            self.send_response(404)
+            self.send_header('Content-type', 'application/json')
+            self._set_cors_headers()
+            self.end_headers()
+            response = {"error": "Not found"}
+            self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
+    
+    def do_POST(self):
+        parsed_path = urlparse(self.path)
+        
+        if parsed_path.path == '/news/serper/latest':
+            # Serper API로 최신 뉴스 가져오기
+            query_params = parse_qs(parsed_path.query)
+            num_results = int(query_params.get('num_results', ['20'])[0])
+            save_to_db = query_params.get('save_to_db', ['true'])[0].lower() == 'true'
+            
+            try:
+                serper = SerperNewsAPI(SERPER_API_KEY)
+                news_list = serper.get_latest_political_news(num_results)
+                
+                if save_to_db and news_list:
+                    save_serper_news_to_db(news_list, 'news.db')
+                
+                self.send_response(200)
+                self.send_header('Content-type', 'application/json')
+                self._set_cors_headers()
+                self.end_headers()
+                
+                response = {
+                    "message": f"총 {len(news_list)}개의 최신 정치 뉴스를 가져왔습니다.",
+                    "news": news_list,
+                    "saved_to_db": save_to_db
+                }
+                self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
+                
+            except Exception as e:
+                self.send_response(500)
+                self.send_header('Content-type', 'application/json')
+                self._set_cors_headers()
+                self.end_headers()
+                
+                error_response = {
+                    "error": f"뉴스 가져오기 중 오류가 발생했습니다: {str(e)}"
+                }
+                self.wfile.write(json.dumps(error_response, ensure_ascii=False).encode('utf-8'))
+        
+        elif parsed_path.path == '/news/serper/refresh':
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self._set_cors_headers()
+            self.end_headers()
+            
+            try:
+                serper = SerperNewsAPI(SERPER_API_KEY)
+                news_list = serper.get_latest_political_news(30)
+                
+                if news_list:
+                    save_serper_news_to_db(news_list, 'news.db')
+                    response = {
+                        "message": f"총 {len(news_list)}개의 새로운 정치 뉴스를 데이터베이스에 저장했습니다.",
+                        "news_count": len(news_list)
+                    }
+                else:
+                    response = {
+                        "message": "새로운 뉴스를 찾지 못했습니다.",
+                        "news_count": 0
+                    }
+                
+                self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
+            except Exception as e:
+                error_response = {
+                    "error": f"뉴스 새로고침 중 오류가 발생했습니다: {str(e)}",
+                    "news_count": 0
+                }
+                self.wfile.write(json.dumps(error_response, ensure_ascii=False).encode('utf-8'))
+                
+        elif parsed_path.path.startswith('/users/firebase/') and parsed_path.path.endswith('/scraps'):
+            # 스크랩 추가/삭제 처리
+            path_parts = parsed_path.path.split('/')
+            firebase_uid = path_parts[3]
+            self.handle_scrap_action(firebase_uid)
+            
+        else:
+            self.send_response(404)
+            self.send_header('Content-type', 'application/json')
+            self._set_cors_headers()
+            self.end_headers()
+            response = {"error": "Not found"}
+            self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
+    
+    def do_PUT(self):
+        # OPTIONS 요청 처리
+        if self.command == 'OPTIONS':
+            self.send_response(200)
+            self._set_cors_headers()
+            self.end_headers()
+            return
+            
+        parsed_path = urlparse(self.path)
+        
+        if parsed_path.path.startswith('/users/firebase/') and parsed_path.path.endswith('/political-score'):
+            # Firebase UID 추출
+            path_parts = parsed_path.path.split('/')
+            firebase_uid = path_parts[3]
+            
+            try:
+                print(f"PUT 요청 받음: {parsed_path.path}")
+                print(f"Firebase UID: {firebase_uid}")
+                
+                # 요청 본문 읽기
+                content_length = int(self.headers['Content-Length'])
+                post_data = self.rfile.read(content_length)
+                data = json.loads(post_data.decode('utf-8'))
+                political_score = float(data.get("political_score", 50.0))
+                print(f"Political Score: {political_score}")
+                
+                # 데이터베이스 업데이트
+                conn = sqlite3.connect('news.db', check_same_thread=False, timeout=10)
+                c = conn.cursor()
+                
+                # 사용자 테이블이 있는지 확인하고 없으면 생성
+                c.execute('''
+                    CREATE TABLE IF NOT EXISTS users (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        firebase_uid TEXT UNIQUE,
+                        username TEXT,
+                        email TEXT,
+                        political_leaning_score REAL DEFAULT 50.0,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    )
+                ''')
+                
+                # 사용자 정보 업데이트 (사용자가 존재하지 않으면 생성)
+                c.execute('''
+                    UPDATE users
+                    SET political_leaning_score = ?
+                    WHERE firebase_uid = ?
+                ''', (political_score, firebase_uid))
+                
+                # 업데이트된 행이 없으면 새 사용자 생성
+                if c.rowcount == 0:
+                    c.execute('''
+                        INSERT OR IGNORE INTO users (firebase_uid, username, email, political_leaning_score)
+                        VALUES (?, ?, ?, ?)
+                    ''', (firebase_uid, f"user_{firebase_uid[:8]}", f"user_{firebase_uid[:8]}@example.com", political_score))
+                
+                conn.commit()
+                conn.close()
+                print("데이터베이스 업데이트 성공")
+                
+                self.send_response(200)
+                self.send_header('Content-type', 'application/json')
+                self._set_cors_headers()
+                self.end_headers()
+                
+                response = {
+                    "message": "정치성향 점수가 성공적으로 업데이트되었습니다.",
+                    "political_score": political_score
+                }
+                self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
+                
+            except Exception as e:
+                print(f"오류 발생: {str(e)}")
+                import traceback
+                traceback.print_exc()
+                self.send_response(500)
+                self.send_header('Content-type', 'application/json')
+                self._set_cors_headers()
+                self.end_headers()
+                
+                error_response = {
+                    "error": f"정치성향 점수 업데이트 중 오류가 발생했습니다: {str(e)}"
+                }
+                self.wfile.write(json.dumps(error_response, ensure_ascii=False).encode('utf-8'))
+        else:
+            self.send_response(404)
+            self.send_header('Content-type', 'application/json')
+            self._set_cors_headers()
+            self.end_headers()
+            response = {"error": "Not found"}
+            self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
+    
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self._set_cors_headers()
+        self.end_headers()
+    
+    def get_user_scraps(self, firebase_uid):
+        """사용자의 스크랩 목록 조회"""
+        try:
+            conn = sqlite3.connect('news.db', check_same_thread=False, timeout=10)
+            conn.row_factory = sqlite3.Row
+            c = conn.cursor()
+            
+            # user_scraps 테이블이 없으면 생성
+            c.execute('''
+                CREATE TABLE IF NOT EXISTS user_scraps (
+                    user_uid TEXT NOT NULL,
+                    news_id TEXT NOT NULL,
+                    scrapped_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    PRIMARY KEY (user_uid, news_id)
+                )
+            ''')
+            
+            # 스크랩된 뉴스 조회
+            c.execute('''
+                SELECT n.* FROM news n
+                JOIN user_scraps us ON n.id = us.news_id
+                WHERE us.user_uid = ?
+                ORDER BY us.scrapped_at DESC
+            ''', (firebase_uid,))
+            
+            scrapped_news = [dict(row) for row in c.fetchall()]
+            conn.close()
+            
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self._set_cors_headers()
+            self.end_headers()
+            
+            response = {"scrapped_news": scrapped_news}
+            self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
+            
+        except Exception as e:
+            self.send_response(500)
+            self.send_header('Content-type', 'application/json')
+            self._set_cors_headers()
+            self.end_headers()
+            
+            error_response = {"error": f"스크랩 목록 조회 중 오류가 발생했습니다: {str(e)}"}
+            self.wfile.write(json.dumps(error_response, ensure_ascii=False).encode('utf-8'))
+    
+    def handle_scrap_action(self, firebase_uid):
+        """스크랩 추가/삭제 처리"""
+        try:
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length)
+            data = json.loads(post_data.decode('utf-8'))
+            
+            article_id = data.get('article_id')
+            action = data.get('action')  # 'add' or 'remove'
+            
+            if not all([article_id, action]):
+                self.send_response(400)
+                self.send_header('Content-type', 'application/json')
+                self._set_cors_headers()
+                self.end_headers()
+                
+                error_response = {"error": "article_id와 action이 필요합니다."}
+                self.wfile.write(json.dumps(error_response, ensure_ascii=False).encode('utf-8'))
+                return
+            
+            conn = sqlite3.connect('news.db', check_same_thread=False, timeout=10)
+            c = conn.cursor()
+            
+            # user_scraps 테이블이 없으면 생성
+            c.execute('''
+                CREATE TABLE IF NOT EXISTS user_scraps (
+                    user_uid TEXT NOT NULL,
+                    news_id TEXT NOT NULL,
+                    scrapped_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    PRIMARY KEY (user_uid, news_id)
+                )
+            ''')
+            
+            if action == 'add':
+                c.execute('''
+                    INSERT OR IGNORE INTO user_scraps (user_uid, news_id)
+                    VALUES (?, ?)
+                ''', (firebase_uid, article_id))
+                message = "뉴스가 스크랩되었습니다."
+            elif action == 'remove':
+                c.execute('''
+                    DELETE FROM user_scraps
+                    WHERE user_uid = ? AND news_id = ?
+                ''', (firebase_uid, article_id))
+                message = "스크랩이 해제되었습니다."
+            else:
+                self.send_response(400)
+                self.send_header('Content-type', 'application/json')
+                self._set_cors_headers()
+                self.end_headers()
+                
+                error_response = {"error": "잘못된 action입니다. 'add' 또는 'remove'를 사용하세요."}
+                self.wfile.write(json.dumps(error_response, ensure_ascii=False).encode('utf-8'))
+                conn.close()
+                return
+            
+            conn.commit()
+            conn.close()
+            
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self._set_cors_headers()
+            self.end_headers()
+            
+            response = {"message": message}
+            self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
+            
+        except Exception as e:
+            self.send_response(500)
+            self.send_header('Content-type', 'application/json')
+            self._set_cors_headers()
+            self.end_headers()
+            
+            error_response = {"error": f"스크랩 처리 중 오류가 발생했습니다: {str(e)}"}
+            self.wfile.write(json.dumps(error_response, ensure_ascii=False).encode('utf-8'))
 
+if __name__ == "__main__":
+    PORT = 8000
+    
+    with socketserver.TCPServer(("", PORT), NewsHandler) as httpd:
+        print(f"서버가 포트 {PORT}에서 실행 중입니다...")
+        print(f"http://localhost:{PORT}/ 에서 접속하세요")
+        print("Ctrl+C를 눌러 서버를 종료하세요")
+        try:
+            httpd.serve_forever()
+        except KeyboardInterrupt:
+            print("\n서버를 종료합니다.")
+            httpd.shutdown()

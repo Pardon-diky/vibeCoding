@@ -19,11 +19,18 @@ function App() {
     const [userInitialPoliticalScore, setUserInitialPoliticalScore] = useState<
         number | null
     >(null);
+    const [isConvertedToProfile, setIsConvertedToProfile] =
+        useState<boolean>(false);
 
     // 스크랩된 뉴스에서 정치성향지수 계산
     const calculateUserPoliticalIndex = (
         scrappedArticles: NewsArticle[]
     ): number | null => {
+        // 변환된 상태에서는 프로필 점수를 우선적으로 사용
+        if (isConvertedToProfile && userInitialPoliticalScore !== null) {
+            return userInitialPoliticalScore;
+        }
+
         if (scrappedArticles.length === 0) {
             // 스크랩된 뉴스가 없으면 사용자의 초기 정치성향 점수 사용
             return userInitialPoliticalScore;
@@ -48,24 +55,151 @@ function App() {
         return Math.round(averageScore);
     };
 
+    // 스크랩된 뉴스 가져오기
+    const fetchScrappedNews = async (firebaseUid: string) => {
+        try {
+            const response = await fetch(
+                `http://127.0.0.1:8000/users/firebase/${firebaseUid}/scraps`
+            );
+
+            if (response.ok) {
+                const data = await response.json();
+                setScrappedNews(data.scrapped_news || []);
+            } else {
+                console.error('스크랩된 뉴스 가져오기 실패');
+            }
+        } catch (error) {
+            console.error('스크랩된 뉴스 가져오기 오류:', error);
+        }
+    };
+
     // 뉴스 스크랩 함수
-    const handleScrapNews = (article: NewsArticle) => {
+    const handleScrapNews = async (article: NewsArticle) => {
+        if (!user) {
+            alert('로그인이 필요합니다.');
+            return;
+        }
+
         const isAlreadyScrapped = scrappedNews.some(
             (scrapped) => scrapped.id === article.id
         );
 
-        if (isAlreadyScrapped) {
-            // 이미 스크랩된 경우 제거
-            const updatedScrapped = scrappedNews.filter(
-                (scrapped) => scrapped.id !== article.id
+        try {
+            const action = isAlreadyScrapped ? 'remove' : 'add';
+            const response = await fetch(
+                `http://127.0.0.1:8000/users/firebase/${user.uid}/scraps`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        article_id: article.id,
+                        action: action,
+                    }),
+                }
             );
-            setScrappedNews(updatedScrapped);
-            setUserPoliticalIndex(calculateUserPoliticalIndex(updatedScrapped));
-        } else {
-            // 새로 스크랩
-            const updatedScrapped = [...scrappedNews, article];
-            setScrappedNews(updatedScrapped);
-            setUserPoliticalIndex(calculateUserPoliticalIndex(updatedScrapped));
+
+            if (response.ok) {
+                if (isAlreadyScrapped) {
+                    // 이미 스크랩된 경우 제거
+                    const updatedScrapped = scrappedNews.filter(
+                        (scrapped) => scrapped.id !== article.id
+                    );
+                    setScrappedNews(updatedScrapped);
+
+                    // 변환된 상태가 아니면 활동기반 점수 업데이트
+                    if (!isConvertedToProfile) {
+                        setUserPoliticalIndex(
+                            calculateUserPoliticalIndex(updatedScrapped)
+                        );
+                    }
+                } else {
+                    // 새로 스크랩
+                    const updatedScrapped = [...scrappedNews, article];
+                    setScrappedNews(updatedScrapped);
+
+                    // 변환된 상태가 아니면 활동기반 점수 업데이트
+                    if (!isConvertedToProfile) {
+                        setUserPoliticalIndex(
+                            calculateUserPoliticalIndex(updatedScrapped)
+                        );
+                    }
+                }
+            } else {
+                throw new Error('스크랩 처리에 실패했습니다.');
+            }
+        } catch (error) {
+            console.error('스크랩 처리 오류:', error);
+            alert('스크랩 처리 중 오류가 발생했습니다.');
+        }
+    };
+
+    // 활동기반정치성향지수를 프로필정치성향지수로 변환하는 함수
+    const convertActivityToProfile = async () => {
+        if (!user) {
+            alert('로그인이 필요합니다.');
+            return;
+        }
+
+        if (scrappedNews.length === 0) {
+            alert(
+                '스크랩한 뉴스가 없습니다. 최소 1개 이상의 뉴스를 스크랩해주세요.'
+            );
+            return;
+        }
+
+        // 현재 활동기반 점수 계산 (변환 상태와 관계없이 실제 스크랩된 뉴스에서 계산)
+        const validScores = scrappedNews
+            .filter(
+                (article) =>
+                    article.politicalScore &&
+                    typeof article.politicalScore === 'number'
+            )
+            .map((article) => article.politicalScore as number);
+
+        if (validScores.length === 0) {
+            alert('유효한 정치성향 점수가 있는 뉴스가 없습니다.');
+            return;
+        }
+
+        const currentActivityScore = Math.round(
+            validScores.reduce((sum, score) => sum + score, 0) /
+                validScores.length
+        );
+
+        try {
+            const response = await fetch(
+                `http://127.0.0.1:8000/users/firebase/${user.uid}/political-score`,
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        political_score: currentActivityScore,
+                    }),
+                }
+            );
+
+            if (response.ok) {
+                const result = await response.json();
+                // 프로필 점수를 현재 활동기반 점수로 업데이트
+                setUserInitialPoliticalScore(currentActivityScore);
+                // 변환 상태 설정
+                setIsConvertedToProfile(true);
+                // localStorage에 변환 상태 저장
+                localStorage.setItem('isConvertedToProfile', 'true');
+                alert(
+                    `프로필정치성향지수가 ${currentActivityScore}점으로 업데이트되었습니다!`
+                );
+                console.log('정치성향 점수 업데이트 성공:', result);
+            } else {
+                throw new Error('서버 응답 오류');
+            }
+        } catch (error) {
+            console.error('정치성향 점수 업데이트 실패:', error);
+            alert('정치성향 점수 업데이트에 실패했습니다. 다시 시도해주세요.');
         }
     };
 
@@ -100,6 +234,15 @@ function App() {
                         const score = userData.political_leaning_score || 50;
                         setUserInitialPoliticalScore(score);
                         setUserPoliticalIndex(score);
+
+                        // 변환 상태 확인
+                        const isConverted =
+                            localStorage.getItem('isConvertedToProfile') ===
+                            'true';
+                        setIsConvertedToProfile(isConverted);
+
+                        // 스크랩된 뉴스 가져오기
+                        fetchScrappedNews(user.uid);
                     })
                     .catch((error) => {
                         clearTimeout(timeoutId);
@@ -185,7 +328,7 @@ function App() {
             >
                 <Header
                     user={user}
-                    userPoliticalIndex={userPoliticalIndex}
+                    userPoliticalIndex={userInitialPoliticalScore}
                     scrappedCount={scrappedNews.length}
                 />
                 <main
@@ -205,6 +348,16 @@ function App() {
                                         user={user}
                                         onScrap={handleScrapNews}
                                         scrappedNews={scrappedNews}
+                                        isConvertedToProfile={
+                                            isConvertedToProfile
+                                        }
+                                        userPoliticalIndex={userPoliticalIndex}
+                                        userInitialPoliticalScore={
+                                            userInitialPoliticalScore
+                                        }
+                                        onConvertToProfile={
+                                            convertActivityToProfile
+                                        }
                                     />
                                 }
                             />
@@ -215,6 +368,13 @@ function App() {
                                         user={user}
                                         scrappedNews={scrappedNews}
                                         onScrap={handleScrapNews}
+                                        isConvertedToProfile={
+                                            isConvertedToProfile
+                                        }
+                                        userPoliticalIndex={userPoliticalIndex}
+                                        userInitialPoliticalScore={
+                                            userInitialPoliticalScore
+                                        }
                                     />
                                 }
                             />
