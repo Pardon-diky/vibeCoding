@@ -277,44 +277,55 @@ const NewsFeed: React.FC<NewsFeedProps> = ({
         fetchNews();
     }, []);
 
-    // 사용자 정치 성향이 변경될 때 균형 잡힌 뉴스 업데이트
+    // 프로필 지수가 변경될 때 균형 잡힌 뉴스 업데이트
     useEffect(() => {
-        if (userPoliticalLeaning && articles.length > 0) {
-            const balanced = getBalancedNews(articles, userPoliticalLeaning);
+        if (userInitialPoliticalScore && articles.length > 0) {
+            const balanced = getBalancedNews(
+                articles,
+                userInitialPoliticalScore
+            );
             setBalancedArticles(balanced);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userPoliticalLeaning, articles]);
+    }, [userInitialPoliticalScore, articles]);
 
     // 균형 잡힌 뉴스 추천 함수
-    const getBalancedNews = (articles: NewsArticle[], userLeaning: string) => {
-        const oppositeLeaning =
-            userLeaning === 'conservative'
-                ? 'progressive'
-                : userLeaning === 'progressive'
-                ? 'conservative'
-                : 'neutral';
+    // 프로필 지수 기반 60:40 비율 뉴스 추천 함수
+    const getBalancedNews = (
+        articles: NewsArticle[],
+        userProfileScore: number | null
+    ) => {
+        if (!userProfileScore) return articles;
 
-        // 반대 성향 뉴스 필터링
-        const oppositeArticles = articles.filter((article) => {
-            if (
-                !article.politicalLeaning ||
-                article.politicalLeaning === 'API 키가 설정되지 않았습니다.'
-            ) {
-                return false;
-            }
+        // 각 뉴스를 프로필 지수와의 차이로 분류
+        const articlesWithDifference = articles.map((article) => ({
+            ...article,
+            scoreDifference: Math.abs(
+                (article.politicalScore || 50) - userProfileScore
+            ),
+        }));
 
-            const lower = article.politicalLeaning.toLowerCase();
-            if (oppositeLeaning === 'conservative') {
-                return lower.includes('보수') || lower.includes('conservative');
-            } else if (oppositeLeaning === 'progressive') {
-                return lower.includes('진보') || lower.includes('progressive');
-            }
-            return false;
-        });
+        // 프로필 지수와의 차이가 15 이하인 뉴스 (비슷한 성향)
+        const similarArticles = articlesWithDifference
+            .filter((article) => article.scoreDifference <= 15)
+            .sort((a, b) => a.scoreDifference - b.scoreDifference);
 
-        // 최대 3개까지 반환
-        return oppositeArticles.slice(0, 3);
+        // 프로필 지수와의 차이가 15 초과인 뉴스 (반대 성향)
+        const oppositeArticles = articlesWithDifference
+            .filter((article) => article.scoreDifference > 15)
+            .sort((a, b) => b.scoreDifference - a.scoreDifference);
+
+        // 60:40 비율로 뉴스 선택
+        const totalCount = Math.min(articles.length, 20); // 최대 20개
+        const similarCount = Math.ceil(totalCount * 0.6); // 60%
+        const oppositeCount = totalCount - similarCount; // 40%
+
+        const selectedSimilar = similarArticles.slice(0, similarCount);
+        const selectedOpposite = oppositeArticles.slice(0, oppositeCount);
+
+        // 선택된 뉴스들을 섞어서 반환
+        const mixedArticles = [...selectedSimilar, ...selectedOpposite];
+        return mixedArticles.sort(() => Math.random() - 0.5);
     };
 
     const handleScrap = (article: NewsArticle) => {
@@ -399,10 +410,10 @@ const NewsFeed: React.FC<NewsFeedProps> = ({
             setArticles(formattedData);
 
             // 균형 잡힌 뉴스 추천
-            if (userPoliticalLeaning) {
+            if (userInitialPoliticalScore) {
                 const balanced = getBalancedNews(
                     formattedData,
-                    userPoliticalLeaning
+                    userInitialPoliticalScore
                 );
                 setBalancedArticles(balanced);
             }
@@ -670,7 +681,7 @@ const NewsFeed: React.FC<NewsFeedProps> = ({
                                             color: 'var(--gray-900)',
                                         }}
                                     >
-                                        균형 잡힌 뉴스 추천
+                                        🎯 맞춤 뉴스 추천
                                     </h4>
                                     <p
                                         style={{
@@ -679,17 +690,22 @@ const NewsFeed: React.FC<NewsFeedProps> = ({
                                             color: 'var(--gray-600)',
                                         }}
                                     >
-                                        {userPoliticalLeaning === 'conservative'
-                                            ? '진보'
-                                            : userPoliticalLeaning ===
-                                              'progressive'
-                                            ? '보수'
-                                            : '다양한'}{' '}
-                                        성향의 뉴스를 추천합니다
+                                        사용자님의 프로필에 맞춘 60:40 균형 뉴스
+                                        추천
                                     </p>
                                 </div>
                             </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                            <div
+                                style={{
+                                    display: 'grid',
+                                    gridTemplateColumns:
+                                        'repeat(auto-fit, minmax(600px, 1fr))',
+                                    gap: 'var(--space-8)',
+                                    marginBottom: 'var(--space-8)',
+                                    maxWidth: '1600px',
+                                    margin: '0 auto var(--space-8)',
+                                }}
+                            >
                                 {balancedArticles.map((article) => (
                                     <div
                                         key={`balanced-${article.id}`}
@@ -702,6 +718,9 @@ const NewsFeed: React.FC<NewsFeedProps> = ({
                                                 (scrapped) =>
                                                     scrapped.id === article.id
                                             )}
+                                            userProfileScore={
+                                                userInitialPoliticalScore
+                                            }
                                         />
                                     </div>
                                 ))}
@@ -753,7 +772,7 @@ const NewsFeed: React.FC<NewsFeedProps> = ({
                                     color: 'var(--gray-900)',
                                 }}
                             >
-                                정치 뉴스
+                                📰 일반 정치 뉴스
                             </h4>
                         </div>
                         <button
@@ -823,24 +842,30 @@ const NewsFeed: React.FC<NewsFeedProps> = ({
                             }}
                         >
                             <div className="grid grid-cols-1 gap-6">
-                                {articles.map((article, index) => (
-                                    <div
-                                        key={article.id}
-                                        className="fade-in"
-                                        style={{
-                                            animationDelay: `${index * 0.1}s`,
-                                        }}
-                                    >
-                                        <NewsItem
-                                            article={article}
-                                            onScrap={onScrap || handleScrap}
-                                            isScrapped={scrappedNews.some(
-                                                (scrapped) =>
-                                                    scrapped.id === article.id
-                                            )}
-                                        />
-                                    </div>
-                                ))}
+                                {articles
+                                    .sort(() => Math.random() - 0.5) // 랜덤 섞기
+                                    .map((article, index) => (
+                                        <div
+                                            key={article.id}
+                                            className="fade-in"
+                                            style={{
+                                                animationDelay: `${
+                                                    index * 0.1
+                                                }s`,
+                                            }}
+                                        >
+                                            <NewsItem
+                                                article={article}
+                                                onScrap={onScrap || handleScrap}
+                                                isScrapped={scrappedNews.some(
+                                                    (scrapped) =>
+                                                        scrapped.id ===
+                                                        article.id
+                                                )}
+                                                userProfileScore={null} // 일반 뉴스는 추천 라벨 없음
+                                            />
+                                        </div>
+                                    ))}
                             </div>
                         </div>
                     ) : (

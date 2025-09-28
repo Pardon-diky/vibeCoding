@@ -73,6 +73,7 @@ const ScrappedNews: React.FC<ScrappedNewsProps> = ({
                                 article={article}
                                 onScrap={onScrap}
                                 isScrapped={true}
+                                userProfileScore={userInitialPoliticalScore}
                             />
                         </div>
                     ))}

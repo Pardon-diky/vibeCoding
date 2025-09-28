@@ -136,7 +136,7 @@ const PoliticalGuidelineModal: React.FC<PoliticalGuidelineModalProps> = ({
                             fontWeight: '600',
                         }}
                     >
-                        📋 분석 가이드라인
+                        📋 AI 정치성향 분석 시스템 (V3)
                     </h3>
 
                     <div style={{ marginBottom: 'var(--space-6)' }}>
@@ -148,7 +148,7 @@ const PoliticalGuidelineModal: React.FC<PoliticalGuidelineModalProps> = ({
                                 fontWeight: '600',
                             }}
                         >
-                            🏛️ 정치성향 분류 기준
+                            🎯 점수 기준 및 분류
                         </h4>
                         <div
                             style={{
@@ -166,7 +166,7 @@ const PoliticalGuidelineModal: React.FC<PoliticalGuidelineModalProps> = ({
                                 }}
                             >
                                 <strong style={{ color: 'var(--red-700)' }}>
-                                    🔴 진보 (Progressive)
+                                    🔴 보수 성향 (1~45점)
                                 </strong>
                                 <p
                                     style={{
@@ -175,30 +175,7 @@ const PoliticalGuidelineModal: React.FC<PoliticalGuidelineModalProps> = ({
                                         color: 'var(--red-600)',
                                     }}
                                 >
-                                    사회적 변화, 평등, 진보적 정책을 지지하는
-                                    내용
-                                </p>
-                            </div>
-                            <div
-                                style={{
-                                    backgroundColor: 'var(--blue-50)',
-                                    border: '1px solid var(--blue-200)',
-                                    borderRadius: 'var(--radius-md)',
-                                    padding: 'var(--space-3)',
-                                }}
-                            >
-                                <strong style={{ color: 'var(--blue-700)' }}>
-                                    🔵 보수 (Conservative)
-                                </strong>
-                                <p
-                                    style={{
-                                        margin: 'var(--space-1) 0 0 0',
-                                        fontSize: '0.9rem',
-                                        color: 'var(--blue-600)',
-                                    }}
-                                >
-                                    전통적 가치, 안정성, 보수적 정책을 지지하는
-                                    내용
+                                    정부/여당 비판, 전통적 가치, 안정성 중시
                                 </p>
                             </div>
                             <div
@@ -210,7 +187,7 @@ const PoliticalGuidelineModal: React.FC<PoliticalGuidelineModalProps> = ({
                                 }}
                             >
                                 <strong style={{ color: 'var(--gray-700)' }}>
-                                    ⚪ 중립 (Neutral)
+                                    ⚪ 중립 성향 (46~55점)
                                 </strong>
                                 <p
                                     style={{
@@ -219,7 +196,28 @@ const PoliticalGuidelineModal: React.FC<PoliticalGuidelineModalProps> = ({
                                         color: 'var(--gray-600)',
                                     }}
                                 >
-                                    객관적 사실 전달, 균형잡힌 시각의 내용
+                                    객관적 사실 전달, 균형잡힌 시각
+                                </p>
+                            </div>
+                            <div
+                                style={{
+                                    backgroundColor: 'var(--blue-50)',
+                                    border: '1px solid var(--blue-200)',
+                                    borderRadius: 'var(--radius-md)',
+                                    padding: 'var(--space-3)',
+                                }}
+                            >
+                                <strong style={{ color: 'var(--blue-700)' }}>
+                                    🔵 진보 성향 (56~100점)
+                                </strong>
+                                <p
+                                    style={{
+                                        margin: 'var(--space-1) 0 0 0',
+                                        fontSize: '0.9rem',
+                                        color: 'var(--blue-600)',
+                                    }}
+                                >
+                                    야당/진보 진영 비판, 사회적 변화, 평등 중시
                                 </p>
                             </div>
                         </div>
@@ -234,32 +232,250 @@ const PoliticalGuidelineModal: React.FC<PoliticalGuidelineModalProps> = ({
                                 fontWeight: '600',
                             }}
                         >
-                            🤖 AI 분석 방법론
+                            🔍 3단계 분석 과정
                         </h4>
-                        <ul
+                        <div
                             style={{
-                                margin: 0,
-                                paddingLeft: 'var(--space-6)',
-                                color: 'var(--gray-700)',
+                                backgroundColor: 'var(--purple-50)',
+                                border: '1px solid var(--purple-200)',
+                                borderRadius: 'var(--radius-md)',
+                                padding: 'var(--space-4)',
+                                marginBottom: 'var(--space-4)',
                             }}
                         >
-                            <li style={{ marginBottom: 'var(--space-2)' }}>
-                                <strong>키워드 분석:</strong> 정치적 성향을
-                                나타내는 단어와 표현 패턴 분석
-                            </li>
-                            <li style={{ marginBottom: 'var(--space-2)' }}>
-                                <strong>톤 분석:</strong> 기사의 전체적인 톤과
-                                어조 분석
-                            </li>
-                            <li style={{ marginBottom: 'var(--space-2)' }}>
-                                <strong>내용 분석:</strong> 정책, 인물, 사건에
-                                대한 서술 방식 분석
-                            </li>
-                            <li style={{ marginBottom: 'var(--space-2)' }}>
-                                <strong>출처 분석:</strong> 언론사의 일반적인
-                                편향성 고려
-                            </li>
-                        </ul>
+                            <h5
+                                style={{
+                                    margin: '0 0 var(--space-2) 0',
+                                    color: 'var(--purple-800)',
+                                    fontSize: '0.95rem',
+                                    fontWeight: '600',
+                                }}
+                            >
+                                📌 1단계: 핵심 타겟 식별
+                            </h5>
+                            <p
+                                style={{
+                                    margin: '0 0 var(--space-2) 0',
+                                    fontSize: '0.85rem',
+                                    color: 'var(--purple-700)',
+                                }}
+                            >
+                                "이 기사로 인해 가장 큰 정치적 타격을 입는
+                                대상은 누구인가?"
+                            </p>
+                            <ul
+                                style={{
+                                    margin: 0,
+                                    paddingLeft: 'var(--space-4)',
+                                    fontSize: '0.8rem',
+                                    color: 'var(--purple-600)',
+                                }}
+                            >
+                                <li>
+                                    정부/여당이 타겟 → <strong>35점</strong>{' '}
+                                    기준점 (보수 성향)
+                                </li>
+                                <li>
+                                    야당/진보가 타겟 → <strong>65점</strong>{' '}
+                                    기준점 (진보 성향)
+                                </li>
+                                <li>
+                                    타겟 불분명 → <strong>50점</strong> 기준점
+                                    (중립)
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div
+                            style={{
+                                backgroundColor: 'var(--indigo-50)',
+                                border: '1px solid var(--indigo-200)',
+                                borderRadius: 'var(--radius-md)',
+                                padding: 'var(--space-4)',
+                                marginBottom: 'var(--space-4)',
+                            }}
+                        >
+                            <h5
+                                style={{
+                                    margin: '0 0 var(--space-2) 0',
+                                    color: 'var(--indigo-800)',
+                                    fontSize: '0.95rem',
+                                    fontWeight: '600',
+                                }}
+                            >
+                                ⚖️ 2단계: 편향성 요소 분석
+                            </h5>
+                            <div
+                                style={{
+                                    display: 'grid',
+                                    gridTemplateColumns:
+                                        'repeat(auto-fit, minmax(200px, 1fr))',
+                                    gap: 'var(--space-3)',
+                                }}
+                            >
+                                <div>
+                                    <strong
+                                        style={{
+                                            color: 'var(--indigo-700)',
+                                            fontSize: '0.8rem',
+                                        }}
+                                    >
+                                        어휘의 뉘앙스 (±10점)
+                                    </strong>
+                                    <p
+                                        style={{
+                                            margin: '2px 0 0 0',
+                                            fontSize: '0.75rem',
+                                            color: 'var(--indigo-600)',
+                                        }}
+                                    >
+                                        긍정/부정 단어 사용 패턴
+                                    </p>
+                                </div>
+                                <div>
+                                    <strong
+                                        style={{
+                                            color: 'var(--indigo-700)',
+                                            fontSize: '0.8rem',
+                                        }}
+                                    >
+                                        문장 구조 (±10점)
+                                    </strong>
+                                    <p
+                                        style={{
+                                            margin: '2px 0 0 0',
+                                            fontSize: '0.75rem',
+                                            color: 'var(--indigo-600)',
+                                        }}
+                                    >
+                                        누구의 책임을 부각하는가
+                                    </p>
+                                </div>
+                                <div>
+                                    <strong
+                                        style={{
+                                            color: 'var(--indigo-700)',
+                                            fontSize: '0.8rem',
+                                        }}
+                                    >
+                                        인용의 질과 양 (±10점)
+                                    </strong>
+                                    <p
+                                        style={{
+                                            margin: '2px 0 0 0',
+                                            fontSize: '0.75rem',
+                                            color: 'var(--indigo-600)',
+                                        }}
+                                    >
+                                        어느 쪽 목소리가 더 설득력 있는가
+                                    </p>
+                                </div>
+                                <div>
+                                    <strong
+                                        style={{
+                                            color: 'var(--indigo-700)',
+                                            fontSize: '0.8rem',
+                                        }}
+                                    >
+                                        의도적 생략 (±10점)
+                                    </strong>
+                                    <p
+                                        style={{
+                                            margin: '2px 0 0 0',
+                                            fontSize: '0.75rem',
+                                            color: 'var(--indigo-600)',
+                                        }}
+                                    >
+                                        독자 판단을 흐리는 생략된 정보
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            style={{
+                                backgroundColor: 'var(--green-50)',
+                                border: '1px solid var(--green-200)',
+                                borderRadius: 'var(--radius-md)',
+                                padding: 'var(--space-4)',
+                            }}
+                        >
+                            <h5
+                                style={{
+                                    margin: '0 0 var(--space-2) 0',
+                                    color: 'var(--green-800)',
+                                    fontSize: '0.95rem',
+                                    fontWeight: '600',
+                                }}
+                            >
+                                📊 3단계: 최종 점수 산출
+                            </h5>
+                            <p
+                                style={{
+                                    margin: 0,
+                                    fontSize: '0.85rem',
+                                    color: 'var(--green-700)',
+                                }}
+                            >
+                                기준점 + 편향성 요소 조정 = 최종 정치성향 점수
+                                (1~100점)
+                            </p>
+                        </div>
+                    </div>
+
+                    <div style={{ marginBottom: 'var(--space-6)' }}>
+                        <h4
+                            style={{
+                                margin: '0 0 var(--space-3) 0',
+                                color: 'var(--primary-700)',
+                                fontSize: '1rem',
+                                fontWeight: '600',
+                            }}
+                        >
+                            🎯 활동지수 계산 방식
+                        </h4>
+                        <div
+                            style={{
+                                backgroundColor: 'var(--orange-50)',
+                                border: '1px solid var(--orange-200)',
+                                borderRadius: 'var(--radius-md)',
+                                padding: 'var(--space-4)',
+                            }}
+                        >
+                            <p
+                                style={{
+                                    margin: '0 0 var(--space-2) 0',
+                                    fontSize: '0.9rem',
+                                    color: 'var(--orange-800)',
+                                }}
+                            >
+                                <strong>
+                                    스크랩한 뉴스들의 정치성향 점수 평균
+                                </strong>
+                                으로 계산됩니다.
+                            </p>
+                            <div
+                                style={{
+                                    backgroundColor: 'white',
+                                    border: '1px solid var(--orange-300)',
+                                    borderRadius: 'var(--radius-sm)',
+                                    padding: 'var(--space-3)',
+                                    marginTop: 'var(--space-2)',
+                                }}
+                            >
+                                <p
+                                    style={{
+                                        margin: 0,
+                                        fontSize: '0.8rem',
+                                        color: 'var(--orange-700)',
+                                    }}
+                                >
+                                    <strong>예시:</strong> 보수 뉴스(35점) +
+                                    진보 뉴스(70점) + 중립 뉴스(50점) = 평균
+                                    52점 → 중립 성향
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
                     <div style={{ marginBottom: 'var(--space-6)' }}>
@@ -369,4 +585,3 @@ const PoliticalGuidelineModal: React.FC<PoliticalGuidelineModalProps> = ({
 };
 
 export default PoliticalGuidelineModal;
-

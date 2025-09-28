@@ -334,8 +334,10 @@ function App() {
                 <main
                     className="container"
                     style={{
-                        paddingTop: 'var(--space-8)',
-                        paddingBottom: 'var(--space-8)',
+                        paddingTop: 'var(--space-10)',
+                        paddingBottom: 'var(--space-10)',
+                        paddingLeft: 'var(--space-6)',
+                        paddingRight: 'var(--space-6)',
                         flex: '1', // 남은 공간을 모두 차지
                     }}
                 >

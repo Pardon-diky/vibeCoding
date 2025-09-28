@@ -5,17 +5,42 @@ interface NewsItemProps {
     article: NewsArticle;
     onScrap: (article: NewsArticle) => void;
     isScrapped?: boolean;
+    userProfileScore?: number | null;
 }
 
 const NewsItem: React.FC<NewsItemProps> = ({
     article,
     onScrap,
     isScrapped = false,
+    userProfileScore = null,
 }) => {
     const handleNewsClick = () => {
         // 뉴스 URL이 있으면 새 탭에서 열기
         if (article.url) {
             window.open(article.url, '_blank');
+        }
+    };
+
+    // 성향 라벨 결정 함수
+    const getRecommendationLabel = () => {
+        if (!userProfileScore || !article.politicalScore) return null;
+
+        const scoreDifference = Math.abs(
+            article.politicalScore - userProfileScore
+        );
+
+        if (scoreDifference <= 15) {
+            return {
+                text: '🎯 사용자님의 프로필 지수와 가까운 뉴스 추천입니다',
+                color: '#10b981', // 초록색
+                bgColor: '#ecfdf5',
+            };
+        } else {
+            return {
+                text: '🌐 더 넓은 시야를 위해 추천된 뉴스입니다',
+                color: '#3b82f6', // 파란색
+                bgColor: '#eff6ff',
+            };
         }
     };
 
@@ -64,7 +89,7 @@ const NewsItem: React.FC<NewsItemProps> = ({
                 cursor: 'pointer',
                 display: 'flex',
                 flexDirection: 'row',
-                height: '200px',
+                height: '280px',
             }}
             onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-4px)';
@@ -113,7 +138,7 @@ const NewsItem: React.FC<NewsItemProps> = ({
             {/* 오른쪽 콘텐츠 섹션 */}
             <div
                 style={{
-                    padding: 'var(--space-4)',
+                    padding: 'var(--space-6)',
                     flex: 1,
                     display: 'flex',
                     flexDirection: 'column',
@@ -122,15 +147,37 @@ const NewsItem: React.FC<NewsItemProps> = ({
             >
                 {/* 제목과 요약 */}
                 <div style={{ flex: 1 }}>
+                    {/* 추천 라벨 */}
+                    {getRecommendationLabel() && (
+                        <div
+                            style={{
+                                marginBottom: 'var(--space-2)',
+                                padding: 'var(--space-1) var(--space-2)',
+                                borderRadius: 'var(--radius-sm)',
+                                fontSize: '0.75rem',
+                                fontWeight: '500',
+                                color: getRecommendationLabel()?.color,
+                                backgroundColor:
+                                    getRecommendationLabel()?.bgColor,
+                                border: `1px solid ${
+                                    getRecommendationLabel()?.color
+                                }20`,
+                                display: 'inline-block',
+                            }}
+                        >
+                            {getRecommendationLabel()?.text}
+                        </div>
+                    )}
+
                     {/* 제목 */}
                     <h3
                         style={{
                             margin: 0,
                             marginBottom: 'var(--space-2)',
-                            fontSize: '1.1rem',
+                            fontSize: '1.4rem',
                             fontWeight: '700',
                             color: 'var(--gray-900)',
-                            lineHeight: '1.4',
+                            lineHeight: '1.5',
                             cursor: 'pointer',
                             transition: 'color var(--transition-fast)',
                             display: '-webkit-box',
@@ -155,9 +202,9 @@ const NewsItem: React.FC<NewsItemProps> = ({
                         style={{
                             margin: 0,
                             marginBottom: 'var(--space-3)',
-                            fontSize: '0.875rem',
+                            fontSize: '1.1rem',
                             color: 'var(--gray-600)',
-                            lineHeight: '1.5',
+                            lineHeight: '1.6',
                             display: '-webkit-box',
                             WebkitLineClamp: 3,
                             WebkitBoxOrient: 'vertical',
