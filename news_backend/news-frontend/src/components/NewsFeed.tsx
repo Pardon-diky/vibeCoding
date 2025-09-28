@@ -18,7 +18,6 @@ const NewsFeed: React.FC<NewsFeedProps> = ({
     scrappedNews = [],
 }) => {
     const [articles, setArticles] = useState<NewsArticle[]>([]);
-    const [scrappedArticles, setScrappedArticles] = useState<NewsArticle[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [userPoliticalLeaning, setUserPoliticalLeaning] =
         useState<string>('');
@@ -32,28 +31,18 @@ const NewsFeed: React.FC<NewsFeedProps> = ({
 
     // 활동 기반 정치성향 계산 함수
     const calculateActivityPoliticalScore = () => {
-        if (scrappedArticles.length === 0) return 50; // 기본값
+        if (scrappedNews.length === 0) return 50; // 기본값
 
         let totalScore = 0;
         let validArticles = 0;
 
-        scrappedArticles.forEach((article) => {
-            if (article.neutralityScore && article.neutralityScore !== 50) {
-                // 중립지수를 정치성향 점수로 변환
-                // 중립지수가 낮을수록(편향적일수록) 극단적인 정치성향으로 간주
-                const neutrality = article.neutralityScore;
-                let politicalScore = 50; // 기본 중립
-
-                if (neutrality < 40) {
-                    // 매우 편향적 - 정치성향이 강함
-                    politicalScore =
-                        neutrality < 20 ? (neutrality < 10 ? 10 : 20) : 30;
-                } else if (neutrality > 60) {
-                    // 중립적 - 정치성향이 약함
-                    politicalScore = neutrality > 80 ? 50 : 45;
-                }
-
-                totalScore += politicalScore;
+        scrappedNews.forEach((article) => {
+            if (
+                article.politicalScore &&
+                typeof article.politicalScore === 'number'
+            ) {
+                // politicalScore를 직접 사용 (1-100, 1=보수, 100=진보)
+                totalScore += article.politicalScore;
                 validArticles++;
             }
         });
@@ -63,15 +52,15 @@ const NewsFeed: React.FC<NewsFeedProps> = ({
 
     // 정치성향 점수에 따른 색상
     const getPoliticalColor = (score: number) => {
-        if (score <= 30) return '#ff6b6b'; // 진보 - 빨간색
-        if (score >= 70) return '#4dabf7'; // 보수 - 파란색
-        return '#51cf66'; // 중립 - 초록색
+        if (score <= 45) return '#dc2626'; // 보수 - 빨간색
+        if (score >= 56) return '#2563eb'; // 진보 - 파란색
+        return '#6b7280'; // 중립 - 회색
     };
 
     // 정치성향 점수에 따른 텍스트
     const getPoliticalText = (score: number) => {
-        if (score <= 30) return '진보';
-        if (score >= 70) return '보수';
+        if (score <= 45) return '보수';
+        if (score >= 56) return '진보';
         return '중립';
     };
 
@@ -248,7 +237,7 @@ const NewsFeed: React.FC<NewsFeedProps> = ({
 
     // 활동 기반 정치성향 계산 (스크랩한 뉴스가 변경될 때)
     useEffect(() => {
-        if (user && scrappedArticles.length > 0) {
+        if (user && scrappedNews.length > 0) {
             const calculateAndSaveActivityScore = async () => {
                 const activityScore = calculateActivityPoliticalScore();
                 setActivityPoliticalScore(activityScore);
@@ -274,13 +263,9 @@ const NewsFeed: React.FC<NewsFeedProps> = ({
             setActivityPoliticalScore(50);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user, scrappedArticles]);
+    }, [user, scrappedNews]);
 
     useEffect(() => {
-        const storedScrappedArticles = localStorage.getItem('scrappedNews');
-        if (storedScrappedArticles) {
-            setScrappedArticles(JSON.parse(storedScrappedArticles));
-        }
         fetchNews();
     }, []);
 
@@ -325,17 +310,14 @@ const NewsFeed: React.FC<NewsFeedProps> = ({
     };
 
     const handleScrap = (article: NewsArticle) => {
-        if (scrappedArticles.find((a) => a.id === article.id)) {
+        if (scrappedNews.find((a: NewsArticle) => a.id === article.id)) {
             alert('이미 스크랩한 기사입니다.');
             return;
         }
-        const newScrappedArticles = [...scrappedArticles, article];
-        setScrappedArticles(newScrappedArticles);
-        localStorage.setItem(
-            'scrappedNews',
-            JSON.stringify(newScrappedArticles)
-        );
-        alert('기사를 스크랩했습니다.');
+        if (onScrap) {
+            onScrap(article);
+            alert('기사를 스크랩했습니다.');
+        }
     };
 
     // Serper API를 사용해서 뉴스 새로고침

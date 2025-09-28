@@ -142,7 +142,7 @@ def get_news():
         conn = sqlite3.connect(DB_PATH)
         conn.row_factory = sqlite3.Row
         c = conn.cursor()
-        c.execute("SELECT id, title, url, summary, political_leaning, neutrality_score, source, image_url, created_at FROM news ORDER BY created_at DESC")
+        c.execute("SELECT id, title, url, summary, political_leaning, political_score, neutrality_score, source, image_url, created_at FROM news ORDER BY created_at DESC")
         news_list = c.fetchall()
         return [dict(row) for row in news_list]
     except Exception as e:
@@ -187,7 +187,7 @@ def get_political_news():
         
         # SQL LIKE 쿼리로 정치 관련 뉴스 필터링
         like_conditions = " OR ".join([f"title LIKE '%{keyword}%' OR summary LIKE '%{keyword}%'" for keyword in political_keywords])
-        query = f"SELECT id, title, url, summary, political_leaning, neutrality_score, source, image_url, created_at FROM news WHERE {like_conditions} ORDER BY created_at DESC"
+        query = f"SELECT id, title, url, summary, political_leaning, political_score, neutrality_score, source, image_url, created_at FROM news WHERE {like_conditions} ORDER BY created_at DESC"
         
         c.execute(query)
         news_list = c.fetchall()

@@ -22,72 +22,198 @@ def summarize_text(text):
         return text[:100] + "..." if len(text) > 100 else text
 
 def analyze_political_leaning(text):
-    """키워드 기반으로 텍스트의 정치 성향을 분석합니다."""
+    """정치성향 점수에 따라 성향을 분류합니다."""
     if not text:
         return "중도"
     
-    # 상세 분석 결과 가져오기
-    detailed_analysis = analyze_political_leaning_detailed(text)
-    scores = detailed_analysis['scores']
+    # 정치성향 점수 계산
+    score = calculate_political_score(text)
     
-    # 가장 높은 점수를 가진 성향 반환
-    max_score = max(scores.values())
-    
-    for stance, score in scores.items():
-        if score == max_score:
-            if stance == 'conservative':
-                return "보수"
-            elif stance == 'progressive':
-                return "진보"
-            else:
-                return "중도"
-    
-    return "중도"
+    # 새로운 구간에 따라 분류
+    if score <= 45:
+        return "보수"
+    elif score >= 56:
+        return "진보"
+    else:
+        return "중도"
 
 def calculate_political_score(text):
-    """1-100 점수로 정치성향을 계산합니다. (1=극보수, 50=중립, 100=극진보)"""
+    """정치성향분석기준 V3에 따른 체계적 분석으로 1-100 점수를 계산합니다."""
     if not text:
         return 50  # 중립
-    
+
     text_lower = text.lower()
-    
-    # 직접적인 키워드 매칭으로 점수 계산
-    progressive_keywords = [
-        '민주당', '더불어민주당', '문재인', '이재명', '진보', '복지', '사회보장',
-        '최저임금', '노동자', '노조', '인권', '평등', '다양성', '젠더평등',
-        '환경', '기후변화', '재생에너지', '탈원전', '교육', '공교육',
-        '의료', '공공의료', '주거', '공공주택', '소상공인', '자영업자'
-    ]
-    
-    conservative_keywords = [
-        '국민의힘', '새누리당', '박근혜', '이명박', '보수', '시장경제', '자유시장',
-        '기업', '재벌', '대기업', '경쟁', '효율', '성장', '감세', '안보',
-        '국방', '군사', '북한', '대북', '한미동맹', '전통', '가족', '가치',
-        '도덕', '윤리', '종교', '법과질서', '처벌강화'
-    ]
-    
-    # 키워드 카운트
-    progressive_count = sum(1 for keyword in progressive_keywords if keyword in text_lower)
-    conservative_count = sum(1 for keyword in conservative_keywords if keyword in text_lower)
-    
-    # 점수 계산 (더 극명한 차이를 만들기 위해 가중치 적용)
-    if progressive_count > conservative_count:
-        # 진보 우세: 50 + (진보-보수) * 15
-        political_score = 50 + (progressive_count - conservative_count) * 15
-    elif conservative_count > progressive_count:
-        # 보수 우세: 50 - (보수-진보) * 15
-        political_score = 50 - (conservative_count - progressive_count) * 15
-    else:
-        # 균형: 약간의 랜덤성 추가
-        if progressive_count == 0 and conservative_count == 0:
-            # 키워드가 전혀 없으면 중도
-            political_score = 50
+
+    # 1단계: 핵심 타겟 식별 및 기준점 설정
+    def identify_target_and_set_baseline(text):
+        # 정부/여당 비판 키워드 (보수 성향 - 점수 낮춤)
+        gov_criticism_keywords = [
+            '정부', '여당', '윤석열', '이재명', '정권', '관리부실', '책임', '실패', '문제', 
+            '비판', '지적', '우려', '논란', '의혹', '사태', '파문', '충격', '경고', '경각심', '무능', '부실', 
+            '비리', '부정', '사고', '장애', '마비', '정치공작', '권력남용', '독재', '전제'
+        ]
+        
+        # 야당/진보 진영 비판 키워드 (진보 성향 - 점수 높임)
+        opp_criticism_keywords = [
+            '야당', '민주당', '더불어민주당', '문재인', '조국', '이낙연', '조희대', '진보세력', 
+            '운동권', '종북', '좌파', '특권', '이념', '정치공작', '선동', '과도', '극단', '무리', '반대', 
+            '거부', '비판받는', '문제가 되는'
+        ]
+        
+        gov_criticism_count = sum(1 for keyword in gov_criticism_keywords if keyword in text_lower)
+        opp_criticism_count = sum(1 for keyword in opp_criticism_keywords if keyword in text_lower)
+        
+        # 타겟 판단
+        if gov_criticism_count > opp_criticism_count:
+            return 35  # 정부/여당이 타겟 → 보수 성향 기준점 (점수 낮춤)
+        elif opp_criticism_count > gov_criticism_count:
+            return 65  # 야당/진보 진영이 타겟 → 진보 성향 기준점 (점수 높임)
         else:
-            # 키워드가 있지만 균형이면 약간의 편향
-            political_score = 50 + random.uniform(-10, 10)
+            return 50  # 타겟 불분명 → 중립 기준점
+
+    # 2단계: 편향성 요소 기반 미세 조정
+    def analyze_vocabulary_nuance(text):
+        """어휘의 뉘앙스 분석 (± 0~10점)"""
+        score = 0
+        
+        # 진보 성향 어휘 (긍정적 뉘앙스)
+        progressive_positive = [
+            '민주주의', '인권', '평등', '다양성', '포용', '사회정의', '복지', '사회보장', '최저임금', 
+            '노동권', '공공성', '공정', '개혁', '변화', '진보', '혁신', '투명성', '책임성', '검찰독재', 
+            '언론장악', '사법장악', '권력남용'
+        ]
+        
+        # 보수 성향 어휘 (긍정적 뉘앙스)
+        conservative_positive = [
+            '안보', '국방', '질서', '안정', '전통', '가치', '도덕', '경쟁', '효율', '성장', '자유', 
+            '시장', '기업', '재벌', '보수', '우파', '우익', '보수적', '전통적'
+        ]
+        
+        # 부정적 뉘앙스 키워드 (상대방 비판)
+        negative_keywords = [
+            '실패', '부실', '무능', '비리', '부정', '사고', '장애', '마비', '문제', '논란', '의혹', 
+            '비판', '지적', '우려', '경고', '충격', '파문', '사태', '정치공작', '선동', '과도', '극단', 
+            '무리', '반대', '거부'
+        ]
+        
+        for keyword in progressive_positive:
+            if keyword in text_lower:
+                score += 1
+        for keyword in conservative_positive:
+            if keyword in text_lower:
+                score -= 1
+        for keyword in negative_keywords:
+            if keyword in text_lower:
+                # 맥락에 따라 점수 조정 (간단한 휴리스틱)
+                if any(gov_word in text_lower for gov_word in ['정부', '여당', '윤석열', '이재명']):
+                    score -= 0.5  # 정부 비판 → 보수 성향 (점수 낮춤)
+                elif any(opp_word in text_lower for opp_word in ['야당', '민주당', '문재인', '조국']):
+                    score += 0.5  # 야당 비판 → 진보 성향 (점수 높임)
+        
+        return max(-10, min(10, round(score)))
+
+    def analyze_framing_structure(text):
+        """문장 구조와 프레임 분석 (± 0~10점)"""
+        score = 0
+        
+        # 책임 소재를 부각하는 프레임
+        responsibility_frames = [
+            '책임', '원인', '원인 제공', '발생', '일어난', '초래', '만들어낸', '야기한', '초래한'
+        ]
+        
+        # 문제 상황을 강조하는 프레임
+        problem_frames = [
+            '문제', '논란', '의혹', '비판', '지적', '우려', '경고', '충격', '파문', '사태', '사고'
+        ]
+        
+        for frame in responsibility_frames:
+            if frame in text_lower:
+                # 맥락에 따라 점수 조정
+                if any(gov_word in text_lower for gov_word in ['정부', '여당', '윤석열', '이재명']):
+                    score -= 1  # 정부 책임 부각 → 보수 성향 (점수 낮춤)
+                elif any(opp_word in text_lower for opp_word in ['야당', '민주당', '문재인', '조국']):
+                    score += 1  # 야당 책임 부각 → 진보 성향 (점수 높임)
+        
+        for frame in problem_frames:
+            if frame in text_lower:
+                # 맥락에 따라 점수 조정
+                if any(gov_word in text_lower for gov_word in ['정부', '여당', '윤석열', '이재명']):
+                    score -= 0.5  # 정부 문제 부각 → 보수 성향 (점수 낮춤)
+                elif any(opp_word in text_lower for opp_word in ['야당', '민주당', '문재인', '조국']):
+                    score += 0.5  # 야당 문제 부각 → 진보 성향 (점수 높임)
+        
+        return max(-10, min(10, round(score)))
+
+    def analyze_quotes_quality(text):
+        """인용의 질과 양 분석 (± 0~10점)"""
+        score = 0
+        
+        # 진보 성향 인물/정당
+        progressive_sources = [
+            '문재인', '조국', '이낙연', '조희대', '민주당', '더불어민주당', '조국혁신당', '개혁신당'
+        ]
+        
+        # 보수 성향 인물/정당
+        conservative_sources = [
+            '윤석열', '이준석', '장동혁', '박근혜', '이명박', '국민의힘', '새누리당', '여당'
+        ]
+        
+        # 이재명은 맥락에 따라 다르게 처리
+        if '이재명' in text_lower:
+            if any(word in text_lower for word in ['정부', '여당', '비판', '지적', '문제']):
+                score -= 2  # 정부/여당 비판 맥락 → 보수 성향 (점수 낮춤)
+            elif any(word in text_lower for word in ['국민의힘', '장동혁', '이준석', '정치공작']):
+                score += 2  # 보수 비판 맥락 → 진보 성향 (점수 높임)
+        
+        for source in progressive_sources:
+            if source in text_lower:
+                score += 2
+        for source in conservative_sources:
+            if source in text_lower:
+                score -= 2
+        
+        return max(-10, min(10, round(score)))
+
+    def analyze_context_omission(text):
+        """의도적 생략 분석 (± 0~10점)"""
+        score = 0
+        
+        # 맥락 생략을 암시하는 키워드
+        omission_keywords = [
+            '논란', '의혹', '비판', '지적', '우려', '경고', '충격', '파문', '사태', '사고', '문제'
+        ]
+        
+        # 균형을 맞추려는 시도 키워드
+        balance_keywords = [
+            '반박', '해명', '설명', '입장', '견해', '의견', '주장', '논리', '근거', '배경'
+        ]
+        
+        omission_count = sum(1 for keyword in omission_keywords if keyword in text_lower)
+        balance_count = sum(1 for keyword in balance_keywords if keyword in text_lower)
+        
+        # 생략이 많고 균형이 적으면 편향성 증가
+        if omission_count > balance_count:
+            # 맥락에 따라 점수 조정
+            if any(gov_word in text_lower for gov_word in ['정부', '여당', '윤석열', '이재명']):
+                score -= 2  # 정부 맥락 생략 → 보수 성향 (점수 낮춤)
+            elif any(opp_word in text_lower for opp_word in ['야당', '민주당', '문재인', '조국']):
+                score += 2  # 야당 맥락 생략 → 진보 성향 (점수 높임)
+        
+        return max(-10, min(10, round(score)))
+
+    # 1단계: 기준점 설정
+    baseline_score = identify_target_and_set_baseline(text)
     
-    # 1-100 범위로 제한
-    return max(1, min(100, round(political_score)))
+    # 2단계: 편향성 요소 분석
+    vocab_score = analyze_vocabulary_nuance(text)
+    framing_score = analyze_framing_structure(text)
+    quotes_score = analyze_quotes_quality(text)
+    omission_score = analyze_context_omission(text)
+    
+    # 최종 점수 계산
+    final_score = baseline_score + vocab_score + framing_score + quotes_score + omission_score
+    
+    return max(1, min(100, round(final_score)))
 
 def analyze_political_leaning_detailed(text):
     """정밀한 3축 분석 시스템으로 정치 성향을 분석합니다."""
@@ -358,7 +484,7 @@ def calculate_uncertainty(conservative_score, progressive_score, centrist_score)
         return 0.6  # 상당히 불확실
     elif max_score - min_score < 30:
         return 0.4  # 약간 불확실
-        else:
+    else:
         return 0.2  # 비교적 확실
 
 def create_default_analysis():

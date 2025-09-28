@@ -18,6 +18,10 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
     const [nickname, setNickname] = useState<string>('');
 
+    // 디버깅용 로그
+    console.log('Header - userPoliticalIndex:', userPoliticalIndex);
+    console.log('Header - scrappedCount:', scrappedCount);
+
     // 사용자 닉네임 가져오기
     useEffect(() => {
         const fetchNickname = async () => {
@@ -112,41 +116,42 @@ const Header: React.FC<HeaderProps> = ({
                     {user ? (
                         <>
                             {/* 정치성향지수 표시 */}
-                            {userPoliticalIndex !== null && (
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: 'var(--space-2)',
-                                        padding:
-                                            'var(--space-2) var(--space-3)',
-                                        background:
-                                            userPoliticalIndex < 30
-                                                ? 'linear-gradient(135deg, #dc2626, #b91c1c)' // 보수적
-                                                : userPoliticalIndex > 70
-                                                ? 'linear-gradient(135deg, #2563eb, #1d4ed8)' // 진보적
-                                                : 'linear-gradient(135deg, #6b7280, #4b5563)', // 중립
-                                        borderRadius: 'var(--radius-full)',
-                                        color: 'white',
-                                        fontSize: '0.75rem',
-                                        fontWeight: '600',
-                                        boxShadow: 'var(--shadow-sm)',
-                                    }}
-                                    title={`활동기반 정치성향지수: ${userPoliticalIndex}점 (${scrappedCount}개 기사 기준)`}
-                                >
-                                    <span>🎯</span>
-                                    <span>
-                                        {userPoliticalIndex < 30
-                                            ? '보수적'
-                                            : userPoliticalIndex > 70
-                                            ? '진보적'
-                                            : '중립적'}
-                                    </span>
-                                    <span style={{ opacity: 0.8 }}>
-                                        {userPoliticalIndex}점
-                                    </span>
-                                </div>
-                            )}
+                            {userPoliticalIndex !== null &&
+                                userPoliticalIndex !== undefined && (
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: 'var(--space-2)',
+                                            padding:
+                                                'var(--space-2) var(--space-3)',
+                                            background:
+                                                userPoliticalIndex <= 45
+                                                    ? 'linear-gradient(135deg, #dc2626, #b91c1c)' // 보수적
+                                                    : userPoliticalIndex >= 56
+                                                    ? 'linear-gradient(135deg, #2563eb, #1d4ed8)' // 진보적
+                                                    : 'linear-gradient(135deg, #6b7280, #4b5563)', // 중립
+                                            borderRadius: 'var(--radius-full)',
+                                            color: 'white',
+                                            fontSize: '0.75rem',
+                                            fontWeight: '600',
+                                            boxShadow: 'var(--shadow-sm)',
+                                        }}
+                                        title={`활동기반 정치성향지수: ${userPoliticalIndex}점 (${scrappedCount}개 기사 기준)`}
+                                    >
+                                        <span>🎯</span>
+                                        <span>
+                                            {userPoliticalIndex <= 45
+                                                ? '보수적'
+                                                : userPoliticalIndex >= 56
+                                                ? '진보적'
+                                                : '중립적'}
+                                        </span>
+                                        <span style={{ opacity: 0.8 }}>
+                                            {userPoliticalIndex}점
+                                        </span>
+                                    </div>
+                                )}
 
                             <Link
                                 to="/scrapped"

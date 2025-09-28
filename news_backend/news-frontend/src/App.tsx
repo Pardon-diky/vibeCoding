@@ -11,16 +11,23 @@ import { NewsArticle } from './types';
 function App() {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
+    const [minLoadingComplete, setMinLoadingComplete] = useState(false);
     const [scrappedNews, setScrappedNews] = useState<NewsArticle[]>([]);
     const [userPoliticalIndex, setUserPoliticalIndex] = useState<number | null>(
         null
     );
+    const [userInitialPoliticalScore, setUserInitialPoliticalScore] = useState<
+        number | null
+    >(null);
 
     // 스크랩된 뉴스에서 정치성향지수 계산
     const calculateUserPoliticalIndex = (
         scrappedArticles: NewsArticle[]
     ): number | null => {
-        if (scrappedArticles.length === 0) return null;
+        if (scrappedArticles.length === 0) {
+            // 스크랩된 뉴스가 없으면 사용자의 초기 정치성향 점수 사용
+            return userInitialPoliticalScore;
+        }
 
         const validScores = scrappedArticles
             .filter(
@@ -30,7 +37,10 @@ function App() {
             )
             .map((article) => article.politicalScore as number);
 
-        if (validScores.length === 0) return null;
+        if (validScores.length === 0) {
+            // 유효한 점수가 없으면 사용자의 초기 정치성향 점수 사용
+            return userInitialPoliticalScore;
+        }
 
         const averageScore =
             validScores.reduce((sum, score) => sum + score, 0) /
@@ -60,13 +70,69 @@ function App() {
     };
 
     useEffect(() => {
+        // 최소 로딩 시간 설정 (500ms)
+        const minLoadingTimer = setTimeout(() => {
+            setMinLoadingComplete(true);
+        }, 500);
+
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setUser(user);
-            setLoading(false);
+            if (user) {
+                // 기본값으로 먼저 설정하여 빠른 로딩
+                setUserInitialPoliticalScore(50);
+                setUserPoliticalIndex(50);
+
+                // 백그라운드에서 사용자 정보 가져오기 (비동기, 3초 타임아웃)
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 3000);
+
+                fetch(`http://127.0.0.1:8000/users/firebase/${user.uid}`, {
+                    signal: controller.signal,
+                })
+                    .then((response) => {
+                        clearTimeout(timeoutId);
+                        if (response.ok) {
+                            return response.json();
+                        }
+                        throw new Error('API 호출 실패');
+                    })
+                    .then((userData) => {
+                        const score = userData.political_leaning_score || 50;
+                        setUserInitialPoliticalScore(score);
+                        setUserPoliticalIndex(score);
+                    })
+                    .catch((error) => {
+                        clearTimeout(timeoutId);
+                        if (error.name !== 'AbortError') {
+                            console.warn(
+                                '사용자 정보 가져오기 실패, 기본값 사용:',
+                                error
+                            );
+                        }
+                    });
+            } else {
+                setUserInitialPoliticalScore(null);
+                setUserPoliticalIndex(null);
+            }
+
+            // 최소 로딩 시간이 지났으면 로딩 완료
+            if (minLoadingComplete) {
+                setLoading(false);
+            }
         });
 
-        return () => unsubscribe();
-    }, []);
+        return () => {
+            clearTimeout(minLoadingTimer);
+            unsubscribe();
+        };
+    }, [minLoadingComplete]);
+
+    // 최소 로딩 시간이 지나면 로딩 완료
+    useEffect(() => {
+        if (minLoadingComplete && user !== null) {
+            setLoading(false);
+        }
+    }, [minLoadingComplete, user]);
 
     if (loading) {
         return (

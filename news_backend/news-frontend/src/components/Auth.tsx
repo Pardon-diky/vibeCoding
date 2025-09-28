@@ -34,22 +34,22 @@ const Auth = () => {
 
     // 정치 성향 점수에 따른 성향 분류
     const getPoliticalAffiliationFromScore = (score: number) => {
-        if (score <= 30) return 'progressive';
-        if (score >= 70) return 'conservative';
+        if (score <= 45) return 'conservative';
+        if (score >= 56) return 'progressive';
         return 'neutral';
     };
 
     // 정치 성향 점수에 따른 색상
     const getPoliticalColor = (score: number) => {
-        if (score <= 30) return '#ff6b6b'; // 진보 - 빨간색
-        if (score >= 70) return '#4dabf7'; // 보수 - 파란색
-        return '#51cf66'; // 중립 - 초록색
+        if (score <= 45) return '#dc2626'; // 보수 - 빨간색
+        if (score >= 56) return '#2563eb'; // 진보 - 파란색
+        return '#6b7280'; // 중립 - 회색
     };
 
     // 정치 성향 점수에 따른 텍스트
     const getPoliticalText = (score: number) => {
-        if (score <= 30) return '진보';
-        if (score >= 70) return '보수';
+        if (score <= 45) return '보수';
+        if (score >= 56) return '진보';
         return '중립';
     };
 
