@@ -489,11 +489,21 @@ function App() {
                                 path="/mypage"
                                 element={
                                     <MyPage
-                                        user={user!}
-                                        onLogout={() => setUser(null)}
-                                        onGoHome={() =>
-                                            (window.location.href = '/')
+                                        user={user}
+                                        userPoliticalIndex={userPoliticalIndex}
+                                        userInitialPoliticalScore={
+                                            userInitialPoliticalScore
                                         }
+                                        scrappedNews={scrappedNews}
+                                        isConvertedToProfile={
+                                            isConvertedToProfile
+                                        }
+                                        onUpdateProfile={() => {
+                                            // 프로필 업데이트 시 사용자 데이터 다시 가져오기
+                                            if (user) {
+                                                fetchUserDataFromFirebase(user);
+                                            }
+                                        }}
                                     />
                                 }
                             />

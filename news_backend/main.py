@@ -16,7 +16,7 @@ SERPER_API_KEY = "324e82a232a260a167a7f1bfd699873a356b5f4d"
 class NewsHandler(http.server.BaseHTTPRequestHandler):
     def _set_cors_headers(self):
         self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
         self.send_header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
         self.send_header('Access-Control-Max-Age', '86400')
     
@@ -341,6 +341,83 @@ class NewsHandler(http.server.BaseHTTPRequestHandler):
         self.send_response(200)
         self._set_cors_headers()
         self.end_headers()
+    
+    def do_DELETE(self):
+        parsed_path = urlparse(self.path)
+        
+        if parsed_path.path.startswith('/users/firebase/'):
+            # Firebase UID 추출
+            path_parts = parsed_path.path.split('/')
+            firebase_uid = path_parts[3]
+            self.delete_user(firebase_uid)
+        else:
+            self.send_response(404)
+            self.send_header('Content-type', 'application/json')
+            self._set_cors_headers()
+            self.end_headers()
+            response = {"error": "Not found"}
+            self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
+    
+    def delete_user(self, firebase_uid):
+        """사용자 계정 및 관련 데이터 삭제"""
+        try:
+            print(f"DELETE 요청 받음: 사용자 삭제 - {firebase_uid}")
+            
+            conn = sqlite3.connect('news.db', check_same_thread=False, timeout=10)
+            c = conn.cursor()
+            
+            # 1. 사용자 스크랩 데이터 삭제
+            c.execute('''
+                DELETE FROM user_scraps WHERE user_uid = ?
+            ''', (firebase_uid,))
+            scraps_deleted = c.rowcount
+            
+            # 2. 사용자 정보 삭제
+            c.execute('''
+                DELETE FROM users WHERE firebase_uid = ?
+            ''', (firebase_uid,))
+            user_deleted = c.rowcount
+            
+            conn.commit()
+            conn.close()
+            
+            if user_deleted > 0:
+                self.send_response(200)
+                self.send_header('Content-type', 'application/json')
+                self._set_cors_headers()
+                self.end_headers()
+                
+                response = {
+                    "message": "사용자 계정이 성공적으로 삭제되었습니다.",
+                    "deleted_scraps": scraps_deleted,
+                    "deleted_user": user_deleted
+                }
+                self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
+                print(f"✅ 사용자 삭제 완료: {firebase_uid} (스크랩 {scraps_deleted}개, 사용자 {user_deleted}개)")
+            else:
+                self.send_response(404)
+                self.send_header('Content-type', 'application/json')
+                self._set_cors_headers()
+                self.end_headers()
+                
+                response = {"error": "사용자를 찾을 수 없습니다."}
+                self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
+                print(f"❌ 사용자를 찾을 수 없음: {firebase_uid}")
+                
+        except Exception as e:
+            print(f"❌ 사용자 삭제 중 오류 발생: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            
+            self.send_response(500)
+            self.send_header('Content-type', 'application/json')
+            self._set_cors_headers()
+            self.end_headers()
+            
+            error_response = {
+                "error": f"사용자 삭제 중 오류가 발생했습니다: {str(e)}"
+            }
+            self.wfile.write(json.dumps(error_response, ensure_ascii=False).encode('utf-8'))
     
     def get_user_scraps(self, firebase_uid):
         """사용자의 스크랩 목록 조회"""

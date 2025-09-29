@@ -179,53 +179,12 @@ const Header: React.FC<HeaderProps> = ({
                                 {scrappedCount > 0 && `(${scrappedCount})`}
                             </Link>
 
-                            {/* User Profile */}
                             <Link
                                 to="/mypage"
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: 'var(--space-2)',
-                                    padding: 'var(--space-2) var(--space-3)',
-                                    background: 'var(--gray-100)',
-                                    borderRadius: 'var(--radius-full)',
-                                    fontSize: '0.875rem',
-                                    color: 'var(--gray-700)',
-                                    textDecoration: 'none',
-                                    transition: 'all 0.2s ease',
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.background =
-                                        'var(--gray-200)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.background =
-                                        'var(--gray-100)';
-                                }}
+                                className="btn btn-outline"
+                                style={{ fontSize: '0.875rem' }}
                             >
-                                <div
-                                    style={{
-                                        width: '24px',
-                                        height: '24px',
-                                        background: 'var(--primary-500)',
-                                        borderRadius: '50%',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        color: 'white',
-                                        fontSize: '0.75rem',
-                                        fontWeight: 'bold',
-                                    }}
-                                >
-                                    {(nickname || user.email || 'U')
-                                        .charAt(0)
-                                        .toUpperCase()}
-                                </div>
-                                <span style={{ fontWeight: '500' }}>
-                                    {nickname ||
-                                        user.email?.split('@')[0] ||
-                                        '사용자'}
-                                </span>
+                                👤 마이페이지
                             </Link>
 
                             <Link
