@@ -69,8 +69,23 @@ def calculate_political_score(text):
 
 def identify_target_and_set_baseline_v2(text_lower: str) -> int:
     """
-    V3: 맥락 분석을 강화하여 키워드 조합과 비판 강도를 고려한 타겟 식별
+    V4: 인물명 기반 기본 성향 판단 + 키워드 조합 분석
     """
+    # 0단계: 인물명 기반 기본 성향 판단 (개선된 버전)
+    progressive_people = ['이재명', '조국', '김동연', '정청래', '추미애', '박찬대', '민주당', '더불어민주당', '조국혁신당', '정부', '여당']
+    conservative_people = ['윤석열', '김건희', '한동훈', '나경원', '오세훈', '홍준표', '장동혁', '국민의힘', '국힘', '야당', '이준석']
+    
+    progressive_count = sum(1 for person in progressive_people if person in text_lower)
+    conservative_count = sum(1 for person in conservative_people if person in text_lower)
+    
+    # 인물명 기반 기본 점수 설정
+    if progressive_count > conservative_count:
+        base_score = 60  # 진보 성향 기준점
+    elif conservative_count > progressive_count:
+        base_score = 40  # 보수 성향 기준점
+    else:
+        base_score = 50  # 중립 기준점
+    
     # 1단계: 강한 비판 키워드 조합 분석
     strong_criticism_patterns = {
         'progressive_criticism': [
@@ -133,13 +148,13 @@ def identify_target_and_set_baseline_v2(text_lower: str) -> int:
             if any(cons in text_lower for cons in ['윤석열', '국민의힘', '야당']):
                 conservative_score += intensity_count * multiplier
     
-    # 4단계: 최종 기준점 설정
+    # 4단계: 최종 기준점 설정 (인물명 기반 기본점수 + 키워드 분석)
     if progressive_score > conservative_score:
-        return 35  # 보수 성향 기준점
+        return base_score - 10  # 보수 성향으로 조정
     elif conservative_score > progressive_score:
-        return 65  # 진보 성향 기준점
+        return base_score + 10  # 진보 성향으로 조정
     else:
-        return 50  # 중립 기준점
+        return base_score  # 인물명 기반 기본점수 유지
 
 def analyze_contextual_patterns_v2(text_lower: str) -> int:
     """

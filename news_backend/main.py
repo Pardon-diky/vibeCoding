@@ -466,6 +466,23 @@ class NewsHandler(http.server.BaseHTTPRequestHandler):
 if __name__ == "__main__":
     PORT = 8000
     
+    # 서버 시작 전에 최신 뉴스 가져오기 및 분석
+    print("서버 시작 전 최신 뉴스를 가져오고 분석합니다...")
+    try:
+        serper = SerperNewsAPI(SERPER_API_KEY)
+        news_list = serper.get_latest_political_news(30)
+        
+        if news_list:
+            save_serper_news_to_db(news_list, 'news.db')
+            print(f"✅ 총 {len(news_list)}개의 새로운 정치 뉴스를 가져와서 분석했습니다.")
+        else:
+            print("⚠️ 새로운 뉴스를 찾지 못했습니다.")
+    except Exception as e:
+        print(f"❌ 뉴스 가져오기 중 오류 발생: {e}")
+        print("서버는 계속 실행됩니다...")
+    
+    print("\n" + "="*50)
+    
     with socketserver.TCPServer(("", PORT), NewsHandler) as httpd:
         print(f"서버가 포트 {PORT}에서 실행 중입니다...")
         print(f"http://localhost:{PORT}/ 에서 접속하세요")
