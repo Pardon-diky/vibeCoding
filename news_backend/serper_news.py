@@ -4,7 +4,7 @@ import json
 from typing import List, Dict, Optional
 from datetime import datetime
 import sqlite3
-from gemini_analyzer import summarize_text, analyze_political_leaning, analyze_political_leaning_detailed
+from gemini_analyzer import summarize_text, analyze_political_leaning, calculate_political_score
 
 class SerperNewsAPI:
     def __init__(self, api_key: str):
